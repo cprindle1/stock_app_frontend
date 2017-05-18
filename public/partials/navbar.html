@@ -1,0 +1,23 @@
+<div class="navbar">
+  <!-- ================ SITE TITLE ================= -->
+  <h1><a href="/">STOCK APP</a></h1>
+
+  <!-- ================= NAV LINKS ================= -->
+  <ul>
+    <li><a href="#!/dashboard" ng-if="vm.loggedIn && !vm.loginForm">dashboard</a></li>
+    <li><a href="#!/register" ng-if="!vm.loginForm">register</a></li>
+    <li><a ng-click="vm.showLogin()" ng-if="!vm.loginForm">login</a></li>
+  </ul>
+
+  <!-- ================ LOGIN FORM ================= -->
+  <div ng-if="vm.loginForm" class="login">
+    <form ng-submit="vm.submit()">
+      <input type="text" name="username" ng-model="vm.formLogin.username" placeholder="USERNAME" required />
+      <input type="password" name="password" ng-model="vm.formLogin.password" placeholder="PASSWORD" required />
+      <input type="submit" value="GO"/>
+      <p ng-if="vm.loginError">
+        {{vm.errorMessage}}
+      </p>
+    </form>
+  </div>
+</div>

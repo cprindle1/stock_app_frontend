@@ -1,12 +1,23 @@
-var app = angular.module('Stocks-App', ['ngRoute', 'ngCookies']);
+var app = angular.module('StockApp', ['ngRoute', 'ngCookies']);
 
-
+// ROUTES CONFIGURATION
 app.config(function($routeProvider) {
 
   $routeProvider
     .when('/', {
       controller: 'loginCtr',
-      templateUrl: 'views/login.html',
+      templateUrl: '/views/landing-page.html',
+      controllerAs: 'vm'
+    })
+    .when('/register', {
+      controller: 'loginCtr',
+      templateUrl: '/views/register.html',
+      controllerAs: 'vm'
+      //Added a meals config
+    })
+    .when('/login', {
+      controller: 'loginCtr',
+      templateUrl: '/views/login.html',
       reloadOnSearch: false,
       controllerAs: 'vm'
     })
@@ -18,44 +29,54 @@ app.config(function($routeProvider) {
           }
         }
       },
-      templateUrl: 'views/dashboard.html',
+      templateUrl: '/views/dashboard.html',
       controller: 'loginCtr',
       controllerAs: 'vm'
-
-    })
-    .when('/register', {
-      controller: 'loginCtr',
-      templateUrl: 'views/register.html',
-      controllerAs: 'vm'
-      //Added a meals config
     })
     .otherwise({
       redirectTo: '/'
     });
-
 });
 
 app.config(['$qProvider', function($qProvider) {
   $qProvider.errorOnUnhandledRejections(false);
 }]);
-// Set Control
+
+// LOGIN CONTROLLER
 app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cookies', '$window', 'userPersistenceService', function($http, $scope, $location, $rootScope, $cookies, $window, userPersistenceService) {
+  // DECLARING CONTROLLER VARIABLES
   var vm = this;
-  this.currentUser;
 
-  // Control for login
+  // DECLARING USER VARIABLES
+  this.currentUser = {};
+
+  // DECLARING TOGGLE VARIABLES
+  this.loginError = false;
+  this.errorMessage = '';
+  this.loginForm = false;
+  this.loggedIn = true; /* CHANGE THIS TO FALSE LATER */
+  this.modalActive = false;
+
+  // SHOWS LOGIN FORM
+  this.showLogin = function(){
+    this.loginForm = true;
+  }
+
+  // ACTIVATES STOCK MODAL
+  this.stockModalToggle = function(){
+    this.modalActive = !this.modalActive;
+  }
+
+  // SENDS LOGIN REQUEST TO API
   this.submit = function() {
-
     // $scope.error_msg = null;
     // $rootScope.loggedIn = false;
     // localStorage.clear('token');
     // userPersistenceService.clearCookieData('userName');
     // console.log("username = ", this.username);
     // console.log("pw =", this.username);
-
     console.log("this.formLogin", this.formLogin);
     this.URL = 'http://localhost:3000/login';
-
     $http({
       method: 'POST',
       url: this.URL,
@@ -63,20 +84,18 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }).then(function(result) {
       console.log("Data from server: ", result.data);
       if (result.data.error) {
-        console.log(result.data.error);
-        $scope.error_msg = result.data.error
+        this.loginError = true;
+        if(result.data.error === 'No User '){
+          result.data.error = "wrong username";
+        }
+        this.errorMessage = result.data.error;
       } else {
-
         $scope.error_msg = null;
         $rootScope.loggedIn = true;
         $rootScope.currentUser = result.data;
         $location.path('/dashboard');
-
       }
-
     }.bind(this));
-
-
   };
 
   // create user ... from register form
@@ -97,7 +116,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   };
 
 }]);
-
 
 // Server - set cookies
 app.factory("userPersistenceService", [
