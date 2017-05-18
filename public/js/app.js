@@ -85,29 +85,32 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     // });
   };
 
-  // // create user ... from register form
-  // this.register = function() {
-  //   $http({
-  //     method: 'POST',
-  //     url: "/login/register",
-  //     data: this,
-  //     headers: {
-  //       'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('token'))
-  //     }
-  //   }).then(function(response) {
-  //     console.log("Register success", response);
-  //     if (response.data.success === true) {
-  //       $scope.error_msg = null;
-  //       // $rootScope.loggedIn = true;
-  //       $location.path('/login');
-  //     } else {
-  //       $scope.error_msg = response.data;
-  //     }
-  //
-  //   }, function(error) {
-  //     console.log("Register failure", response);
-  //   });
-  // };
+  // create user ... from register form
+  this.register = function() {
+
+    console.log("Register");
+    console.log(this);
+    // $http({
+    //   method: 'POST',
+    //   url: "/login/register",
+    //   data: this,
+    //   headers: {
+    //     'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('token'))
+    //   }
+    // }).then(function(response) {
+    //   console.log("Register success", response);
+    //   if (response.data.success === true) {
+    //     $scope.error_msg = null;
+    //     // $rootScope.loggedIn = true;
+    //     $location.path('/login');
+    //   } else {
+    //     $scope.error_msg = response.data;
+    //   }
+    //
+    // }, function(error) {
+    //   console.log("Register failure", response);
+    // });
+  };
   //
   // this.logout = function() {
   //   $scope.error_msg = null;
