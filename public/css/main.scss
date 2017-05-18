@@ -1,0 +1,160 @@
+/* ============== VARIABLES ================= */
+$blue-green  : #9FEDD7;
+$marine      : #57BC90;
+$dark-marine : #026670;
+$brown-gray  : #EDEAE5;
+$pale-yellow : #FEF9C7;
+$yellow      : #FCE181;
+
+/* ================ GENERAL ================= */
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  background: $brown-gray;
+  font-family: 'Karla', sans-serif;
+  font-size: 13px;
+  color: #444;
+}
+
+/* ================ NAVBAR ================= */
+.navbar {
+  width: 100%;
+  height: 55px;
+  border-top: 3px solid $yellow;
+  background: whitesmoke;
+  display: flex;
+  justify-content: space-between;
+  h1 {
+    color: #444;
+    margin-top: 15px;
+    margin-left: 2%;
+    display: inline-block;
+    a {
+      color: #444;
+      text-decoration: none;
+    }
+  }
+  a:hover {
+    cursor: pointer;
+  }
+  ul {
+    display: inline-block;
+    list-style-type: none;
+    width: 40%;
+    margin-top: 18px;
+    margin-right: 2%;
+    text-align: right;
+  }
+  li {
+    display: inline-block;
+    a {
+      color: $dark-marine;
+      font-size: 13px;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin: 4px;
+      transition: 0.2s ease-in;
+      -moz-transition: 0.2s ease-in;
+      -o-transition: 0.2s ease-in;
+      -webkit-transition: 0.2s ease-in;
+    }
+  }
+  div {
+    margin-right: 2%;
+    margin-top: 1%;
+    input {
+      padding: 8px;
+      border: 1px solid #e9e9e9;
+      border-radius: 4px;
+      font-family: 'Karla', sans-serif;
+    }
+    input[type="submit"] {
+      background: $dark-marine;
+      border: 0px solid transparent;
+      color: #fff;
+    }
+    input:focus {
+      border: 1px solid #ddd;
+      outline: none;
+    }
+    input[type="submit"]:focus {
+      background: $yellow;
+      color: $dark-marine;
+      border: 0px solid transparent;
+      outline: none;
+    }
+  }
+}
+
+/* =============== TICKER ================= */
+.ticker {
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+  position: relative;
+  background: $brown-gray;
+  color: #888;
+  p {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 30px;
+    text-align: center;
+    transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    animation: scroll-left 15s linear infinite;
+    -moz-animation: scroll-left 15s linear infinite;
+    -webkit-animation: scroll-left 15s linear infinite;
+  }
+}
+@keyframes scroll-left {
+  0%   {
+  transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  }
+  100% {
+  transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  }
+}
+
+/* =============== BANNER ================= */
+.banner {
+  width: 100%;
+  height: 400px;
+  background: #ccc;
+  background-image: url('http://placehold.it/1000x400.png');
+  background-size: cover;
+  background-position: center;
+}
+
+/* ============= LANDING INFO ============== */
+.landing-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2%;
+  .one, .two, .three {
+    text-align: center;
+    width: 33.3%;
+    height: 190px;
+    padding: 2%;
+    box-sizing: border-box;
+  }
+  .one, .two {
+    border-right: 1px dotted $marine;
+  }
+  img {
+    width: 50px;
+    height: 50px;
+  }
+  p {
+    margin: 2%;
+  }
+}

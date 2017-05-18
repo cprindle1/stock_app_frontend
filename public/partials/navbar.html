@@ -1,0 +1,20 @@
+<div class="navbar">
+  <!-- ================ SITE TITLE ================= -->
+  <h1><a href="/">STOCK APP</a></h1>
+
+  <!-- ================= NAV LINKS ================= -->
+  <ul>
+    <li><a ng-href="#/dashboard" ng-if="!vm.loginForm">dashboard</a></li>
+    <li><a href="/register" ng-if="!vm.loginForm">register</a></li>
+    <li><a ng-click="vm.showLogin()" ng-if="!vm.loginForm">login</a></li>
+  </ul>
+
+  <!-- ================ LOGIN FORM ================= -->
+  <div ng-if="vm.loginForm">
+    <form>
+      <input type="text" placeholder="USERNAME"/>
+      <input type="text" placeholder="PASSWORD"/>
+      <input type="submit" value="GO"/>
+    </form>
+  </div>
+</div>

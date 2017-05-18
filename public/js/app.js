@@ -1,49 +1,62 @@
-var app = angular.module('Stocks-App', ['ngRoute', 'ngCookies']);
+var app = angular.module('StockApp', ['ngRoute', 'ngCookies']);
 
-
+// ROUTES CONFIGURATION
 app.config(function($routeProvider) {
 
   $routeProvider
     .when('/', {
       controller: 'loginCtr',
-      templateUrl: 'views/login.html',
+      templateUrl: '/views/landing-page.html',
+      controllerAs: 'vm'
+    })
+    .when('/register', {
+      controller: 'loginCtr',
+      templateUrl: '/views/register.html',
+      controllerAs: 'vm'
+      //Added a meals config
+    })
+    .when('/login', {
+      controller: 'loginCtr',
+      templateUrl: '/views/login.html',
       reloadOnSearch: false,
       controllerAs: 'vm'
     })
     .when('/dashboard', {
-      resolve: {
-        "check": function($location, $rootScope) {
-          if (!$rootScope.loggedIn) {
-            $location.path('/');
-          }
-        }
-      },
-      templateUrl: 'views/dashboard.html',
+      // resolve: {
+      //   "check": function($location, $rootScope) {
+      //     if (!$rootScope.loggedIn) {
+      //       $location.path('/');
+      //     }
+      //   }
+      // },
+      templateUrl: '/views/dashboard.html',
       controller: 'loginCtr',
       controllerAs: 'vm'
-
-    })
-    .when('/register', {
-      controller: 'loginCtr',
-      templateUrl: 'views/register.html',
-      controllerAs: 'vm'
-      //Added a meals config
     })
     .otherwise({
       redirectTo: '/'
     });
-
 });
 
 app.config(['$qProvider', function($qProvider) {
   $qProvider.errorOnUnhandledRejections(false);
 }]);
-// Set Control
+
+// LOGIN CONTROLLER
 app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cookies', '$window', 'userPersistenceService', function($http, $scope, $location, $rootScope, $cookies, $window, userPersistenceService) {
+  // DECLARING VARIABLES
   var vm = this;
   this.currentUser;
 
-  // Control for login
+  // DECLARING TOGGLE VARIABLES
+  this.loginForm = false;
+
+  // SHOWS LOGIN FORM
+  this.showLogin = function(){
+    this.loginForm = true;
+  }
+
+  // SENDS LOGIN REQUEST TO API
   this.submit = function() {
 
     $scope.error_msg = null;
