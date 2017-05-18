@@ -75,8 +75,8 @@ body {
   height: 30px;
   overflow: hidden;
   position: relative;
-  background: #EDEAE5;
-  color: #888; }
+  background: #888;
+  color: whitesmoke; }
   .ticker p {
     position: absolute;
     width: 100%;
@@ -127,5 +127,90 @@ body {
     height: 50px; }
   .landing-info p {
     margin: 2%; }
+
+/* ================ DASHBOARD =============== */
+.dashboard h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 30px;
+  margin-top: 10px; }
+
+.card {
+  background: whitesmoke;
+  border-top: 3px solid #57BC90; }
+  .card h3 {
+    font-weight: 300;
+    font-size: 22px;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    text-align: center;
+    padding: 5px;
+    box-sizing: border-box; }
+  .card h4 {
+    font-weight: 300;
+    text-align: center; }
+  .card h4:after {
+    content: "";
+    background: #ccc;
+    width: 30%;
+    height: 1px;
+    left: 35%;
+    margin-top: 5px;
+    position: relative;
+    display: block; }
+
+.user-portfolio {
+  width: 270px;
+  height: 200px;
+  margin: 25px; }
+  .user-portfolio .row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px; }
+  .user-portfolio .stats {
+    width: 44%;
+    height: 50px;
+    background: #eee;
+    border-radius: 3px;
+    padding: 5px; }
+    .user-portfolio .stats p {
+      text-align: center;
+      font-weight: 800;
+      font-size: 14px;
+      margin-top: 8px;
+      color: #026670; }
+
+.user-stocks {
+  width: 270px;
+  height: 250px;
+  margin: 25px; }
+  .user-stocks section {
+    text-align: center; }
+    .user-stocks section a {
+      margin-right: 3px;
+      text-decoration: none;
+      font-weight: 800;
+      color: #026670; }
+  .user-stocks .stock-container {
+    width: 100%;
+    height: 180px;
+    margin-top: 5px;
+    overflow: auto; }
+    .user-stocks .stock-container :hover {
+      background: #FCE181;
+      color: #888;
+      transition: 0.5s ease-in;
+      -moz-transition: 0.5s ease-in;
+      -o-transition: 0.5s ease-in;
+      -webkit-transition: 0.5s ease-in; }
+  .user-stocks .stock {
+    width: 90%;
+    margin: 10px auto;
+    border-radius: 3px;
+    padding: 7px;
+    box-sizing: border-box;
+    background: #eee; }
 
 /*# sourceMappingURL=main.css.map */

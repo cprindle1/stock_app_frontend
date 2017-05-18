@@ -44,9 +44,14 @@ app.config(['$qProvider', function($qProvider) {
 
 // LOGIN CONTROLLER
 app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cookies', '$window', 'userPersistenceService', function($http, $scope, $location, $rootScope, $cookies, $window, userPersistenceService) {
-  // DECLARING VARIABLES
+  // DECLARING CONTROLLER VARIABLES
   var vm = this;
   this.currentUser;
+
+  // DECLARING USER VARIABLES
+  this.currentUser = {};
+  // erase this dummy variable later
+  this.currentUser.firstName = 'firstname'
 
   // DECLARING TOGGLE VARIABLES
   this.loginForm = false;

@@ -4,7 +4,7 @@
 
   <!-- ================= NAV LINKS ================= -->
   <ul>
-    <li><a href="#!/dashboard" ng-if="vm.loggedIn">dashboard</a></li>
+    <li><a href="#!/dashboard" ng-if="vm.loggedIn && !vm.loginForm">dashboard</a></li>
     <li><a href="#!/register" ng-if="!vm.loginForm">register</a></li>
     <li><a ng-click="vm.showLogin()" ng-if="!vm.loginForm">login</a></li>
   </ul>
