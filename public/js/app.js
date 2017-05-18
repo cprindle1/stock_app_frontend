@@ -62,41 +62,15 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       url: this.URL,
       data: this.formLogin
     }).then(function(result) {
-      console.log("Data from server: ", result);
+      console.log("Data from server: ", result.data);
+
       $location.path('/dashboard');
+    }).
+    then(function(error) {
+      console.log(error.data);
     }.bind(this));
 
 
-
-    // $http({
-    //   method: 'POST',
-    //   url: "/login",
-    //   data: {
-    //     username: this.username,
-    //     password: this.password
-    //   }
-    // }).then(function(response) {
-    //   console.log(response);
-    //   if (response.data.success === true) {
-    //
-    //     $scope.error_msg = null;
-    //     $rootScope.loggedIn = true;
-    //     $rootScope.currentUser = response.data.user;
-    //     $rootScope.children = response.data.children;
-    //
-    //     localStorage.setItem('token', JSON.stringify(response.data.token));
-    //     userPersistenceService.setCookieData(response.data.token);
-    //     $window.sessionStorage.setItem('token', JSON.stringify(response.data.token));
-    //
-    //     $location.path('/dashboard');
-    //   } else {
-    //     $scope.error_msg = response.data.message;
-    //     $rootScope.loggedIn = false;
-    //   }
-    // }, function(error) {
-    //   $rootScope.loggedIn = false;
-    //   console.log("login failure");
-    // });
   };
 
   // create user ... from register form
@@ -107,16 +81,13 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     this.URL = 'http://localhost:3000/users';
 
     $http({
-        method: 'POST',
-        url: this.URL,
-        data: this.formdata
-      }).then(function(result) {
-        console.log("Data from server: ", result);
-        $location.path('/login');
-      })
-      .then(function(error) {
-        console.log("Register failure", error);
-      }.bind(this));
+      method: 'POST',
+      url: this.URL,
+      data: this.formdata
+    }).then(function(result) {
+      console.log("Data from server: ", result);
+      $location.path('/login');
+    }.bind(this));
   };
 
 }]);
