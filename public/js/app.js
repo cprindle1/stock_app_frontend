@@ -46,13 +46,25 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // Control for login
   this.submit = function() {
 
-    $scope.error_msg = null;
-    $rootScope.loggedIn = false;
-    localStorage.clear('token');
-    userPersistenceService.clearCookieData('userName');
-    console.log("username = ", this.username);
-    console.log("pw =", this.username);
+    // $scope.error_msg = null;
+    // $rootScope.loggedIn = false;
+    // localStorage.clear('token');
+    // userPersistenceService.clearCookieData('userName');
+    // console.log("username = ", this.username);
+    // console.log("pw =", this.username);
     console.log("i am in login ");
+
+    console.log("this.formLogin", this.formLogin);
+    this.URL = 'http://localhost:3000/login';
+
+    $http({
+      method: 'POST',
+      url: this.URL,
+      data: this.formLogin
+    }).then(function(result) {
+      console.log("Data from server: ", result);
+      $location.path('/dashboard');
+    }.bind(this));
 
 
 
