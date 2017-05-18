@@ -22,13 +22,13 @@ app.config(function($routeProvider) {
       controllerAs: 'vm'
     })
     .when('/dashboard', {
-      resolve: {
-        "check": function($location, $rootScope) {
-          if (!$rootScope.loggedIn) {
-            $location.path('/');
-          }
-        }
-      },
+      // resolve: {
+      //   "check": function($location, $rootScope) {
+      //     if (!$rootScope.loggedIn) {
+      //       $location.path('/');
+      //     }
+      //   }
+      // },
       templateUrl: '/views/dashboard.html',
       controller: 'loginCtr',
       controllerAs: 'vm'

@@ -103,8 +103,8 @@ body {
   height: 30px;
   overflow: hidden;
   position: relative;
-  background: #888;
-  color: whitesmoke;
+  background: #ccc;
+  color: #444;
   p {
     position: absolute;
     width: 100%;
@@ -177,6 +177,10 @@ body {
     margin-top: 10px;
   }
 }
+.card-container {
+  display: flex;
+  justify-content: space-between;
+}
 .card {
   background: whitesmoke;
   border-top: 3px solid $marine;
@@ -204,17 +208,39 @@ body {
     position: relative;
     display: block;
   }
-}
-/* dashboard portfolio card */
-.user-portfolio {
-  width: 270px;
-  height: 200px;
-  margin: 25px;
   .row {
     display: flex;
     justify-content: space-between;
     margin: 10px;
   }
+  .btn {
+    width: 44%;
+    border-radius: 3px;
+    padding: 5px;
+    background: lighten($dark-marine, 5%);
+    color: whitesmoke;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    text-align: center;
+    transition: 0.2s ease-in;
+    -moz-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+    -webkit-transition: 0.2s ease-in;
+  }
+  .btn:hover {
+    cursor: pointer;
+    background: #444;
+    transition: 0.2s ease-in;
+    -moz-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+    -webkit-transition: 0.2s ease-in;
+  }
+}
+/* dashboard portfolio card */
+.user-portfolio {
+  width: 270px;
+  height: 230px;
+  margin: 25px;
   .stats {
     width: 44%;
     height: 50px;
@@ -246,7 +272,7 @@ body {
   }
   .stock-container {
     width: 100%;
-    height: 180px;
+    height: 150px;
     margin-top: 5px;
     overflow: auto;
     :hover {
@@ -296,4 +322,11 @@ body {
       cursor: pointer;
     }
   }
+}
+/* dashboard chart card */
+.chart {
+  width: calc(100% - 270px);
+  margin: 25px 25px 25px 0;
+  padding: 10px;
+  box-sizing: border-box;
 }
