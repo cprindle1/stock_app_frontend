@@ -50,8 +50,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // DECLARING USER VARIABLES
   this.currentUser = {};
-  // erase this dummy variable later
-  this.currentUser.firstName = 'firstname'
 
   // DECLARING TOGGLE VARIABLES
   this.loginForm = false;
@@ -70,32 +68,26 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // SENDS LOGIN REQUEST TO API
   this.submit = function() {
-
     // $scope.error_msg = null;
     // $rootScope.loggedIn = false;
     // localStorage.clear('token');
     // userPersistenceService.clearCookieData('userName');
     // console.log("username = ", this.username);
     // console.log("pw =", this.username);
-    console.log("i am in login ");
-
-    console.log("this.formLogin", this.formLogin);
+    // console.log("login successful");
+    // console.log("this.formLogin", this.formLogin);
     this.URL = 'http://localhost:3000/login';
-
     $http({
       method: 'POST',
       url: this.URL,
       data: this.formLogin
     }).then(function(result) {
-      console.log("Data from server: ", result.data);
-
+      this.currentUser = result.data;
       $location.path('/dashboard');
     }).
     then(function(error) {
       console.log(error.data);
     }.bind(this));
-
-
   };
 
   // create user ... from register form
