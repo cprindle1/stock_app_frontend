@@ -87,7 +87,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       } else {
         $scope.error_msg = null;
         $rootScope.loggedIn = true;
-        this.currentUser = result.data;
+        $rootScope.currentUser = result.data;
         $location.path('/dashboard');
       }
     }.bind(this));
