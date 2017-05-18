@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="StockApp">
+  <head>
+    <meta charset="utf-8">
+    <title>STOCKS</title>
+    <!-- ================== ANGULAR =================== -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" charset="utf-8"></script>
+    <!-- =================== SCRIPTS ================== -->
+    <script src="js/app.js" charset="utf-8"></script>
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Karla:300,400,700" rel="stylesheet">
+    <!-- ====================== CSS =================== -->
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body ng-controller="MainController as ctrl">
+    <!-- =================== NAVBAR =================== -->
+    <header ng-include="'partials/navbar.html'"></header>
+    <!-- ============= LANDING PAGE BANNER ============ -->
+    <section ng-include="'partials/banner.html'" ng-if="ctrl.landingPage"></section>
+    <!-- ========= LANDING PAGE INFO SECTIONS ========= -->
+    <section ng-include="'partials/landing-info.html'" ng-if="ctrl.landingPage"></section>
+  </body>
+</html>
