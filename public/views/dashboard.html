@@ -47,7 +47,7 @@
     <section><a href="#">BOUGHT</a> <a href="#">WATCHED</a></section>
     <div class="stock-container">
       <div class="stock">
-        <strong>SYMBL</strong>
+        <strong ng-click="vm.stockModalToggle();">SYMBL</strong>
       </div>
       <div class="stock">
         <strong>SYMBL</strong>
@@ -64,4 +64,12 @@
     </div>
   </div>
 
+<!-- ================= STOCK MODAL ================ -->
+  <div ng-if="vm.modalActive" class="modal">
+    <div class="box">
+      <div class="close" ng-click="vm.stockModalToggle();">
+        <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
 </section>

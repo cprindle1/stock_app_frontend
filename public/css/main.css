@@ -161,6 +161,7 @@ body {
     position: relative;
     display: block; }
 
+/* dashboard portfolio card */
 .user-portfolio {
   width: 270px;
   height: 200px;
@@ -182,6 +183,7 @@ body {
       margin-top: 8px;
       color: #026670; }
 
+/* dashboard stock card */
 .user-stocks {
   width: 270px;
   height: 250px;
@@ -212,5 +214,31 @@ body {
     padding: 7px;
     box-sizing: border-box;
     background: #eee; }
+
+/* dashboard stock modal */
+.modal {
+  background: rgba(255, 255, 255, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  overflow: auto; }
+  .modal .box {
+    margin: 150px auto;
+    padding: 10px;
+    width: 70%;
+    height: 400px;
+    background: #EDEAE5;
+    box-sizing: border-box; }
+  .modal .close {
+    top: 0;
+    right: 0px;
+    position: relative; }
+    .modal .close i {
+      color: #444; }
+    .modal .close :hover {
+      cursor: pointer; }
 
 /*# sourceMappingURL=main.css.map */

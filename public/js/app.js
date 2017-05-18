@@ -56,10 +56,16 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // DECLARING TOGGLE VARIABLES
   this.loginForm = false;
   this.loggedIn = true; /* CHANGE THIS TO FALSE LATER */
+  this.modalActive = false;
 
   // SHOWS LOGIN FORM
   this.showLogin = function(){
     this.loginForm = true;
+  }
+
+  // ACTIVATES STOCK MODAL
+  this.stockModalToggle = function(){
+    this.modalActive = !this.modalActive;
   }
 
   // SENDS LOGIN REQUEST TO API
