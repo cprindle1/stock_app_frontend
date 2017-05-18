@@ -52,7 +52,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     // userPersistenceService.clearCookieData('userName');
     // console.log("username = ", this.username);
     // console.log("pw =", this.username);
-    console.log("i am in login ");
 
     console.log("this.formLogin", this.formLogin);
     this.URL = 'http://localhost:3000/login';
@@ -63,11 +62,16 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       data: this.formLogin
     }).then(function(result) {
       console.log("Data from server: ", result.data);
+      if (result.data.error) {
+        console.log(result.data.error);
+        $scope.error_msg = result.data.error
+      } else {
+        $scope.error_msg = null;
+        $rootScope.loggedIn = true;
+        $location.path('/dashboard');
 
-      $location.path('/dashboard');
-    }).
-    then(function(error) {
-      console.log(error.data);
+      }
+
     }.bind(this));
 
 
