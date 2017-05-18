@@ -51,6 +51,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.currentUser = {};
 
   // DECLARING TOGGLE VARIABLES
+  this.loginError = false;
+  this.errorMessage = '';
   this.loginForm = false;
   this.loggedIn = true; /* CHANGE THIS TO FALSE LATER */
   this.modalActive = false;
@@ -82,8 +84,11 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }).then(function(result) {
       console.log("Data from server: ", result.data);
       if (result.data.error) {
-        console.log(result.data.error);
-        $scope.error_msg = result.data.error
+        this.loginError = true;
+        if(result.data.error === 'No User '){
+          result.data.error = "wrong username";
+        }
+        this.errorMessage = result.data.error;
       } else {
         $scope.error_msg = null;
         $rootScope.loggedIn = true;

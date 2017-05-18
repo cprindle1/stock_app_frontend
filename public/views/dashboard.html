@@ -6,7 +6,7 @@
 
 <!-- ==================== MAIN SECTION ============= -->
 <section class="dashboard">
-  <h1>WELCOME {{currentUser.name}}</h1>
+  <h1>WELCOME, {{currentUser.name}}</h1>
 
 <!-- =================== PORTFOLIO ================= -->
   <div class="card user-portfolio">
@@ -15,7 +15,7 @@
       <div class="stats">
         <h4>CURRENT $</h4>
         <p>
-          $10,000.00
+          {{currentUser.money | currency}}
         </p>
       </div>
       <div class="stats">

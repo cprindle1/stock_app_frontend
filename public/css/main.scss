@@ -5,6 +5,7 @@ $dark-marine : #026670;
 $brown-gray  : #EDEAE5;
 $pale-yellow : #FEF9C7;
 $yellow      : #FCE181;
+$red         : #F44336;
 
 /* ================ GENERAL ================= */
 * {
@@ -88,7 +89,14 @@ body {
     }
   }
 }
-
+.login {
+  p {
+    color: $red;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-style: italic;
+  }
+}
 /* =============== TICKER ================= */
 .ticker {
   width: 100%;

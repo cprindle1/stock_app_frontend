@@ -69,6 +69,12 @@ body {
       border: 0px solid transparent;
       outline: none; }
 
+.login p {
+  color: #F44336;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-style: italic; }
+
 /* =============== TICKER ================= */
 .ticker {
   width: 100%;
