@@ -22,13 +22,13 @@ app.config(function($routeProvider) {
       controllerAs: 'vm'
     })
     .when('/dashboard', {
-      // resolve: {
-      //   "check": function($location, $rootScope) {
-      //     if (!$rootScope.loggedIn) {
-      //       $location.path('/');
-      //     }
-      //   }
-      // },
+      resolve: {
+        "check": function($location, $rootScope) {
+          if (!$rootScope.loggedIn) {
+            $location.path('/');
+          }
+        }
+      },
       templateUrl: '/views/dashboard.html',
       controller: 'loginCtr',
       controllerAs: 'vm'
@@ -46,7 +46,6 @@ app.config(['$qProvider', function($qProvider) {
 app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cookies', '$window', 'userPersistenceService', function($http, $scope, $location, $rootScope, $cookies, $window, userPersistenceService) {
   // DECLARING CONTROLLER VARIABLES
   var vm = this;
-  this.currentUser;
 
   // DECLARING USER VARIABLES
   this.currentUser = {};
@@ -88,6 +87,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       } else {
         $scope.error_msg = null;
         $rootScope.loggedIn = true;
+        this.currentUser = result.data;
         $location.path('/dashboard');
       }
     }.bind(this));
@@ -111,7 +111,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   };
 
 }]);
-
 
 // Server - set cookies
 app.factory("userPersistenceService", [
