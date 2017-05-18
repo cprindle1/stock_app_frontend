@@ -54,6 +54,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     console.log("pw =", this.username);
     console.log("i am in login ");
 
+
+
     // $http({
     //   method: 'POST',
     //   url: "/login",
@@ -89,62 +91,23 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.register = function() {
 
     console.log("Register");
-    console.log(this);
-    // $http({
-    //   method: 'POST',
-    //   url: "/login/register",
-    //   data: this,
-    //   headers: {
-    //     'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('token'))
-    //   }
-    // }).then(function(response) {
-    //   console.log("Register success", response);
-    //   if (response.data.success === true) {
-    //     $scope.error_msg = null;
-    //     // $rootScope.loggedIn = true;
-    //     $location.path('/login');
-    //   } else {
-    //     $scope.error_msg = response.data;
-    //   }
-    //
-    // }, function(error) {
-    //   console.log("Register failure", response);
-    // });
+    console.log("this.formdata", this.formdata);
+    this.URL = 'http://localhost:3000/users';
+
+    $http({
+        method: 'POST',
+        url: this.URL,
+        data: this.formdata
+      }).then(function(result) {
+        console.log("Data from server: ", result);
+        $location.path('/login');
+      })
+      .then(function(error) {
+        console.log("Register failure", error);
+      }.bind(this));
   };
-  //
-  // this.logout = function() {
-  //   $scope.error_msg = null;
-  //   localStorage.clear('token');
-  //   userPersistenceService.clearCookieData('userName');
-  //   $location.path("/");
-  //   location.reload();
-  //
-  // };
-  //
-  //
-  // // Get all user .. testing..
-  // $scope.getUsers = function() {
-  //   $http({
-  //     url: '/users',
-  //     method: 'GET',
-  //
-  //     headers: {
-  //       'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('token'))
-  //     }
-  //   }).then(function(response) {
-  //     console.log(response);
-  //     if (response.data.status == 401) {
-  //       this.error = "Unauthorized";
-  //     } else {
-  //       this.users = response.data;
-  //       $scope.allUsers = response.data;
-  //       // $location.path('/dashboard');
-  //     }
-  //   }.bind(this));
-  // };
 
 }]);
-
 
 
 // Server - set cookies
