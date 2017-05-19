@@ -10,6 +10,16 @@ body {
   font-size: 13px;
   color: #272C2F; }
 
+input {
+  padding: 10px;
+  border: 1px solid #e9e9e9;
+  border-radius: 4px;
+  font-family: 'Karla', sans-serif; }
+
+input[type="text"]:focus, input[type="password"]:focus {
+  border: 1px solid #CAD04A;
+  outline: none; }
+
 /* ================ NAVBAR ================= */
 .navbar {
   width: 100%;
@@ -53,20 +63,12 @@ body {
       -webkit-transition: 0.2s ease-in; }
   .navbar div {
     margin-right: 2%; }
-    .navbar div input {
-      padding: 8px;
-      border: 1px solid #e9e9e9;
-      border-radius: 4px;
-      font-family: 'Karla', sans-serif; }
     .navbar div input[type="submit"] {
       background: #456177;
       border: 0px solid transparent;
       color: #fff; }
     .navbar div input[type="submit"]:hover {
       cursor: pointer; }
-    .navbar div input:focus {
-      border: 1px solid #CAD04A;
-      outline: none; }
     .navbar div input[type="submit"]:focus {
       background: #CAD04A;
       color: whitesmoke;
@@ -312,25 +314,17 @@ body {
     width: 100%;
     margin-top: 10px;
     text-align: center; }
-  .chart input {
-    padding: 10px;
-    border: 1px solid #e9e9e9;
-    border-radius: 4px;
-    font-family: 'Karla', sans-serif; }
-  .chart input[type="text"] {
-    width: 78%; }
-  .chart input:focus {
-    border: 1px solid #CAD04A;
-    outline: none; }
-  .chart input[type="submit"] {
-    width: 13%;
-    background: #CAD04A;
-    color: white; }
-  .chart input[type="submit"]:hover {
-    cursor: pointer; }
-  .chart input[type="submit"]:focus {
-    border: 0px solid transparent;
-    background: #456177; }
+    .chart .input-container input[type="text"] {
+      width: 78%; }
+    .chart .input-container input[type="submit"] {
+      width: 13%;
+      background: #CAD04A;
+      color: white; }
+    .chart .input-container input[type="submit"]:hover {
+      cursor: pointer; }
+    .chart .input-container input[type="submit"]:focus {
+      border: 0px solid transparent;
+      background: #456177; }
   .chart .search-stock-container {
     width: 100%;
     height: 415px;
@@ -373,5 +367,15 @@ body {
       box-sizing: border-box; }
     .chart .search-stock-info .stock-btn:hover {
       cursor: pointer; }
+    .chart .search-stock-info input[type="submit"] {
+      color: white;
+      text-transform: uppercase;
+      background: #CAD04A; }
+    .chart .search-stock-info input[type="submit"]:focus {
+      border: 1px solid transparent;
+      outline: none; }
+    .chart .search-stock-info .buy-shares {
+      margin-bottom: 5px;
+      text-align: center; }
 
 /*# sourceMappingURL=main.css.map */

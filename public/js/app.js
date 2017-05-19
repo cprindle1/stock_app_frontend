@@ -54,6 +54,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.loginForm = false;
   this.registerForm = false;
   this.modalActive = false;
+  this.buyingShares = false;
 
   // SHOWS LOGIN FORM
   this.showLogin = function() {
@@ -63,6 +64,11 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // ACTIVATES MODAL
   this.modalToggle = function() {
     this.modalActive = !this.modalActive;
+  }
+
+  // SHOWS BUYING SHARE FORM
+  this.buyShareToggle = function(){
+    this.buyingShares = !this.buyingShares;
   }
 
   // SENDS LOGIN REQUEST TO API
@@ -99,7 +105,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }.bind(this));
   };
 
-  // create user ... from register form
+  // SENDS CREATE USER REQUEST TO BACKEND
   this.register = function() {
 
     console.log("Register");
@@ -120,7 +126,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }.bind(this));
   };
 
-
+  // SENDS LOGOUT REQUEST
   this.logout = function() {
     $scope.error_msg = null;
     localStorage.clear('token');

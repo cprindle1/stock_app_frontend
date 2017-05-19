@@ -119,9 +119,13 @@
               <td class="stock-stat">statistic info</td>
             </tr>
           </table>
-          <div class="stock-btn">
+          <div class="stock-btn" ng-click="vm.buyShareToggle();">
             BUY SHARES
           </div>
+          <form class="buy-shares" ng-if="vm.buyingShares">
+            <input type="text" placeholder="AMOUNT OF SHARES..." />
+            <input type="submit" />
+          </form>
           <div class="stock-btn">
             WATCH STOCK
           </div>
