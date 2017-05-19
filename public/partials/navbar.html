@@ -5,14 +5,13 @@
   <!-- ================= NAV LINKS ================= -->
   <ul>
     <div ng-hide="currentUser">
-
       <li><a ng-click="vm.modalToggle()" ng-if="!vm.loginForm">register</a></li>
       <li><a ng-click="vm.showLogin()" ng-if="!vm.loginForm">login</a></li>
     </div>
 
     <div ng-hide="!currentUser">
       <li><a href="#!/dashboard" ng-if="!vm.loginForm">dashboard</a></li>
-      <li><a href="" ng-click="vm.logout()"><span class="glyphicon glyphicon-log-out" ></span>Logout</a> </li>
+      <li><a href="" ng-click="vm.logout()">logout</a></li>
     </div>
   </ul>
 

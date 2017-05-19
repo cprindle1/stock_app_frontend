@@ -48,9 +48,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var vm = this;
   this.token = null;
 
-  // DECLARING USER VARIABLES
-  this.currentUser = {};
-
   // DECLARING TOGGLE VARIABLES
   this.loginError = false;
   this.errorMessage = '';
@@ -128,9 +125,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     $scope.error_msg = null;
     localStorage.clear('token');
     // userPersistenceService.clearCookieData('userName');
+    $rootScope.currentUser = false;
     $location.path("/");
-    location.reload();
-
   };
 
 
