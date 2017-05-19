@@ -5,16 +5,16 @@
   margin: 0; }
 
 body {
-  background: #EDEAE5;
+  background: #eee;
   font-family: 'Karla', sans-serif;
   font-size: 13px;
-  color: #444; }
+  color: #272C2F; }
 
 /* ================ NAVBAR ================= */
 .navbar {
   width: 100%;
   height: 55px;
-  border-top: 3px solid #FCE181;
+  border-top: 3px solid #CAD04A;
   background: whitesmoke;
   display: flex;
   justify-content: space-between; }
@@ -38,7 +38,7 @@ body {
   .navbar li {
     display: inline-block; }
     .navbar li a {
-      color: #026670;
+      color: #456177;
       font-size: 13px;
       text-decoration: none;
       text-transform: uppercase;
@@ -57,15 +57,15 @@ body {
       border-radius: 4px;
       font-family: 'Karla', sans-serif; }
     .navbar div input[type="submit"] {
-      background: #026670;
+      background: #456177;
       border: 0px solid transparent;
       color: #fff; }
     .navbar div input:focus {
-      border: 1px solid #ddd;
+      border: 1px solid #CAD04A;
       outline: none; }
     .navbar div input[type="submit"]:focus {
-      background: #FCE181;
-      color: #026670;
+      background: #CAD04A;
+      color: whitesmoke;
       border: 0px solid transparent;
       outline: none; }
 
@@ -84,7 +84,7 @@ body {
     text-align: center; }
   .register h1:after {
     content: "";
-    background: #57BC90;
+    background: #CAD04A;
     width: 30%;
     height: 1px;
     left: 35%;
@@ -106,7 +106,7 @@ body {
   height: 30px;
   overflow: hidden;
   position: relative;
-  background: #ccc;
+  background: #dde2e3;
   color: #444; }
   .ticker p {
     position: absolute;
@@ -152,7 +152,7 @@ body {
     padding: 2%;
     box-sizing: border-box; }
   .landing-info .one, .landing-info .two {
-    border-right: 1px dotted #57BC90; }
+    border-right: 1px dotted #CAD04A; }
   .landing-info img {
     width: 50px;
     height: 50px; }
@@ -172,8 +172,8 @@ body {
   justify-content: space-between; }
 
 .card {
-  background: whitesmoke;
-  border-top: 3px solid #57BC90; }
+  background: #f9f9f9;
+  border-top: 3px solid #026670; }
   .card h3 {
     font-weight: 300;
     font-size: 22px;
@@ -203,7 +203,7 @@ body {
     width: 44%;
     border-radius: 3px;
     padding: 5px;
-    background: #027d89;
+    background: #CAD04A;
     color: whitesmoke;
     font-size: 11.5px;
     text-transform: uppercase;
@@ -214,7 +214,7 @@ body {
     -webkit-transition: 0.2s ease-in; }
   .card .btn:hover {
     cursor: pointer;
-    background: #444;
+    background: #869514;
     transition: 0.2s ease-in;
     -moz-transition: 0.2s ease-in;
     -o-transition: 0.2s ease-in;
@@ -236,7 +236,7 @@ body {
       font-weight: 800;
       font-size: 14px;
       margin-top: 8px;
-      color: #026670; }
+      color: #456177; }
 
 /* dashboard stock card */
 .user-stocks {
@@ -249,15 +249,15 @@ body {
       margin-right: 3px;
       text-decoration: none;
       font-weight: 800;
-      color: #026670; }
+      color: #456177; }
   .user-stocks .stock-container {
     width: 100%;
     height: 150px;
     margin-top: 5px;
     overflow: auto; }
     .user-stocks .stock-container :hover {
-      background: #FCE181;
-      color: #888;
+      background: #456177;
+      color: #f9f9f9;
       transition: 0.5s ease-in;
       -moz-transition: 0.5s ease-in;
       -o-transition: 0.5s ease-in;
@@ -272,27 +272,28 @@ body {
 
 /* dashboard stock modal */
 .modal {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.5);
   position: fixed;
-  top: 0;
+  top: -10px;
   left: 0;
-  height: 100%;
+  height: 105%;
   width: 100%;
   z-index: 1;
   overflow: auto; }
   .modal .box {
+    border-top: 3px solid #CAD04A;
     margin: 150px auto;
     padding: 10px;
     width: 70%;
     height: 400px;
-    background: #EDEAE5;
+    background: #e6e9ea;
     box-sizing: border-box; }
   .modal .close {
     top: 0;
     right: 0px;
     position: relative; }
     .modal .close i {
-      color: #444; }
+      color: #272C2F; }
     .modal .close :hover {
       cursor: pointer; }
 
