@@ -22,13 +22,13 @@ app.config(function($routeProvider) {
       controllerAs: 'vm'
     })
     .when('/dashboard', {
-      // resolve: {
-      //   "check": function($location, $rootScope) {
-      //     if (!$rootScope.loggedIn) {
-      //       $location.path('/');
-      //     }
-      //   }
-      // },
+      resolve: {
+        "check": function($location, $rootScope) {
+          if (!$rootScope.loggedIn) {
+            $location.path('/');
+          }
+        }
+      },
       templateUrl: '/views/dashboard.html',
       controller: 'loginCtr',
       controllerAs: 'vm'
@@ -46,6 +46,7 @@ app.config(['$qProvider', function($qProvider) {
 app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cookies', '$window', 'userPersistenceService', function($http, $scope, $location, $rootScope, $cookies, $window, userPersistenceService) {
   // DECLARING CONTROLLER VARIABLES
   var vm = this;
+  this.token = null;
 
   // DECLARING USER VARIABLES
   this.currentUser = {};
@@ -63,18 +64,17 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   }
 
   // ACTIVATES MODAL
-  this.modalToggle = function(){
+  this.modalToggle = function() {
     this.modalActive = !this.modalActive;
   }
 
   // SENDS LOGIN REQUEST TO API
   this.submit = function() {
-    // $scope.error_msg = null;
-    // $rootScope.loggedIn = false;
-    // localStorage.clear('token');
+    $scope.error_msg = null;
+    $rootScope.loggedIn = false;
+    localStorage.clear('token');
     // userPersistenceService.clearCookieData('userName');
-    // console.log("username = ", this.username);
-    // console.log("pw =", this.username);
+
     console.log("this.formLogin", this.formLogin);
     this.URL = 'http://localhost:3000/login';
     $http({
@@ -85,14 +85,17 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       console.log("Data from server: ", result.data);
       if (result.data.error) {
         this.loginError = true;
-        if(result.data.error === 'No User '){
-          result.data.error = "wrong username";
-        }
+        // dont need this.. error will send from backend.
+        // if (result.data.error === 'No User ') {
+        //   result.data.error = "wrong username";
+        // }
         this.errorMessage = result.data.error;
       } else {
+
         $scope.error_msg = null;
         $rootScope.loggedIn = true;
-        $rootScope.currentUser = result.data;
+        $rootScope.currentUser = result.data.user;
+        localStorage.setItem('token', JSON.stringify(result.data.token));
         $location.path('/dashboard');
       }
     }.bind(this));
@@ -118,6 +121,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       this.submit();
     }.bind(this));
   };
+
 
 }]);
 
