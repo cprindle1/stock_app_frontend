@@ -22,13 +22,13 @@ app.config(function($routeProvider) {
       controllerAs: 'vm'
     })
     .when('/dashboard', {
-      resolve: {
-        "check": function($location, $rootScope) {
-          if (!$rootScope.loggedIn) {
-            $location.path('/');
-          }
-        }
-      },
+      // resolve: {
+      //   "check": function($location, $rootScope) {
+      //     if (!$rootScope.loggedIn) {
+      //       $location.path('/');
+      //     }
+      //   }
+      // },
       templateUrl: '/views/dashboard.html',
       controller: 'loginCtr',
       controllerAs: 'vm'
@@ -54,16 +54,16 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.loginError = false;
   this.errorMessage = '';
   this.loginForm = false;
-  this.loggedIn = true; /* CHANGE THIS TO FALSE LATER */
+  this.registerForm = false;
   this.modalActive = false;
 
   // SHOWS LOGIN FORM
-  this.showLogin = function(){
+  this.showLogin = function() {
     this.loginForm = true;
   }
 
-  // ACTIVATES STOCK MODAL
-  this.stockModalToggle = function(){
+  // ACTIVATES MODAL
+  this.modalToggle = function(){
     this.modalActive = !this.modalActive;
   }
 
@@ -111,7 +111,11 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       data: this.formdata
     }).then(function(result) {
       console.log("Data from server: ", result);
-      $location.path('/login');
+      this.formLogin = {
+        username: this.formdata.username,
+        password: this.formdata.password
+      }
+      this.submit();
     }.bind(this));
   };
 

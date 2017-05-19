@@ -75,14 +75,39 @@ body {
   font-size: 12px;
   font-style: italic; }
 
+.register {
+  width: 100%;
+  text-align: center; }
+  .register h1 {
+    width: 100%;
+    font-size: 30px;
+    text-align: center; }
+  .register h1:after {
+    content: "";
+    background: #57BC90;
+    width: 30%;
+    height: 1px;
+    left: 35%;
+    margin-top: 5px;
+    position: relative;
+    display: block; }
+  .register form {
+    margin: 10px 37%;
+    position: relative;
+    width: 30%; }
+  .register input {
+    margin: 5px; }
+  .register input[type="submit"] {
+    width: 140px; }
+
 /* =============== TICKER ================= */
 .ticker {
   width: 100%;
   height: 30px;
   overflow: hidden;
   position: relative;
-  background: #888;
-  color: whitesmoke; }
+  background: #ccc;
+  color: #444; }
   .ticker p {
     position: absolute;
     width: 100%;
@@ -142,6 +167,10 @@ body {
   font-size: 30px;
   margin-top: 10px; }
 
+.card-container {
+  display: flex;
+  justify-content: space-between; }
+
 .card {
   background: whitesmoke;
   border-top: 3px solid #57BC90; }
@@ -166,16 +195,36 @@ body {
     margin-top: 5px;
     position: relative;
     display: block; }
+  .card .row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px; }
+  .card .btn {
+    width: 44%;
+    border-radius: 3px;
+    padding: 5px;
+    background: #027d89;
+    color: whitesmoke;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    text-align: center;
+    transition: 0.2s ease-in;
+    -moz-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+    -webkit-transition: 0.2s ease-in; }
+  .card .btn:hover {
+    cursor: pointer;
+    background: #444;
+    transition: 0.2s ease-in;
+    -moz-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+    -webkit-transition: 0.2s ease-in; }
 
 /* dashboard portfolio card */
 .user-portfolio {
   width: 270px;
-  height: 200px;
+  height: 230px;
   margin: 25px; }
-  .user-portfolio .row {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px; }
   .user-portfolio .stats {
     width: 44%;
     height: 50px;
@@ -203,7 +252,7 @@ body {
       color: #026670; }
   .user-stocks .stock-container {
     width: 100%;
-    height: 180px;
+    height: 150px;
     margin-top: 5px;
     overflow: auto; }
     .user-stocks .stock-container :hover {
@@ -246,5 +295,12 @@ body {
       color: #444; }
     .modal .close :hover {
       cursor: pointer; }
+
+/* dashboard chart card */
+.chart {
+  width: calc(100% - 270px);
+  margin: 25px 25px 25px 0;
+  padding: 10px;
+  box-sizing: border-box; }
 
 /*# sourceMappingURL=main.css.map */
