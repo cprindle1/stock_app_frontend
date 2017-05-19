@@ -4,9 +4,16 @@
 
   <!-- ================= NAV LINKS ================= -->
   <ul>
-    <li><a href="#!/dashboard" ng-if="!vm.loginForm">dashboard</a></li>
-    <li><a ng-click="vm.modalToggle()" ng-if="!vm.loginForm">register</a></li>
-    <li><a ng-click="vm.showLogin()" ng-if="!vm.loginForm">login</a></li>
+    <div ng-hide="currentUser">
+
+      <li><a ng-click="vm.modalToggle()" ng-if="!vm.loginForm">register</a></li>
+      <li><a ng-click="vm.showLogin()" ng-if="!vm.loginForm">login</a></li>
+    </div>
+
+    <div ng-hide="!currentUser">
+      <li><a href="#!/dashboard" ng-if="!vm.loginForm">dashboard</a></li>
+      <li><a href="" ng-click="vm.logout()"><span class="glyphicon glyphicon-log-out" ></span>Logout</a> </li>
+    </div>
   </ul>
 
   <!-- ================ LOGIN FORM ================= -->
@@ -14,14 +21,14 @@
     <form ng-submit="vm.submit()">
       <input type="text" name="username" ng-model="vm.formLogin.username" placeholder="USERNAME" required />
       <input type="password" name="password" ng-model="vm.formLogin.password" placeholder="PASSWORD" required />
-      <input type="submit" value="GO"/>
+      <input type="submit" value="GO" />
       <p ng-if="vm.loginError">
         {{vm.errorMessage}}
       </p>
     </form>
   </div>
 
-<!-- ============== REGISTER FORM ================= -->
+  <!-- ============== REGISTER FORM ================= -->
   <div ng-if="vm.modalActive" class="modal">
     <div class="box">
       <div class="close" ng-click="vm.modalToggle();">
@@ -36,7 +43,7 @@
           <input type="text" name="username" ng-model="vm.formdata.username" required /><br />
           <strong>PASSWORD:</strong><br />
           <input type="password" name="password" ng-model="vm.formdata.password" required /><br />
-          <input type="submit" ng-disabled="form.$invalid || vm.dataLoading" value="JOIN"/>
+          <input type="submit" ng-disabled="form.$invalid || vm.dataLoading" value="JOIN" />
         </form>
       </div>
     </div>

@@ -123,6 +123,16 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   };
 
 
+  this.logout = function() {
+    $scope.error_msg = null;
+    localStorage.clear('token');
+    // userPersistenceService.clearCookieData('userName');
+    $location.path("/");
+    location.reload();
+
+  };
+
+
 }]);
 
 // Server - set cookies
