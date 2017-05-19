@@ -97,6 +97,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         $rootScope.loggedIn = true;
         $rootScope.currentUser = result.data.user;
         localStorage.setItem('token', JSON.stringify(result.data.token));
+        $window.sessionStorage.setItem('token', JSON.stringify(result.data.token));
+
         $location.path('/dashboard');
       }
     }.bind(this));
@@ -128,6 +130,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     $scope.error_msg = null;
     localStorage.clear('token');
     // userPersistenceService.clearCookieData('userName');
+    $window.sessionStorage.clear('token');
     $location.path("/");
     location.reload();
 
