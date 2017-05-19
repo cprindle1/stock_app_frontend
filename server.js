@@ -1,8 +1,7 @@
 // =============== DEPENDENCIES ================
 var express = require('express');
 var app = express();
-var port = 8000;
-// var port = process.env.PORT || 3001;
+var port = process.env.PORT || 8000;
 
 // =============== MIDDLEWARE ===================
 app.use(express.static('public'));
