@@ -76,7 +76,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     // console.log("username = ", this.username);
     // console.log("pw =", this.username);
     console.log("this.formLogin", this.formLogin);
-    this.URL = 'http://localhost:3000/login';
+    this.URL = 'https://stockerapi.herokuapp.com/login';
     $http({
       method: 'POST',
       url: this.URL,
@@ -103,7 +103,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
     console.log("Register");
     console.log("this.formdata", this.formdata);
-    this.URL = 'http://localhost:3000/users';
+    this.URL = 'https://stockerapi.herokuapp.com/users';
 
     $http({
       method: 'POST',
