@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/jlboba/stock_app_frontend#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.3",
-    "body-parser": "^1.17.1"
+    "express-jwt": "^5.3.0"
   }
 }

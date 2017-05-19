@@ -7,9 +7,10 @@ var port = 8000;
 // =============== MIDDLEWARE ===================
 app.use(express.static('public'));
 
+
 // ============== CONTROLLERS ===================
-var loginController = require('./controllers/logincontroller.js');
-app.use('/login', loginController);
+// var loginController = require('./controllers/logincontroller.js');
+// app.use('/login', loginController);
 
 // =============== LISTENER =====================
 app.listen(port, function() {
