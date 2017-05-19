@@ -75,6 +75,31 @@ body {
   font-size: 12px;
   font-style: italic; }
 
+.register {
+  width: 100%;
+  text-align: center; }
+  .register h1 {
+    width: 100%;
+    font-size: 30px;
+    text-align: center; }
+  .register h1:after {
+    content: "";
+    background: #57BC90;
+    width: 30%;
+    height: 1px;
+    left: 35%;
+    margin-top: 5px;
+    position: relative;
+    display: block; }
+  .register form {
+    margin: 10px 37%;
+    position: relative;
+    width: 30%; }
+  .register input {
+    margin: 5px; }
+  .register input[type="submit"] {
+    width: 140px; }
+
 /* =============== TICKER ================= */
 .ticker {
   width: 100%;

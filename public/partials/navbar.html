@@ -4,8 +4,8 @@
 
   <!-- ================= NAV LINKS ================= -->
   <ul>
-    <li><a href="#!/dashboard" ng-if="vm.loggedIn && !vm.loginForm">dashboard</a></li>
-    <li><a href="#!/register" ng-if="!vm.loginForm">register</a></li>
+    <li><a href="#!/dashboard" ng-if="!vm.loginForm">dashboard</a></li>
+    <li><a ng-click="vm.modalToggle()" ng-if="!vm.loginForm">register</a></li>
     <li><a ng-click="vm.showLogin()" ng-if="!vm.loginForm">login</a></li>
   </ul>
 
@@ -19,5 +19,26 @@
         {{vm.errorMessage}}
       </p>
     </form>
+  </div>
+
+<!-- ============== REGISTER FORM ================= -->
+  <div ng-if="vm.modalActive" class="modal">
+    <div class="box">
+      <div class="close" ng-click="vm.modalToggle();">
+        <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+      </div>
+      <div class="register">
+        <h1>REGISTER</h1>
+        <form ng-submit="vm.register()">
+          <strong>DISPLAY NAME:</strong><br />
+          <input type="text" name="name" ng-model="vm.formdata.name" required /><br />
+          <strong>USERNAME:</strong><br />
+          <input type="text" name="username" ng-model="vm.formdata.username" required /><br />
+          <strong>PASSWORD:</strong><br />
+          <input type="password" name="password" ng-model="vm.formdata.password" required /><br />
+          <input type="submit" ng-disabled="form.$invalid || vm.dataLoading" value="JOIN"/>
+        </form>
+      </div>
+    </div>
   </div>
 </div>

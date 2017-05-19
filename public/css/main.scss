@@ -97,6 +97,36 @@ body {
     font-style: italic;
   }
 }
+.register {
+  width: 100%;
+  text-align: center;
+  h1 {
+    width: 100%;
+    font-size: 30px;
+    text-align: center;
+  }
+  h1:after {
+    content: "";
+    background: $marine;
+    width: 30%;
+    height: 1px;
+    left: 35%;
+    margin-top: 5px;
+    position: relative;
+    display: block;
+  }
+  form {
+    margin: 10px 37%;
+    position: relative;
+    width: 30%;
+  }
+  input {
+    margin: 5px;
+  }
+  input[type="submit"]{
+    width: 140px;
+  }
+}
 /* =============== TICKER ================= */
 .ticker {
   width: 100%;
