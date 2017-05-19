@@ -6,7 +6,6 @@ var port = process.env.PORT || 8000;
 // =============== MIDDLEWARE ===================
 app.use(express.static('public'));
 
-
 // ============== CONTROLLERS ===================
 // var loginController = require('./controllers/logincontroller.js');
 // app.use('/login', loginController);

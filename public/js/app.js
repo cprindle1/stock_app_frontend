@@ -76,7 +76,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     // userPersistenceService.clearCookieData('userName');
 
     console.log("this.formLogin", this.formLogin);
-    this.URL = 'https://stockerapi.herokuapp.com/login';
+    // this.URL = 'https://stockerapi.herokuapp.com/login';
+    this.URL = 'http://localhost:3000/login'
     $http({
       method: 'POST',
       url: this.URL,
@@ -106,8 +107,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
     console.log("Register");
     console.log("this.formdata", this.formdata);
-    this.URL = 'https://stockerapi.herokuapp.com/users';
-
+    // this.URL = 'https://stockerapi.herokuapp.com/users';
+    this.URL = 'http://localhost:3000/users'
     $http({
       method: 'POST',
       url: this.URL,

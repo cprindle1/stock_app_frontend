@@ -23,7 +23,7 @@ body {
 /* ================ NAVBAR ================= */
 .navbar {
   width: 100%;
-  height: 55px;
+  height: 65px;
   border-top: 3px solid $light-green;
   background: whitesmoke;
   display: flex;
@@ -33,9 +33,13 @@ body {
     margin-top: 15px;
     margin-left: 2%;
     display: inline-block;
+    font-size: 28px;
     a {
       color: #444;
       text-decoration: none;
+    }
+    strong {
+      color: $marine;
     }
   }
   a:hover {
@@ -45,7 +49,7 @@ body {
     display: inline-block;
     list-style-type: none;
     width: 40%;
-    margin-top: 18px;
+    margin-top: 22px;
     margin-right: 2%;
     text-align: right;
   }
@@ -53,7 +57,7 @@ body {
     display: inline-block;
     a {
       color: $blue;
-      font-size: 13px;
+      font-size: 15px;
       text-decoration: none;
       text-transform: uppercase;
       font-weight: 800;
@@ -66,7 +70,6 @@ body {
   }
   div {
     margin-right: 2%;
-    margin-top: 1%;
     input {
       padding: 8px;
       border: 1px solid #e9e9e9;
@@ -91,6 +94,7 @@ body {
   }
 }
 .login {
+  margin-top: 15px;
   p {
     color: $red;
     text-transform: uppercase;
