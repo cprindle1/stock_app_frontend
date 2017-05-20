@@ -70,7 +70,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   }
 
 
-  // Testing....
+  // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
     console.log(' each 1 second...');
   }
@@ -106,10 +106,15 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         localStorage.setItem('token', JSON.stringify(result.data.token));
         $window.sessionStorage.setItem('token', JSON.stringify(result.data.token));
 
+        // user stocks
+        // get stocks from rails server.  this is just user's stocks
+        // not a current market price
+        console.log("User stocks", result.data.userstocks);
+
         // testing... to refresh all stocks
         myVar = setInterval(function() {
           myTimer()
-        }, 10000);
+        }, 20000);
 
         $location.path('/dashboard');
       }
