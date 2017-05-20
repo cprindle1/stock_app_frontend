@@ -48,6 +48,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var vm = this;
   this.token = null;
   var myVar = null;
+  this.URL = 'http://localhost:3000/'
 
   // DECLARING USER VARIABLES
   this.currentUser = {};
@@ -84,10 +85,11 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
     console.log("this.formLogin", this.formLogin);
     // this.URL = 'https://stockerapi.herokuapp.com/login';
-    this.URL = 'http://localhost:3000/login'
+    // this.URL = 'http://localhost:3000/login'
+    var URL = this.URL + 'login'
     $http({
       method: 'POST',
-      url: this.URL,
+      url: URL,
       data: this.formLogin
     }).then(function(result) {
       console.log("Data from server: ", result.data);
@@ -127,10 +129,11 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     console.log("Register");
     console.log("this.formdata", this.formdata);
     // this.URL = 'https://stockerapi.herokuapp.com/users';
-    this.URL = 'http://localhost:3000/users'
+    // this.URL = 'http://localhost:3000/users'
+    var URL = this.URL + 'users'
     $http({
       method: 'POST',
-      url: this.URL,
+      url: URL,
       data: this.formdata
     }).then(function(result) {
       console.log("Data from server: ", result);
@@ -151,6 +154,26 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     clearInterval(myVar);
     $location.path("/");
     location.reload();
+
+  };
+
+  // search stock
+  this.searchStock = function() {
+    console.log("this.stocksearch", this.stocksearch);
+    $rootScope.stockSearchResult = null;
+    var URL = this.URL + 'search_stocks'
+    $http({
+      method: 'POST',
+      url: URL,
+      data: this.stocksearch
+    }).then(function(result) {
+      $scope.error_msg = null
+      $rootScope.stockSearchResult = result.data;
+      if (!result.data) {
+        $scope.error_msg = "No Record Found";
+      }
+
+    }.bind(this));
 
   };
 
