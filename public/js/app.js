@@ -95,10 +95,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       console.log("Data from server: ", result.data);
       if (result.data.error) {
         this.loginError = true;
-        // dont need this.. error will send from backend.
-        // if (result.data.error === 'No User ') {
-        //   result.data.error = "wrong username";
-        // }
         this.errorMessage = result.data.error;
       } else {
 
@@ -112,6 +108,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         // get stocks from rails server.  this is just user's stocks
         // not a current market price
         console.log("User stocks", result.data.userstocks);
+        $rootScope.myStocks = result.data.userstocks;
+
 
         // testing... to refresh all stocks
         myVar = setInterval(function() {

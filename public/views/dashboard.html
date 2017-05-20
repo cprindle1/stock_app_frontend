@@ -63,7 +63,12 @@
           </div>
         </div>
         <div class="stock-container">
-          <div class="stock">
+          <div ng-repeat="stock in myStocks">
+            <div class="stock">
+              <strong ng-click="vm.modalToggle();">{{stock.symbol}}    {{stock.price | currency }}</strong>
+            </div>
+          </div>
+          <!-- <div class="stock">
             <strong ng-click="vm.modalToggle();">SYMBL</strong>
           </div>
           <div class="stock">
@@ -77,7 +82,7 @@
           </div>
           <div class="stock">
             <strong>SYMBL</strong>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
