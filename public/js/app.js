@@ -47,6 +47,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // DECLARING CONTROLLER VARIABLES
   var vm = this;
   this.token = null;
+  var myVar = null;
 
   // DECLARING USER VARIABLES
   this.currentUser = {};
@@ -68,6 +69,12 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     this.modalActive = !this.modalActive;
   }
 
+
+  // Testing....
+  function myTimer() {
+    console.log(' each 1 second...');
+  }
+  // ----
   // SENDS LOGIN REQUEST TO API
   this.submit = function() {
     $scope.error_msg = null;
@@ -98,6 +105,11 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         $rootScope.currentUser = result.data.user;
         localStorage.setItem('token', JSON.stringify(result.data.token));
         $window.sessionStorage.setItem('token', JSON.stringify(result.data.token));
+
+        // testing... to refresh all stocks
+        myVar = setInterval(function() {
+          myTimer()
+        }, 10000);
 
         $location.path('/dashboard');
       }
@@ -131,6 +143,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     localStorage.clear('token');
     // userPersistenceService.clearCookieData('userName');
     $window.sessionStorage.clear('token');
+    clearInterval(myVar);
     $location.path("/");
     location.reload();
 
