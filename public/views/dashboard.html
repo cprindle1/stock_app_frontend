@@ -89,6 +89,7 @@
     <!-- ================= CHART MODAL ================ -->
     <div class="card chart">
       <h3>THE STOCKS</h3>
+      <!-- ====== SEARCH FORM ====== -->
       <div class="input-container">
         <form ng-submit="vm.searchStock()">
           <input type="text" ng-model="vm.stocksearch.stock" placeholder="SEARCH FOR A STOCK..." required/>
@@ -96,6 +97,11 @@
         </form>
       </div>
       <div class="search-stock-container">
+        <!-- ====== NO CURRENT SEARCH ====== -->
+        <div class="search-none" ng-hide="stockSearchResult">
+          SEARCH TO VIEW A STOCK'S INFORMATION
+        </div>
+        <!-- ====== SEARCH RESULTS ====== -->
         <div class="search-stock-info" ng-hide="!stockSearchResult">
           <h3>{{stockSearchResult.name}} ({{vm.stocksearch.stock}})</h3>
           <table>
