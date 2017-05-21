@@ -29,6 +29,9 @@ input[type="text"]:focus, input[type="password"]:focus {
   border: 1px solid $light-green;
   outline: none;
 }
+input[type="submit"]:hover {
+  cursor: pointer;
+}
 
 /* ================ NAVBAR ================= */
 .navbar {
@@ -107,7 +110,10 @@ input[type="text"]:focus, input[type="password"]:focus {
 }
 .register {
   width: 100%;
+  display: flex;
   text-align: center;
+  align-items: center;
+  flex-direction: column;
   h1 {
     width: 100%;
     font-size: 30px;
@@ -124,15 +130,15 @@ input[type="text"]:focus, input[type="password"]:focus {
     display: block;
   }
   form {
-    margin: 10px 37%;
-    position: relative;
-    width: 30%;
+    margin: 10px auto;
   }
   input {
     margin: 5px;
   }
   input[type="submit"]{
     width: 140px;
+    background: $blue;
+    color: white;
   }
 }
 /* =============== TICKER ================= */
@@ -316,6 +322,7 @@ input[type="text"]:focus, input[type="password"]:focus {
     :hover {
       background: $blue;
       color: #f9f9f9;
+      cursor: pointer;
       transition: 0.5s ease-in;
       -moz-transition: 0.5s ease-in;
       -o-transition: 0.5s ease-in;
@@ -329,9 +336,12 @@ input[type="text"]:focus, input[type="password"]:focus {
     padding: 7px;
     box-sizing: border-box;
     background: #eee;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
   }
 }
-/* dashboard stock modal */
+/* modals */
 .modal {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -341,7 +351,7 @@ input[type="text"]:focus, input[type="password"]:focus {
   width: 100%;
   z-index: 1;
   overflow: auto;
-  .box {
+  .stock-box {
     border-top: 3px solid $light-green;
     margin: 150px auto;
     padding: 10px;
@@ -349,6 +359,33 @@ input[type="text"]:focus, input[type="password"]:focus {
     height: 400px;
     background: lighten($light-gray, 1%);
     box-sizing: border-box;
+  }
+  .register-box {
+    border-top: 3px solid $light-green;
+    margin: 150px auto;
+    padding: 10px;
+    width: 35%;
+    height: 400px;
+    background: lighten($light-gray, 1%);
+    box-sizing: border-box;
+  }
+  .deactivate-box {
+    border-top: 3px solid $light-green;
+    margin: 150px auto;
+    padding: 10px;
+    width: 35%;
+    height: 200px;
+    background: lighten($light-gray, 1%);
+    box-sizing: border-box;
+    .deact {
+      text-align: center;
+      input[type="submit"] {
+        background: $blue;
+        color: white;
+        text-transform: uppercase;
+        margin-top: 10px;
+      }
+    }
   }
   .close {
     top: 0;

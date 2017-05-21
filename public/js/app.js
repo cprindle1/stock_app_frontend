@@ -51,27 +51,58 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.URL = 'http://localhost:3000/'
 
   // DECLARING TOGGLE VARIABLES
+  this.registerModal = false;
+  this.watchedModal = false;
+  this.boughtModal = false;
+  this.editModal = false;
+  this.deleteModal = false;
   this.loginError = false;
   this.errorMessage = '';
   this.loginForm = false;
   this.registerForm = false;
-  this.modalActive = false;
   this.buyingShares = false;
+  this.stockFilter = 'bought';
 
   // SHOWS LOGIN FORM
   this.showLogin = function() {
     this.loginForm = true;
   }
 
-  // ACTIVATES MODAL
-  this.modalToggle = function() {
-    this.modalActive = !this.modalActive;
+  // ACTIVATES MODALS
+  this.modalToggle = function(modal) {
+    switch(modal) {
+      case 'register':
+        this.registerModal = !this.registerModal;
+        break;
+      case 'boughtStock':
+        this.boughtModal = !this.boughtModal;
+        break;
+      case 'watchedStock':
+        this.watchedModal = !this.watchedModal;
+        break;
+      case 'editUser':
+        this.editModal = !this.editModal;
+        break;
+      case 'deleteUser':
+        this.deleteModal = !this.deleteModal;
+        break;
+    }
   }
 
   // SHOWS BUYING SHARE FORM
   this.buyShareToggle = function() {
     this.buyingShares = !this.buyingShares;
   }
+
+  // FILTERS BETWEEN BOUGHT AND WATCHED STOCKS
+  this.filterStocks = function(status) {
+    if(status === 'bought') {
+      this.stockFilter = 'bought';
+    } else {
+        this.stockFilter = 'watched';
+    }
+  }
+
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
