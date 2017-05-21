@@ -51,11 +51,15 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.URL = 'http://localhost:3000/'
 
   // DECLARING TOGGLE VARIABLES
+  this.registerModal = false;
+  this.watchedModal = false;
+  this.boughtModal = false;
+  this.editModal = false;
+  this.deleteModal = false;
   this.loginError = false;
   this.errorMessage = '';
   this.loginForm = false;
   this.registerForm = false;
-  this.modalActive = false;
   this.buyingShares = false;
   this.stockFilter = 'bought';
 
@@ -78,6 +82,9 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         break;
       case 'editUser':
         this.editModal = !this.editModal;
+        break;
+      case 'deleteUser':
+        this.deleteModal = !this.deleteModal;
         break;
     }
   }

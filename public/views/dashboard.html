@@ -45,8 +45,8 @@
           <div class="btn" ng-click="vm.modalToggle('editUser');">
             edit account
           </div>
-          <div class="btn">
-            delete account
+          <div class="btn" ng-click="vm.modalToggle('deleteUser');">
+            deactivate
           </div>
         </div>
       </div>
@@ -168,6 +168,21 @@
           <strong>PASSWORD:</strong><br />
           <input type="password"/><br />
           <input type="submit" value="EDIT" />
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- ========= DEACTIVATE ACCOUNT MODAL ========= -->
+  <div ng-if="vm.deleteModal" class="modal">
+    <div class="deactivate-box">
+      <div class="close" ng-click="vm.modalToggle('deleteUser');">
+        <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+      </div>
+      <div class="deact">
+        <h1>ARE YOU SURE?</h1>
+        Deactivating your account will... (?)
+        <form>
+          <input type="submit" value="deactivate account"/>
         </form>
       </div>
     </div>
