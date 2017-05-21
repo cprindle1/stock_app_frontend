@@ -190,7 +190,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     $location.path("/");
   };
 
-  // search stock
+  // SEARCHES FOR A STOCK
   this.searchStock = function() {
     console.log("this.stocksearch", this.stocksearch);
     $rootScope.stockSearchResult = null;
@@ -203,8 +203,29 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       $scope.error_msg = null
       $rootScope.stockSearchResult = result.data;
       console.log(result.data);
+      // DRAWS THE CHART
+      var ctx = document.querySelector('#stock-chart');
+      var chartData = {
+        labels: ["Current", "Fr. 50 Day Moving Avg", "Fr. 200 Day Moving Avg", "Fr. Year High", "Fr. Year Low"],
+        datasets: [
+          {
+            backgroundColor: 'rgba(2, 102, 112, 0.5)',
+            data: [result.data.change, result.data.change_from_fiftyday_moving_average, result.data.change_from_two_hundredday_moving_average, result.data.change_from_year_high, result.data.change_from_year_low]
+          }
+        ]
+      }
+      var stockChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: {
+          legend: {
+            display: false
+          }
+        }
+      });
+      // IF INCORRECT STOCK
       if (!result.data) {
-        $scope.error_msg = "No Record Found";
+        $scope.error_msg = "No Records found";
       }
 
     }.bind(this));
