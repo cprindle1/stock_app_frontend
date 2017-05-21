@@ -47,7 +47,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // DECLARING CONTROLLER VARIABLES
   var vm = this;
   this.token = null;
-  var myVar = null;
+  var refreshIntervalId = null;
   this.URL = 'http://localhost:3000/'
 
   // DECLARING TOGGLE VARIABLES
@@ -69,7 +69,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   }
 
   // SHOWS BUYING SHARE FORM
-  this.buyShareToggle = function(){
+  this.buyShareToggle = function() {
     this.buyingShares = !this.buyingShares;
   }
 
@@ -115,7 +115,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
 
         // testing... to refresh all stocks
-        myVar = setInterval(function() {
+        refreshIntervalId = setInterval(function() {
           myTimer()
         }, 20000);
 
@@ -148,11 +148,14 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // SENDS LOGOUT REQUEST
   this.logout = function() {
+    console.log("Logout.......", refreshIntervalId);
+    clearInterval(refreshIntervalId);
+    console.log('Success');
+    $rootScope.currentUser = null;
     $scope.error_msg = null;
     localStorage.clear('token');
     // userPersistenceService.clearCookieData('userName');
     $window.sessionStorage.clear('token');
-    clearInterval(myVar);
     $location.path("/");
   };
 
@@ -168,6 +171,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }).then(function(result) {
       $scope.error_msg = null
       $rootScope.stockSearchResult = result.data;
+      console.log(result.data);
       if (!result.data) {
         $scope.error_msg = "No Record Found";
       }
