@@ -85,7 +85,10 @@ input[type="text"]:focus, input[type="password"]:focus {
 
 .register {
   width: 100%;
-  text-align: center; }
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column; }
   .register h1 {
     width: 100%;
     font-size: 30px;
@@ -100,9 +103,7 @@ input[type="text"]:focus, input[type="password"]:focus {
     position: relative;
     display: block; }
   .register form {
-    margin: 10px 37%;
-    position: relative;
-    width: 30%; }
+    margin: 10px auto; }
   .register input {
     margin: 5px; }
   .register input[type="submit"] {
@@ -282,7 +283,7 @@ input[type="text"]:focus, input[type="password"]:focus {
     justify-content: space-between;
     text-transform: uppercase; }
 
-/* dashboard stock modal */
+/* modals */
 .modal {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -292,11 +293,19 @@ input[type="text"]:focus, input[type="password"]:focus {
   width: 100%;
   z-index: 1;
   overflow: auto; }
-  .modal .box {
+  .modal .stock-box {
     border-top: 3px solid #CAD04A;
     margin: 150px auto;
     padding: 10px;
     width: 70%;
+    height: 400px;
+    background: #e6e9ea;
+    box-sizing: border-box; }
+  .modal .register-box {
+    border-top: 3px solid #CAD04A;
+    margin: 150px auto;
+    padding: 10px;
+    width: 35%;
     height: 400px;
     background: #e6e9ea;
     box-sizing: border-box; }
