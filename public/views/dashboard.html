@@ -96,6 +96,7 @@
         <div ng-hide="!error_msg" class="search-none">
           {{error_msg}}
         </div>
+        <!-- ====== STOCK STATS ====== -->
         <div class="search-stock-info" ng-hide="!stockSearchResult">
           <h3>{{stockSearchResult.name}} ({{stockSearchResult.symbol}})</h3>
           <table>
@@ -139,6 +140,11 @@
           <div class="stock-btn">
             WATCH STOCK
           </div>
+        </div>
+        <!-- ====== STOCK CHART ======= -->
+        <div class="search-stock-chart" ng-hide="!stockSearchResult">
+          <h3>{{stockSearchResult.symbol}}'S PRICE CHANGE (%)</h3>
+          <canvas id="stock-chart" width="100%" height="50%"></canvas>
         </div>
       </div>
     </div>
