@@ -134,6 +134,8 @@ input[type="text"]:focus, input[type="password"]:focus {
   }
   input[type="submit"]{
     width: 140px;
+    background: $blue;
+    color: white;
   }
 }
 /* =============== TICKER ================= */

@@ -64,9 +64,22 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     this.loginForm = true;
   }
 
-  // ACTIVATES MODAL
-  this.modalToggle = function() {
-    this.modalActive = !this.modalActive;
+  // ACTIVATES MODALS
+  this.modalToggle = function(modal) {
+    switch(modal) {
+      case 'register':
+        this.registerModal = !this.registerModal;
+        break;
+      case 'boughtStock':
+        this.boughtModal = !this.boughtModal;
+        break;
+      case 'watchedStock':
+        this.watchedModal = !this.watchedModal;
+        break;
+      case 'editUser':
+        this.editModal = !this.editModal;
+        break;
+    }
   }
 
   // SHOWS BUYING SHARE FORM
