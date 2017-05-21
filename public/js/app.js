@@ -47,6 +47,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // DECLARING CONTROLLER VARIABLES
   var vm = this;
   this.token = null;
+  var myVar = null;
+  this.URL = 'http://localhost:3000/'
 
   // DECLARING TOGGLE VARIABLES
   this.loginError = false;
@@ -71,6 +73,12 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     this.buyingShares = !this.buyingShares;
   }
 
+  // Testing.... this will go to backend to get data market price for stock
+  function myTimer() {
+    console.log(' each 1 second...');
+  }
+  // ----
+
   // SENDS LOGIN REQUEST TO API
   this.submit = function() {
     $scope.error_msg = null;
@@ -80,19 +88,16 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
     console.log("this.formLogin", this.formLogin);
     // this.URL = 'https://stockerapi.herokuapp.com/login';
-    this.URL = 'http://localhost:3000/login'
+    // this.URL = 'http://localhost:3000/login'
+    var URL = this.URL + 'login'
     $http({
       method: 'POST',
-      url: this.URL,
+      url: URL,
       data: this.formLogin
     }).then(function(result) {
       console.log("Data from server: ", result.data);
       if (result.data.error) {
         this.loginError = true;
-        // dont need this.. error will send from backend.
-        // if (result.data.error === 'No User ') {
-        //   result.data.error = "wrong username";
-        // }
         this.errorMessage = result.data.error;
       } else {
 
@@ -100,6 +105,20 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         $rootScope.loggedIn = true;
         $rootScope.currentUser = result.data.user;
         localStorage.setItem('token', JSON.stringify(result.data.token));
+        $window.sessionStorage.setItem('token', JSON.stringify(result.data.token));
+
+        // user stocks
+        // get stocks from rails server.  this is just user's stocks
+        // not a current market price
+        console.log("User stocks", result.data.userstocks);
+        $rootScope.myStocks = result.data.userstocks;
+
+
+        // testing... to refresh all stocks
+        myVar = setInterval(function() {
+          myTimer()
+        }, 20000);
+
         $location.path('/dashboard');
       }
     }.bind(this));
@@ -111,10 +130,11 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     console.log("Register");
     console.log("this.formdata", this.formdata);
     // this.URL = 'https://stockerapi.herokuapp.com/users';
-    this.URL = 'http://localhost:3000/users'
+    // this.URL = 'http://localhost:3000/users'
+    var URL = this.URL + 'users'
     $http({
       method: 'POST',
-      url: this.URL,
+      url: URL,
       data: this.formdata
     }).then(function(result) {
       console.log("Data from server: ", result);
@@ -131,8 +151,29 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     $scope.error_msg = null;
     localStorage.clear('token');
     // userPersistenceService.clearCookieData('userName');
-    $rootScope.currentUser = false;
+    $window.sessionStorage.clear('token');
+    clearInterval(myVar);
     $location.path("/");
+  };
+
+  // search stock
+  this.searchStock = function() {
+    console.log("this.stocksearch", this.stocksearch);
+    $rootScope.stockSearchResult = null;
+    var URL = this.URL + 'search_stocks'
+    $http({
+      method: 'POST',
+      url: URL,
+      data: this.stocksearch
+    }).then(function(result) {
+      $scope.error_msg = null
+      $rootScope.stockSearchResult = result.data;
+      if (!result.data) {
+        $scope.error_msg = "No Record Found";
+      }
+
+    }.bind(this));
+
   };
 
 

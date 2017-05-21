@@ -9,7 +9,7 @@
   <h1>WELCOME, {{currentUser.name}}</h1>
 
   <div class="card-container">
-<!-- =================== PORTFOLIO ================= -->
+    <!-- =================== PORTFOLIO ================= -->
     <div class="column">
       <div class="card user-portfolio">
         <h3>YOUR PORTFOLIO</h3>
@@ -51,7 +51,7 @@
         </div>
       </div>
 
-<!-- =================== STOCKS =================== -->
+      <!-- =================== STOCKS =================== -->
       <div class="card user-stocks">
         <h3>YOUR STOCKS</h3>
         <div class="row">
@@ -63,7 +63,12 @@
           </div>
         </div>
         <div class="stock-container">
-          <div class="stock">
+          <div ng-repeat="stock in myStocks">
+            <div class="stock">
+              <strong ng-click="vm.modalToggle();">{{stock.symbol}}    {{stock.price | currency }}</strong>
+            </div>
+          </div>
+          <!-- <div class="stock">
             <strong ng-click="vm.modalToggle();">SYMBL</strong>
           </div>
           <div class="stock">
@@ -77,12 +82,13 @@
           </div>
           <div class="stock">
             <strong>SYMBL</strong>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
-<!-- ================= CHART MODAL ================ -->
+    <!-- ================= CHART MODAL ================ -->
     <div class="card chart">
+<<<<<<< HEAD
       <h3>THE STOCKS</h3>
       <div class="input-container">
         <form>
@@ -131,10 +137,42 @@
           </div>
         </div>
       </div>
+=======
+      chart js? or something else
+
+      <div>
+        <h3>Search for Stocks</h3>
+        <div class="form-group row no-padding text-center col-md-12">
+          <form ng-submit="vm.searchStock()">
+            <div class="col-md-10">
+              <input type="text" ng-model="vm.stocksearch.stock" placeholder="Stock ticker symbol" required />
+            </div>
+            <div class="col-md-2">
+              <button type="submit">
+                <i class="fa fa-search"> Look up a stock </i>
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+        <div ng-hide="!stockSearchResult">
+          {{stockSearchResult.name}}
+        </div>
+        <div ng-show="error_msg">
+          {{error_msg}}
+        </div>
+
+
+
+      </div>
+
+>>>>>>> 9166b54f4b5157466372e310917bcdd873067e91
     </div>
 
   </div>
-<!-- ================= STOCK MODAL ================ -->
+  <!-- ================= STOCK MODAL ================ -->
   <div ng-if="vm.modalActive" class="modal">
     <div class="box">
       <div class="close" ng-click="vm.modalToggle();">
