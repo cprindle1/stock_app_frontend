@@ -23,7 +23,7 @@
           <div class="stats">
             <h4>GAINED $</h4>
             <p>
-              $100.00
+              {{currentUser.money - 10000 | currency}}
             </p>
           </div>
         </div>
@@ -55,44 +55,24 @@
       <div class="card user-stocks">
         <h3>YOUR STOCKS</h3>
         <div class="row">
-          <div class="btn">
+          <div class="btn" ng-click="vm.filterStocks('bought')">
             bought
           </div>
-          <div class="btn">
+          <div class="btn" ng-click="vm.filterStocks('watched')">
             watched
           </div>
         </div>
-        <div class="stock-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Stock</th>
-                <th>Qty</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody ng-repeat="stock in myStocks" ng-if='stock.watched == false'>
-              <strong ng-click="vm.modalToggle();">
-              <tr>
-
-                <td>{{stock.symbol}} </td>
-                <td>{{stock.qty}} </td>
-                <td>{{stock.price}} </td>
-
-
-              </tr>
-              </strong>
-
-            </tbody>
-
-          </table>
-
-          <!-- <div ng-repeat="stock in myStocks">
-            <div class="stock"><strong ng-click="vm.modalToggle();">
-              {{stock.symbol}}    {{stock.price | currency }}</strong>
-            </div>
-          </div> -->
-
+        <!-- ========== BOUGHT STOCKS ============ -->
+        <div class="stock-container" ng-repeat="stock in myStocks" ng-if="vm.stockFilter === 'bought'">
+          <div class="stock" ng-click="vm.modalToggle();" ng-if="stock.watched === false">
+            <strong>{{stock.symbol}}</strong> <span>shares: {{stock.qty}}</span>
+          </div>
+        </div>
+        <!-- ========== WATCHED STOCKS ============ -->
+        <div class="stock-container" ng-repeat="stock in myStocks" ng-if="vm.stockFilter === 'watched'">
+          <div class="stock" ng-click="vm.modalToggle();" ng-if="stock.watched === true">
+            <strong>{{stock.symbol}}</strong>
+          </div>
         </div>
       </div>
     </div>

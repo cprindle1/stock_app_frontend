@@ -316,6 +316,7 @@ input[type="text"]:focus, input[type="password"]:focus {
     :hover {
       background: $blue;
       color: #f9f9f9;
+      cursor: pointer;
       transition: 0.5s ease-in;
       -moz-transition: 0.5s ease-in;
       -o-transition: 0.5s ease-in;
@@ -329,6 +330,9 @@ input[type="text"]:focus, input[type="password"]:focus {
     padding: 7px;
     box-sizing: border-box;
     background: #eee;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
   }
 }
 /* dashboard stock modal */

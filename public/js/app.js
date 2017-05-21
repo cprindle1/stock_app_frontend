@@ -57,6 +57,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.registerForm = false;
   this.modalActive = false;
   this.buyingShares = false;
+  this.stockFilter = 'bought';
 
   // SHOWS LOGIN FORM
   this.showLogin = function() {
@@ -72,6 +73,16 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.buyShareToggle = function() {
     this.buyingShares = !this.buyingShares;
   }
+
+  // FILTERS BETWEEN BOUGHT AND WATCHED STOCKS
+  this.filterStocks = function(status) {
+    if(status === 'bought') {
+      this.stockFilter = 'bought';
+    } else {
+        this.stockFilter = 'watched';
+    }
+  }
+
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
