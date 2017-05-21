@@ -338,7 +338,8 @@ input[type="text"]:focus, input[type="password"]:focus {
     color: #777b80;
     display: flex;
     justify-content: center;
-    align-items: center; }
+    align-items: center;
+    text-transform: uppercase; }
   .chart .search-stock-info {
     width: 230px;
     height: 100%;

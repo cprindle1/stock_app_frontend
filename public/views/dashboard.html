@@ -108,13 +108,13 @@
       </div>
       <div class="search-stock-container">
         <!-- ====== NO CURRENT SEARCH ====== -->
-        <div class="search-none" ng-hide="stockSearchResult">
-          SEARCH TO VIEW A STOCK'S INFORMATION
+        <div class="search-none" ng-hide="stockSearchResult || error_msg">
+          search to view a stock's information
         </div>
         <!-- ====== SEARCH RESULTS ====== -->
         <!--  should display an error if there is no record found -->
-        <div ng-hide="!error_msg">
-          <strong>{{error_msg}}</strong>
+        <div ng-hide="!error_msg" class="search-none">
+          {{error_msg}}
         </div>
         <div class="search-stock-info" ng-hide="!stockSearchResult">
           <h3>{{stockSearchResult.name}} ({{stockSearchResult.symbol}})</h3>
