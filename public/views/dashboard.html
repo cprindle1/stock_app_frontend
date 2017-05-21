@@ -88,17 +88,16 @@
     </div>
     <!-- ================= CHART MODAL ================ -->
     <div class="card chart">
-<<<<<<< HEAD
       <h3>THE STOCKS</h3>
       <div class="input-container">
-        <form>
-          <input type="text" placeholder="SEARCH FOR A STOCK..." />
+        <form ng-submit="vm.searchStock()">
+          <input type="text" ng-model="vm.stocksearch.stock" placeholder="SEARCH FOR A STOCK..." required/>
           <input type="submit" value="SEARCH"/>
         </form>
       </div>
       <div class="search-stock-container">
-        <div class="search-stock-info">
-          <h3>STOCK NAME (SYMBL)</h3>
+        <div class="search-stock-info" ng-hide="!stockSearchResult">
+          <h3>{{stockSearchResult.name}} ({{vm.stocksearch.stock}})</h3>
           <table>
             <tr>
               <td><strong>stat</strong></td>
@@ -137,38 +136,6 @@
           </div>
         </div>
       </div>
-=======
-      chart js? or something else
-
-      <div>
-        <h3>Search for Stocks</h3>
-        <div class="form-group row no-padding text-center col-md-12">
-          <form ng-submit="vm.searchStock()">
-            <div class="col-md-10">
-              <input type="text" ng-model="vm.stocksearch.stock" placeholder="Stock ticker symbol" required />
-            </div>
-            <div class="col-md-2">
-              <button type="submit">
-                <i class="fa fa-search"> Look up a stock </i>
-              </button>
-            </div>
-
-          </form>
-
-        </div>
-
-        <div ng-hide="!stockSearchResult">
-          {{stockSearchResult.name}}
-        </div>
-        <div ng-show="error_msg">
-          {{error_msg}}
-        </div>
-
-
-
-      </div>
-
->>>>>>> 9166b54f4b5157466372e310917bcdd873067e91
     </div>
 
   </div>
