@@ -63,26 +63,36 @@
           </div>
         </div>
         <div class="stock-container">
-          <div ng-repeat="stock in myStocks">
-            <div class="stock">
-              <strong ng-click="vm.modalToggle();">{{stock.symbol}}    {{stock.price | currency }}</strong>
+          <table>
+            <thead>
+              <tr>
+                <th>Stock</th>
+                <th>Qty</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody ng-repeat="stock in myStocks" ng-if='stock.watched == false'>
+              <strong ng-click="vm.modalToggle();">
+              <tr>
+
+                <td>{{stock.symbol}} </td>
+                <td>{{stock.qty}} </td>
+                <td>{{stock.price}} </td>
+
+
+              </tr>
+              </strong>
+
+            </tbody>
+
+          </table>
+
+          <!-- <div ng-repeat="stock in myStocks">
+            <div class="stock"><strong ng-click="vm.modalToggle();">
+              {{stock.symbol}}    {{stock.price | currency }}</strong>
             </div>
-          </div>
-          <!-- <div class="stock">
-            <strong ng-click="vm.modalToggle();">SYMBL</strong>
-          </div>
-          <div class="stock">
-            <strong>SYMBL</strong>
-          </div>
-          <div class="stock">
-            <strong>SYMBL</strong>
-          </div>
-          <div class="stock">
-            <strong>SYMBL</strong>
-          </div>
-          <div class="stock">
-            <strong>SYMBL</strong>
           </div> -->
+
         </div>
       </div>
     </div>
@@ -92,36 +102,45 @@
       <div class="input-container">
         <form ng-submit="vm.searchStock()">
           <input type="text" ng-model="vm.stocksearch.stock" placeholder="SEARCH FOR A STOCK..." required/>
-          <input type="submit" value="SEARCH"/>
+          <input type="submit" value="SEARCH" />
         </form>
       </div>
       <div class="search-stock-container">
+        <!--  should display an error if there is no record found -->
+        <div ng-hide="!error_msg">
+          <strong>{{error_msg}}</strong>
+        </div>
         <div class="search-stock-info" ng-hide="!stockSearchResult">
-          <h3>{{stockSearchResult.name}} ({{vm.stocksearch.stock}})</h3>
+          <h3>{{stockSearchResult.name}} ({{stockSearchResult.symbol}})</h3>
           <table>
             <tr>
-              <td><strong>stat</strong></td>
-              <td class="stock-stat">statistic info</td>
+              <td><strong>Current Ask:</strong></td>
+              <td class="stock-stat">{{stockSearchResult.ask}}</td>
             </tr>
             <tr>
-              <td><strong>stat</strong></td>
-              <td class="stock-stat">statistic info</td>
+              <td><strong>Current Bid:</strong></td>
+              <td class="stock-stat">{{stockSearchResult.bid}}</td>
             </tr>
             <tr>
-              <td><strong>stat</strong></td>
-              <td class="stock-stat">statistic info</td>
+              <td><strong>Last Trade Price:</strong></td>
+              <td class="stock-stat">{{stockSearchResult.last_trade_price_only}}
+              </td>
             </tr>
             <tr>
-              <td><strong>stat</strong></td>
-              <td class="stock-stat">statistic info</td>
+              <td><strong>Day Range:</strong></td>
+              <td class="stock-stat">{{stockSearchResult.days_range}}</td>
             </tr>
             <tr>
-              <td><strong>stat</strong></td>
-              <td class="stock-stat">statistic info</td>
+              <td><strong>Average Daily Volume:</strong></td>
+              <td class="stock-stat">{{stockSearchResult.average_daily_volume}}</td>
             </tr>
             <tr>
-              <td><strong>stat</strong></td>
-              <td class="stock-stat">statistic info</td>
+              <td><strong>Year High:</strong></td>
+              <td class="stock-stat">{{stockSearchResult.year_high}}</td>
+            </tr>
+            <tr>
+              <td><strong>Year Low</strong></td>
+              <td class="stock-stat">{{stockSearchResult.year_low}}</td>
             </tr>
           </table>
           <div class="stock-btn" ng-click="vm.buyShareToggle();">

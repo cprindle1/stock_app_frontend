@@ -1,5 +1,14 @@
 <div class="ticker">
-  <p>
-      <strong>SYMBL</strong> + 6.26
-  </p>
+  <div ng-repeat="stock in myStocks">
+
+
+    <p>
+
+      <!-- <div class="stock"> -->
+      <strong>{{stock.symbol}} </strong> {{stock.price | currency }}
+      <!-- </div> -->
+
+      <!-- <strong>SYMBL</strong> + 6.26 -->
+    </p>
+  </div>
 </div>
