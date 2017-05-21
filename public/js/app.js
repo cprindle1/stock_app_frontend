@@ -50,15 +50,13 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var myVar = null;
   this.URL = 'http://localhost:3000/'
 
-  // DECLARING USER VARIABLES
-  this.currentUser = {};
-
   // DECLARING TOGGLE VARIABLES
   this.loginError = false;
   this.errorMessage = '';
   this.loginForm = false;
   this.registerForm = false;
   this.modalActive = false;
+  this.buyingShares = false;
 
   // SHOWS LOGIN FORM
   this.showLogin = function() {
@@ -70,12 +68,17 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     this.modalActive = !this.modalActive;
   }
 
+  // SHOWS BUYING SHARE FORM
+  this.buyShareToggle = function(){
+    this.buyingShares = !this.buyingShares;
+  }
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
     console.log(' each 1 second...');
   }
   // ----
+
   // SENDS LOGIN REQUEST TO API
   this.submit = function() {
     $scope.error_msg = null;
@@ -121,7 +124,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }.bind(this));
   };
 
-  // create user ... from register form
+  // SENDS CREATE USER REQUEST TO BACKEND
   this.register = function() {
 
     console.log("Register");
@@ -143,7 +146,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }.bind(this));
   };
 
-
+  // SENDS LOGOUT REQUEST
   this.logout = function() {
     $scope.error_msg = null;
     localStorage.clear('token');
@@ -151,8 +154,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     $window.sessionStorage.clear('token');
     clearInterval(myVar);
     $location.path("/");
-    location.reload();
-
   };
 
   // search stock

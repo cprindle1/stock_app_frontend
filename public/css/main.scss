@@ -19,6 +19,16 @@ body {
   font-size: 13px;
   color: $dark-gray;
 }
+input {
+  padding: 10px;
+  border: 1px solid #e9e9e9;
+  border-radius: 4px;
+  font-family: 'Karla', sans-serif;
+}
+input[type="text"]:focus, input[type="password"]:focus {
+  border: 1px solid $light-green;
+  outline: none;
+}
 
 /* ================ NAVBAR ================= */
 .navbar {
@@ -70,20 +80,13 @@ body {
   }
   div {
     margin-right: 2%;
-    input {
-      padding: 8px;
-      border: 1px solid #e9e9e9;
-      border-radius: 4px;
-      font-family: 'Karla', sans-serif;
-    }
     input[type="submit"] {
       background: $blue;
       border: 0px solid transparent;
       color: #fff;
     }
-    input:focus {
-      border: 1px solid $light-green;
-      outline: none;
+    input[type="submit"]:hover {
+      cursor: pointer;
     }
     input[type="submit"]:focus {
       background: $light-green;
@@ -363,6 +366,89 @@ body {
 .chart {
   width: calc(100% - 270px);
   margin: 25px 25px 25px 0;
-  padding: 10px;
-  box-sizing: border-box;
+  overflow: auto;
+  .input-container {
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+    input[type="text"] {
+      width: 78%;
+    }
+    input[type="submit"] {
+      width: 13%;
+      background: $light-green;
+      color: white;
+    }
+    input[type="submit"]:hover {
+      cursor: pointer;
+    }
+    input[type="submit"]:focus {
+      border: 0px solid transparent;
+      background: $blue;
+    }
+  }
+  .search-stock-container {
+    width: 100%;
+    height: 415px;
+    padding: 19px;
+    box-sizing: border-box;
+  }
+  .search-stock-info {
+    width: 230px;
+    height: 100%;
+    padding: 2px 5px 5px 5px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background: #eee;
+    h3 {
+      text-align: center;
+      text-transform: uppercase;
+    }
+    h3:after {
+      content: '';
+      display: block;
+      width: 20%;
+      height: 1px;
+      margin: 5px auto 3px auto;
+      background: $med-gray;
+    }
+    table {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 5px;
+      strong {
+        color: $green;
+        text-transform: uppercase;
+      }
+    }
+    .stock-stat {
+      text-align: right;
+    }
+    .stock-btn {
+      width: 100%;
+      background: $blue;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-bottom: 5px;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+    .stock-btn:hover {
+      cursor: pointer;
+    }
+    input[type="submit"] {
+      color: white;
+      text-transform: uppercase;
+      background: $light-green;
+    }
+    input[type="submit"]:focus {
+      border: 1px solid transparent;
+      outline: none;
+    }
+    .buy-shares {
+      margin-bottom: 5px;
+      text-align: center;
+    }
+  }
 }
