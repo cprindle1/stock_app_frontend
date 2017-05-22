@@ -34,7 +34,7 @@
         <i class="fa fa-times fa-lg" aria-hidden="true"></i>
       </div>
       <div class="register">
-        <h1>REGISTER</h1>
+        <h1>REGISTER</h1> {{errorMessage}}
         <form ng-submit="vm.register()">
           <strong>DISPLAY NAME:</strong><br />
           <input type="text" name="name" ng-model="vm.formdata.name" required /><br />
