@@ -21,6 +21,9 @@
             </p>
           </div>
           <div class="stats">
+            <div class="info">
+              <i class="fa fa-info-circle" aria-hidden="true" title="relative to the original $10,000 you started with"></i>
+            </div>
             <h4>GAINED $</h4>
             <p>
               {{currentUser.money - 10000 | currency}}
@@ -105,32 +108,40 @@
           <table>
             <tr>
               <td><strong>Current Ask:</strong></td>
-              <td class="stock-stat">{{stockSearchResult.ask | currency}}</td>
+              <td class="stock-stat" ng-if="stockSearchResult.ask">{{stockSearchResult.ask | currency}}</td>
+              <td class="stock-stat" ng-if="!stockSearchResult.ask">N/A</td>
             </tr>
             <tr>
               <td><strong>Current Bid:</strong></td>
-              <td class="stock-stat">{{stockSearchResult.bid | currency}}</td>
+              <td class="stock-stat" ng-if="stockSearchResult.bid">{{stockSearchResult.bid | currency}}</td>
+              <td class="stock-stat" ng-if="!stockSearchResult.bid">N/A</td>
             </tr>
             <tr>
               <td><strong>Last Trade Price:</strong></td>
-              <td class="stock-stat">{{stockSearchResult.last_trade_price_only | currency}}
+              <td class="stock-stat"  ng-if="stockSearchResult.last_trade_price_only">{{stockSearchResult.last_trade_price_only | currency}}
+              </td>
+              <td class="stock-stat"  ng-if="!stockSearchResult.last_trade_price_only">N/A
               </td>
             </tr>
             <tr>
               <td><strong>Day Range:</strong></td>
-              <td class="stock-stat">{{stockSearchResult.days_range}}</td>
+              <td class="stock-stat" ng-if="stockSearchResult.days_range">{{stockSearchResult.days_range}}</td>
+              <td class="stock-stat" ng-if="!stockSearchResult.days_range">N/A</td>
             </tr>
             <tr>
               <td><strong>Avg Daily Vol:</strong></td>
-              <td class="stock-stat">{{stockSearchResult.average_daily_volume | number}}</td>
+              <td class="stock-stat"  ng-if="stockSearchResult.average_daily_volume">{{stockSearchResult.average_daily_volume | number}}</td>
+              <td class="stock-stat"  ng-if="!stockSearchResult.average_daily_volume">N/A</td>
             </tr>
             <tr>
               <td><strong>Year High:</strong></td>
-              <td class="stock-stat">{{stockSearchResult.year_high}}</td>
+              <td class="stock-stat" ng-if="stockSearchResult.year_high">{{stockSearchResult.year_high}}</td>
+              <td class="stock-stat" ng-if="!stockSearchResult.year_high">N/A</td>
             </tr>
             <tr>
               <td><strong>Year Low</strong></td>
-              <td class="stock-stat">{{stockSearchResult.year_low}}</td>
+              <td class="stock-stat" ng-if="stockSearchResult.year_low">{{stockSearchResult.year_low}}</td>
+              <td class="stock-stat" ng-if="!stockSearchResult.year_low">N/A</td>
             </tr>
           </table>
           <div class="stock-btn" ng-click="vm.buyShareToggle();">
@@ -204,33 +215,41 @@
             <h3>CURRENTLY</h3>
             <table>
               <tr>
-                <td><strong>Current Price:</strong></td>
-                <td class="stock-stat">{{vm.automatedStock.ask | currency}}</td>
+                <td><strong>Current Ask:</strong></td>
+                <td class="stock-stat" ng-if="vm.automatedStock.ask">{{vm.automatedStock.ask | currency}}</td>
+                <td class="stock-stat" ng-if="!vm.automatedStock.ask">N/A</td>
               </tr>
               <tr>
                 <td><strong>Current Bid:</strong></td>
-                <td class="stock-stat">{{vm.automatedStock.bid | currency}}</td>
+                <td class="stock-stat" ng-if="vm.automatedStock.bid">{{vm.automatedStock.bid | currency}}</td>
+                <td class="stock-stat" ng-if="!vm.automatedStock.bid">N/A</td>
               </tr>
               <tr>
                 <td><strong>Last Trade Price:</strong></td>
-                <td class="stock-stat">{{vm.automatedStock.last_trade_price_only | currency}}
+                <td class="stock-stat"  ng-if="vm.automatedStock.last_trade_price_only">{{vm.automatedStock.last_trade_price_only | currency}}
+                </td>
+                <td class="stock-stat"  ng-if="!vm.automatedStock.last_trade_price_only">N/A
                 </td>
               </tr>
               <tr>
                 <td><strong>Day Range:</strong></td>
-                <td class="stock-stat">{{vm.automatedStock.days_range}}</td>
+                <td class="stock-stat" ng-if="vm.automatedStock.days_range">{{vm.automatedStock.days_range}}</td>
+                <td class="stock-stat" ng-if="!vm.automatedStock.days_range">N/A</td>
               </tr>
               <tr>
                 <td><strong>Avg Daily Vol:</strong></td>
-                <td class="stock-stat">{{vm.automatedStock.average_daily_volume | number}}</td>
+                <td class="stock-stat"  ng-if="vm.automatedStock.average_daily_volume">{{vm.automatedStock.average_daily_volume | number}}</td>
+                <td class="stock-stat"  ng-if="!vm.automatedStock.average_daily_volume">N/A</td>
               </tr>
               <tr>
                 <td><strong>Year High:</strong></td>
-                <td class="stock-stat">{{vm.automatedStock.year_high}}</td>
+                <td class="stock-stat" ng-if="vm.automatedStock.year_high">{{vm.automatedStock.year_high}}</td>
+                <td class="stock-stat" ng-if="!vm.automatedStock.year_high">N/A</td>
               </tr>
               <tr>
                 <td><strong>Year Low</strong></td>
-                <td class="stock-stat">{{vm.automatedStock.year_low}}</td>
+                <td class="stock-stat" ng-if="vm.automatedStock.year_low">{{vm.automatedStock.year_low}}</td>
+                <td class="stock-stat" ng-if="!vm.automatedStock.year_low">N/A</td>
               </tr>
             </table>
             <div class="btn" ng-click="vm.buyMore();">
@@ -263,37 +282,41 @@
         <div class="box">
           <table>
             <tr>
-              <td><strong>watched price:</strong></td>
-              <td class="stock-stat">{{vm.viewedStock.price | currency}}</td>
-            </tr>
-            <tr>
-              <td><strong>Current Price:</strong></td>
-              <td class="stock-stat">{{vm.automatedStock.ask | currency}}</td>
+              <td><strong>Current Ask:</strong></td>
+              <td class="stock-stat" ng-if="vm.automatedStock.ask">{{vm.automatedStock.ask | currency}}</td>
+              <td class="stock-stat" ng-if="!vm.automatedStock.ask">N/A</td>
             </tr>
             <tr>
               <td><strong>Current Bid:</strong></td>
-              <td class="stock-stat">{{vm.automatedStock.bid | currency}}</td>
+              <td class="stock-stat" ng-if="vm.automatedStock.bid">{{vm.automatedStock.bid | currency}}</td>
+              <td class="stock-stat" ng-if="!vm.automatedStock.bid">N/A</td>
             </tr>
             <tr>
               <td><strong>Last Trade Price:</strong></td>
-              <td class="stock-stat">{{vm.automatedStock.last_trade_price_only | currency}}
+              <td class="stock-stat"  ng-if="vm.automatedStock.last_trade_price_only">{{vm.automatedStock.last_trade_price_only | currency}}
+              </td>
+              <td class="stock-stat"  ng-if="!vm.automatedStock.last_trade_price_only">N/A
               </td>
             </tr>
             <tr>
               <td><strong>Day Range:</strong></td>
-              <td class="stock-stat">{{vm.automatedStock.days_range}}</td>
+              <td class="stock-stat" ng-if="vm.automatedStock.days_range">{{vm.automatedStock.days_range}}</td>
+              <td class="stock-stat" ng-if="!vm.automatedStock.days_range">N/A</td>
             </tr>
             <tr>
               <td><strong>Avg Daily Vol:</strong></td>
-              <td class="stock-stat">{{vm.automatedStock.average_daily_volume | number}}</td>
+              <td class="stock-stat"  ng-if="vm.automatedStock.average_daily_volume">{{vm.automatedStock.average_daily_volume | number}}</td>
+              <td class="stock-stat"  ng-if="!vm.automatedStock.average_daily_volume">N/A</td>
             </tr>
             <tr>
               <td><strong>Year High:</strong></td>
-              <td class="stock-stat">{{vm.automatedStock.year_high}}</td>
+              <td class="stock-stat" ng-if="vm.automatedStock.year_high">{{vm.automatedStock.year_high}}</td>
+              <td class="stock-stat" ng-if="!vm.automatedStock.year_high">N/A</td>
             </tr>
             <tr>
               <td><strong>Year Low</strong></td>
-              <td class="stock-stat">{{vm.automatedStock.year_low}}</td>
+              <td class="stock-stat" ng-if="vm.automatedStock.year_low">{{vm.automatedStock.year_low}}</td>
+              <td class="stock-stat" ng-if="!vm.automatedStock.year_low">N/A</td>
             </tr>
           </table>
           <div class="btn" ng-click="vm.buyMore();">
