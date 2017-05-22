@@ -127,10 +127,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     $scope.error_msg = null;
     $rootScope.loggedIn = false;
     localStorage.clear('token');
-    // userPersistenceService.clearCookieData('userName');
     console.log("this.formLogin", this.formLogin);
-    // this.URL = 'https://stockerapi.herokuapp.com/login';
-    // this.URL = 'http://localhost:3000/login'
     var URL = this.URL + 'login'
     $http({
       method: 'POST',
@@ -390,7 +387,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
-    this.URL = 'http://localhost:3000/'
+    this.URL = 'https://stockerapi.herokuapp.com/'
     var URL = this.URL + 'search_tickers';
     $http({
       method: 'POST',
