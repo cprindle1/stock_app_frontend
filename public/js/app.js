@@ -118,6 +118,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   //SELL STOCKS
     this.sellStock = function(){
+    this.boughtModal = !this.boughtModal;
     var sellQty = this.sellingStock.NumberShares;
     var stockId = this.viewedStock.id;
     var stockPrice = parseFloat(this.viewedStock.price);
@@ -137,9 +138,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
          method: 'PUT',
          url: URL,
          data: {
-           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty),
-           name: $rootScope.currentUser.name,
-           password: $rootScope.currentUser.password
+           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty)
          }
        }).then(function(result) {
          console.log(result.data.user);
