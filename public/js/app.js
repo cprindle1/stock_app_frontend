@@ -302,8 +302,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
           stock: stockData
         }
       }).then(function(result) {
-        $scope.error_msg_not_enough_fund = null
-        console.log(result.data.errors);
+        $scope.error_msg_not_enough_fund = null;
+        this.buyingStock.NumberShares = null;
         if (!result.data) {
           $scope.error_msg_not_enough_fund = result.data.errors;
         } else {
