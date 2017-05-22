@@ -23,6 +23,17 @@ input[type="text"]:focus, input[type="password"]:focus {
 input[type="submit"]:hover {
   cursor: pointer; }
 
+::-webkit-scrollbar-track {
+  background-color: #E3E7E8; }
+
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+  background-color: #E3E7E8; }
+
+::-webkit-scrollbar-thumb {
+  background-color: #CAD04A; }
+
 /* ================ NAVBAR ================= */
 .navbar {
   width: 100%;
