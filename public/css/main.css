@@ -201,6 +201,14 @@ input[type="submit"]:hover {
   position: relative;
   display: block; }
 
+.banner-desc {
+  width: 100%;
+  font-size: 18px;
+  color: #272C2F;
+  text-shadow: 1px 1px #026670;
+  text-transform: uppercase;
+  text-align: center; }
+
 /* ============= LANDING INFO ============== */
 .landing-info {
   display: flex;

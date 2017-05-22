@@ -239,7 +239,12 @@ input[type="submit"]:hover {
   display: block;
 }
 .banner-desc {
-
+  width: 100%;
+  font-size: 18px;
+  color: $dark-gray;
+  text-shadow: 1px 1px $marine;
+  text-transform: uppercase;
+  text-align: center;
 }
 /* ============= LANDING INFO ============== */
 .landing-info {
