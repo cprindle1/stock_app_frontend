@@ -64,6 +64,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.buyingMore = false;
   this.sellingShares = false;
   this.stockFilter = 'bought';
+  this.msg_watching_stock = null;
 
   // SHOWS LOGIN FORM
   this.showLogin = function() {
@@ -210,6 +211,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.searchStock = function() {
     console.log("this.stocksearch", this.stocksearch);
     $rootScope.stockSearchResult = null;
+    $rootScope.msg_watching_stock = null;
     var URL = this.URL + 'search_stocks';
     $http({
       method: 'POST',
@@ -308,7 +310,66 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       $scope.error_msg_not_enough_fund = "Not enough money"
     }
 
-  };
+  }; // End buy stock
+
+  // WATCH STOCKS
+
+  this.watchedStock = function() {
+
+    console.log("Add a stock to the watching list..");
+    $rootScope.msg_watching_stock = null;
+    var userId = $rootScope.currentUser.id;
+    var isWatched = true;
+    var currentSymbol = $rootScope.stockSearchResult.symbol;
+
+    var isStock = false;
+    $rootScope.myStocks.forEach(function(stock) {
+      if (stock.symbol === currentSymbol) {
+        isStock = true;
+      }
+
+    });
+
+    if (isStock) {
+      $rootScope.msg_watching_stock = "The stock is already in the Bought/Watched stock list.";
+    } else {
+      var URL = this.URL + 'users/' + userId + '/ledgers';
+
+      $http({
+        method: 'POST',
+        url: URL,
+        data: {
+          ledger: {
+            qty: 0
+          },
+          user: $rootScope.currentUser,
+          isWatched: isWatched,
+          stock: $rootScope.stockSearchResult
+        }
+      }).then(function(result) {
+        $scope.error_msg_not_enough_fund = null
+        console.log(result.data.errors);
+        if (!result.data) {
+          console.log(result.data.errors);
+          $rootScope.msg_watching_stock = result.data.errors;
+        } else {
+          $rootScope.myStocks = result.data.userstocks;
+          $rootScope.currentUser = result.data.currentUser;
+          this.countUserStocks();
+
+          console.log("Save Success");
+        }
+
+      }.bind(this));
+
+    }
+
+
+
+
+
+
+  }; // End Watch Stock
 
   // COUNTS USER'S BOUGHT AND WATCHED STOCKS
   this.countUserStocks = function() {
