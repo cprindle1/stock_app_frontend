@@ -272,7 +272,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     var isWatched = false;
     var userMoney = $rootScope.currentUser.money;
 
-    if($rootScope.stockSearchResult !== undefined) {
+    if ($rootScope.stockSearchResult !== undefined) {
       var sharePrice = $rootScope.stockSearchResult.ask;
       var stockData = $rootScope.stockSearchResult;
       if (sharePrice === null || sharePrice === 0) {
@@ -404,7 +404,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         console.log(result.data.errors);
       } else {
         $rootScope.userTicker = result.data.tickers;
-        console.log($rootScope.userTicker);
       }
     }.bind(this));
   }; // end myTimer
