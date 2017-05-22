@@ -75,7 +75,7 @@
         <div class="stock-container" ng-if="vm.stockFilter === 'watched'">
           <div class="stock" ng-click="vm.modalToggle('watchedStock', $index);" ng-if="stock.watched" ng-repeat="stock in myStocks">
             <strong>{{stock.symbol}}</strong>
-            <div class="unwatch">
+            <div class="unwatch" ng-click="vm.unwatchStock()">
               <i class="fa fa-trash-o" aria-hidden="true"></i>
             </div>
           </div>

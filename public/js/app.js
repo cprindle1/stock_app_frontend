@@ -164,9 +164,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
          method: 'PUT',
          url: URL,
          data: {
-           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty),
-           name: $rootScope.currentUser.name,
-           password: $rootScope.currentUser.password
+           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty)
          }
        }).then(function(result) {
          console.log(result.data.user);
