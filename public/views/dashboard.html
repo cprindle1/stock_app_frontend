@@ -31,13 +31,13 @@
           <div class="stats">
             <h4>CURRENT STOCKS</h4>
             <p>
-              20
+              {{currentUser.userBought}}
             </p>
           </div>
           <div class="stats">
             <h4>WATCHED STOCKS</h4>
             <p>
-              14
+              {{currentUser.userWatched}}
             </p>
           </div>
         </div>
@@ -63,20 +63,20 @@
           </div>
         </div>
         <!-- ========== BOUGHT STOCKS ============ -->
-        <div class="stock-container" ng-repeat="stock in myStocks" ng-if="vm.stockFilter === 'bought'">
-          <div class="stock" ng-click="vm.modalToggle();" ng-if="stock.watched === false">
+        <div class="stock-container" ng-if="vm.stockFilter === 'bought'">
+          <div class="stock" ng-click="vm.modalToggle('boughtStock', $index);" ng-if="!stock.watched" ng-repeat="stock in myStocks">
             <strong>{{stock.symbol}}</strong> <span>shares: {{stock.qty}}</span>
           </div>
         </div>
         <!-- ========== WATCHED STOCKS ============ -->
-        <div class="stock-container" ng-repeat="stock in myStocks" ng-if="vm.stockFilter === 'watched'">
-          <div class="stock" ng-click="vm.modalToggle();" ng-if="stock.watched === true">
+        <div class="stock-container" ng-if="vm.stockFilter === 'watched'">
+          <div class="stock" ng-click="vm.modalToggle('watchedStock', $index);" ng-if="stock.watched" ng-repeat="stock in myStocks">
             <strong>{{stock.symbol}}</strong>
           </div>
         </div>
       </div>
     </div>
-    <!-- ================= CHART MODAL ================ -->
+    <!-- ================= CHART CARD ================ -->
     <div class="card chart">
       <h3>THE STOCKS</h3>
       <!-- ====== SEARCH FORM ====== -->
@@ -151,9 +151,85 @@
 
   </div>
   <!-- ============= BOUGHT STOCK MODAL ============ -->
-  <div ng-if="vm.modalActive" class="modal">
+  <div ng-if="vm.boughtModal" class="modal">
     <div class="stock-box">
       <div class="close" ng-click="vm.modalToggle('boughtStock')">
+        <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+      </div>
+      <h1>{{vm.automatedStock.name}} ({{vm.viewedStock.symbol}})</h1>
+      <div class="stock-box-info">
+        <div class="box">
+          <h3>WHEN BOUGHT</h3>
+          <table>
+            <tr>
+              <td><strong>SHARES:</strong></td>
+              <td class="stock-stat">{{vm.viewedStock.qty}}</td>
+            </tr>
+            <tr>
+              <td><strong>PRICE:</strong></td>
+              <td class="stock-stat">{{vm.viewedStock.price | currency}}</td>
+            </tr>
+          </table>
+          <div class="btn" ng-click="vm.sellShares();">
+            sell your shares
+          </div>
+          <div class="form" ng-if="vm.sellingShares">
+            <form>
+              <input type="text" placeholder="AMOUNT" />
+              <input type="submit" value="SELL"/>
+            </form>
+          </div>
+        </div>
+        <div class="box">
+          <h3>CURRENTLY</h3>
+          <table>
+            <tr>
+              <td><strong>Current Price:</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.ask | currency}}</td>
+            </tr>
+            <tr>
+              <td><strong>Current Bid:</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.bid | currency}}</td>
+            </tr>
+            <tr>
+              <td><strong>Last Trade Price:</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.last_trade_price_only | currency}}
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Day Range:</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.days_range}}</td>
+            </tr>
+            <tr>
+              <td><strong>Avg Daily Vol:</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.average_daily_volume | number}}</td>
+            </tr>
+            <tr>
+              <td><strong>Year High:</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.year_high}}</td>
+            </tr>
+            <tr>
+              <td><strong>Year Low</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.year_low}}</td>
+            </tr>
+          </table>
+          <div class="btn" ng-click="vm.buyMore();">
+            buy more shares
+          </div>
+          <div class="form" ng-if="vm.buyingMore">
+            <form>
+              <input type="text" placeholder="AMOUNT" />
+              <input type="submit" value="BUY"/>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ============= WATCHED STOCK MODAL ============ -->
+  <div ng-if="vm.watchedModal" class="modal">
+    <div class="stock-box">
+      <div class="close" ng-click="vm.modalToggle('watchedStock')">
         <i class="fa fa-times fa-lg" aria-hidden="true"></i>
       </div>
     </div>

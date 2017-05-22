@@ -359,6 +359,67 @@ input[type="submit"]:hover {
     height: 400px;
     background: lighten($light-gray, 1%);
     box-sizing: border-box;
+    strong {
+      color: $marine;
+      text-transform: uppercase;
+    }
+    .stock-stat {
+      text-align: right;
+    }
+    .stock-box-info {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px;
+      h3 {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 20px;
+        font-weight: 300;
+      }
+      h3:after {
+        content: '';
+        display: block;
+        width: 20%;
+        height: 1px;
+        margin: 5px auto 10px auto;
+        background: $med-gray;
+      }
+      .box {
+        width: 49%;
+        background: whitesmoke;
+        border-radius: 3px;
+        padding: 20px;
+        box-sizing: border-box;
+        table {
+          width: 100%;
+        }
+        .btn {
+          width: 100%;
+          padding: 5px;
+          border-radius: 3px;
+          background: $light-green;
+          text-transform: uppercase;
+          color: whitesmoke;
+          text-align: center;
+          margin: 5px auto;
+          box-sizing: border-box;
+        }
+        .btn:hover {
+          cursor: pointer;
+        }
+        .form {
+          text-align: center;
+        }
+        input[type="text"] {
+          width: 70%;
+        }
+        input[type="submit"] {
+          width: 20%;
+          background: $blue;
+          color: whitesmoke;
+        }
+      }
+    }
   }
   .register-box {
     border-top: 3px solid $light-green;
@@ -463,6 +524,7 @@ input[type="submit"]:hover {
     border-radius: 3px;
     box-sizing: border-box;
     background: #eee;
+    overflow: auto;
     table {
       width: 100%;
       padding: 5px;
