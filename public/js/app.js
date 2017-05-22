@@ -49,7 +49,9 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.token = null;
   var refreshIntervalId = null;
   // this.URL = 'https://stockerapi.herokuapp.com/';
-  this.URL= 'http://localhost:3000/';
+  this.URL = 'http://localhost:3000/';
+
+
 
   // DECLARING TOGGLE VARIABLES
   this.registerModal = false;
@@ -264,6 +266,21 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       this.submit();
     }.bind(this));
   };
+
+//UPDATE USER INFO
+this.updateUser = function(){
+  this.editModal = !this.editModal;
+  var userId = $rootScope.currentUser.id;
+  var URL = this.URL + 'users/' + userId;
+  $http({
+    method: 'PUT',
+    url: URL,
+    data: this.formdata
+  }).then(function(result){
+    $rootScope.currentUser = result.data.user;
+
+  });
+};
 
   // SENDS LOGOUT REQUEST
   this.logout = function() {
@@ -481,6 +498,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   function myTimer() {
     // this.URL = 'https://stockerapi.herokuapp/'
     this.URL = 'http://localhost:3000/';
+
     var URL = this.URL + 'search_tickers';
     $http({
       method: 'POST',
