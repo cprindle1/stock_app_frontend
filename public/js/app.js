@@ -109,7 +109,54 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // SHOWS SELLING SHARES FORM
   this.sellShares = function() {
     this.sellingShares = !this.sellingShares;
-  }
+  };
+
+  //SELL STOCKS
+  this.sellStock = function(){
+    this.boughtModal = !this.boughtModal;
+    var sellQty = this.sellingStock.NumberShares;
+    var stockId = this.viewedStock.id;
+    var stockPrice = parseFloat(this.viewedStock.price);
+    var stockQty = this.viewedStock.qty;
+    var userId = $rootScope.currentUser.id;
+    var URL = this.URL + 'users/' + userId + '/ledgers/' + stockId;
+    if(stockQty <= sellQty){
+    $http({
+       method: 'DELETE',
+       url: URL
+     }).then(function(result) {
+         $rootScope.currentUser.money = parseFloat($rootScope.currentUser.money)+ (stockPrice * stockQty);
+     }.bind(this));
+   }else{
+     $http({
+       method: 'PUT',
+       url: URL,
+       data: {
+         qty: (stockQty)
+       }
+     }).then(function(result) {
+         $rootScope.myStocks = result.data.userstocks;
+         this.countUserStocks();
+         console.log("Save Success");
+     }.bind(this));
+   }
+   var URL = this.URL + 'users/' + userId;
+   $http({
+     method: 'PUT',
+     url: URL,
+     data: {
+       money: parseFloat($rootScope.currentUser.money)+ (stockPrice * stockQty),
+       name: $rootScope.currentUser.name,
+       password: $rootScope.currentUser.password
+     }
+   }).then(function(result) {
+     console.log(result.data.user);
+      $rootScope.currentUser = result.data.user;
+      $rootScope.myStocks = result.data.userstocks;
+      this.countUserStocks();
+      console.log("Save Success");
+   }.bind(this));
+ };
 
   // FILTERS BETWEEN BOUGHT AND WATCHED STOCKS
   this.filterStocks = function(status) {
