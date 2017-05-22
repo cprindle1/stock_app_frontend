@@ -298,6 +298,30 @@ input[type="submit"]:hover {
   width: 100%;
   z-index: 1;
   overflow: auto; }
+  .modal table {
+    width: 100%; }
+  .modal .btn {
+    width: 100%;
+    padding: 5px;
+    border-radius: 3px;
+    background: #CAD04A;
+    text-transform: uppercase;
+    color: whitesmoke;
+    text-align: center;
+    margin: 5px auto;
+    box-sizing: border-box; }
+  .modal .btn:hover {
+    cursor: pointer; }
+  .modal .form {
+    text-align: center; }
+  .modal input[type="text"] {
+    width: 70%; }
+  .modal input[type="submit"] {
+    width: 20%;
+    background: #456177;
+    color: whitesmoke; }
+  .modal .stock-stat {
+    text-align: right; }
   .modal .stock-box {
     border-top: 3px solid #CAD04A;
     margin: 150px auto;
@@ -309,8 +333,6 @@ input[type="submit"]:hover {
     .modal .stock-box strong {
       color: #026670;
       text-transform: uppercase; }
-    .modal .stock-box .stock-stat {
-      text-align: right; }
     .modal .stock-box .stock-box-info {
       display: flex;
       justify-content: space-between;
@@ -333,28 +355,24 @@ input[type="submit"]:hover {
         border-radius: 3px;
         padding: 20px;
         box-sizing: border-box; }
-        .modal .stock-box .stock-box-info .box table {
-          width: 100%; }
-        .modal .stock-box .stock-box-info .box .btn {
-          width: 100%;
-          padding: 5px;
-          border-radius: 3px;
-          background: #CAD04A;
-          text-transform: uppercase;
-          color: whitesmoke;
-          text-align: center;
-          margin: 5px auto;
-          box-sizing: border-box; }
-        .modal .stock-box .stock-box-info .box .btn:hover {
-          cursor: pointer; }
-        .modal .stock-box .stock-box-info .box .form {
-          text-align: center; }
-        .modal .stock-box .stock-box-info .box input[type="text"] {
-          width: 70%; }
-        .modal .stock-box .stock-box-info .box input[type="submit"] {
-          width: 20%;
-          background: #456177;
-          color: whitesmoke; }
+  .modal .watched-stock-box {
+    border-top: 3px solid #CAD04A;
+    margin: 150px auto;
+    padding: 10px;
+    width: 65%;
+    height: 380px;
+    background: #e6e9ea;
+    box-sizing: border-box; }
+    .modal .watched-stock-box strong {
+      color: #026670;
+      text-transform: uppercase; }
+    .modal .watched-stock-box .box {
+      width: 80%;
+      margin: 10px auto;
+      padding: 20px;
+      background: whitesmoke;
+      border-radius: 3px;
+      box-sizing: border-box; }
   .modal .register-box {
     border-top: 3px solid #CAD04A;
     margin: 150px auto;
