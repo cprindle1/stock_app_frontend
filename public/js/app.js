@@ -102,11 +102,13 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // SHOWS BUYING SHARE FORM
   this.buyShareToggle = function() {
     this.buyingShares = !this.buyingShares;
+    $rootScope.succesfulBuy = false;
   }
 
   // SHOWS BUYING (MORE) SHARES FORM
   this.buyMore = function() {
     this.buyingMore = !this.buyingMore;
+    $rootScope.succesfulBuy = false;
   }
 
   // SHOWS SELLING SHARES FORM
@@ -116,7 +118,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   //SELL STOCKS
     this.sellStock = function(){
-    this.boughtModal = !this.boughtModal;
     var sellQty = this.sellingStock.NumberShares;
     var stockId = this.viewedStock.id;
     var stockPrice = parseFloat(this.viewedStock.price);
@@ -144,6 +145,9 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
          console.log(result.data.user);
           $rootScope.currentUser = result.data.user;
           $rootScope.myStocks = result.data.userstocks;
+          $rootScope.soldStocks = sellQty;
+          $rootScope.succesfulSell = true;
+          $rootScope.moneyGained = stockPrice * sellQty;
           this.countUserStocks();
           console.log("Save Success");
        }.bind(this));
@@ -282,7 +286,7 @@ this.updateUser = function(){
     data: this.formdata
   }).then(function(result){
     $rootScope.currentUser = result.data.user;
-
+    this.countUserStocks();
   });
 };
 
@@ -304,6 +308,7 @@ this.updateUser = function(){
     console.log("this.stocksearch", this.stocksearch);
     $rootScope.stockSearchResult = null;
     $rootScope.msg_watching_stock = null;
+    $rootScope.succesfulBuy = false;
     var URL = this.URL + 'search_stocks';
     $http({
       method: 'POST',
@@ -341,6 +346,8 @@ this.updateUser = function(){
   // AUTOMATED SEARCH FOR STOCKS
   this.automatedSearchStock = function(sym) {
     var URL = this.URL + 'search_stocks';
+    $rootScope.succesfulBuy = false;
+    $rootScope.succesfulSell = false;
     $http({
       method: 'POST',
       url: URL,
@@ -356,7 +363,7 @@ this.updateUser = function(){
   // Buy stock
   this.buystock = function() {
     console.log("buying.....");
-
+    $rootScope.succesfulBuy = false;
     if (typeof this.buyingStock.NumberShares === 'undefined') {
       $scope.error_msg_not_enough_fund = "Number of Share should not be 0"
     }
@@ -401,6 +408,7 @@ this.updateUser = function(){
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
           $rootScope.succesfulBuy = true;
+          this.buyingStock.NumberShares = '';
           this.countUserStocks();
           console.log("Save Success");
         }
@@ -432,7 +440,7 @@ this.updateUser = function(){
     });
 
     if (isStock) {
-      $rootScope.msg_watching_stock = "The stock is already in the Bought/Watched stock list.";
+      $rootScope.msg_watching_stock = "The stock is already in your Bought/Watched stock list.";
     } else {
       var URL = this.URL + 'users/' + userId + '/ledgers';
 
@@ -500,7 +508,7 @@ this.updateUser = function(){
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
-    // this.URL = 'https://stockerapi.herokuapp/'
+    // this.URL = 'https://stockerapi.herokuapp.com/'
     this.URL = 'http://localhost:3000/';
 
     var URL = this.URL + 'search_tickers';
