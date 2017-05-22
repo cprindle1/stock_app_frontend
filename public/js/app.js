@@ -48,8 +48,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var vm = this;
   this.token = null;
   var refreshIntervalId = null;
-  this.URL = 'https://stockerapi.herokuapp.com/';
-  // this.URL= 'http://localhost:3000/';
+  // this.URL = 'https://stockerapi.herokuapp.com/';
+  this.URL= 'http://localhost:3000/';
 
   // DECLARING TOGGLE VARIABLES
   this.registerModal = false;
@@ -345,9 +345,18 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     var isWatched = false;
     var userMoney = $rootScope.currentUser.money;
 
-    var sharePrice = $rootScope.stockSearchResult.ask
-    if (sharePrice === null || sharePrice === 0) {
-      sharePrice = $rootScope.stockSearchResult.last_trade_price_only
+    if($rootScope.stockSearchResult !== undefined) {
+      var sharePrice = $rootScope.stockSearchResult.ask;
+      var stockData = $rootScope.stockSearchResult;
+      if (sharePrice === null || sharePrice === 0) {
+        sharePrice = $rootScope.stockSearchResult.last_trade_price_only;
+      }
+    } else {
+      var sharePrice = vm.automatedStock.ask;
+      var stockData = vm.automatedStock;
+      if (sharePrice === null || sharePrice === 0) {
+        sharePrice = vm.automatedStock.last_trade_price_only;
+      }
     }
 
     costTrading = sharePrice * numberOfShare;
@@ -360,7 +369,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
           user: $rootScope.currentUser,
           qty: numberOfShare,
           isWatched: isWatched,
-          stock: $rootScope.stockSearchResult
+          stock: stockData
         }
       }).then(function(result) {
         $scope.error_msg_not_enough_fund = null
@@ -370,8 +379,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         } else {
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
+          $rootScope.succesfulBuy = true;
           this.countUserStocks();
-
           console.log("Save Success");
         }
 
@@ -470,8 +479,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
-    this.URL = 'https://stockerapi.herokuapp/'
-    // this.URL = 'http://localhost:3000/';
+    // this.URL = 'https://stockerapi.herokuapp/'
+    this.URL = 'http://localhost:3000/';
     var URL = this.URL + 'search_tickers';
     $http({
       method: 'POST',
