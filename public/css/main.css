@@ -133,6 +133,12 @@ input[type="submit"]:hover {
   position: relative;
   background: #dde2e3;
   color: #444; }
+  .ticker .pos-change em {
+    color: #869514;
+    font-style: normal; }
+  .ticker .neg-change em {
+    color: #F44336;
+    font-style: normal; }
   .ticker p {
     position: absolute;
     width: 100%;
