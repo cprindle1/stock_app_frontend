@@ -48,7 +48,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var vm = this;
   this.token = null;
   var refreshIntervalId = null;
-  this.URL = 'http://localhost:3000/';
+  this.URL = 'https://stockerapi.herokuapp.com/';
 
   // DECLARING TOGGLE VARIABLES
   this.registerModal = false;
@@ -204,10 +204,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     $scope.error_msg = null;
     $rootScope.loggedIn = false;
     localStorage.clear('token');
-    // userPersistenceService.clearCookieData('userName');
     console.log("this.formLogin", this.formLogin);
-    // this.URL = 'https://stockerapi.herokuapp.com/login';
-    // this.URL = 'http://localhost:3000/login'
     var URL = this.URL + 'login'
     $http({
       method: 'POST',
@@ -469,6 +466,26 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     return;
   }
 
+
+  // Testing.... this will go to backend to get data market price for stock
+  function myTimer() {
+    this.URL = 'https://stockerapi.herokuapp/'
+    var URL = this.URL + 'search_tickers';
+    $http({
+      method: 'POST',
+      url: URL,
+      data: {
+        user: $rootScope.currentUser,
+        stock: $rootScope.myStocks
+      }
+    }).then(function(result) {
+      if (!result.data) {
+        console.log(result.data.errors);
+      } else {
+        $rootScope.userTicker = result.data.tickers;
+      }
+    }.bind(this));
+  }; // end myTimer
 }]);
 
 // Server - set cookies
