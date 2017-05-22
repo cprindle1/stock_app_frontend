@@ -150,7 +150,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
           $rootScope.moneyGained = stockPrice * sellQty;
           this.countUserStocks();
           console.log("Save Success");
-<<<<<<< HEAD
        }.bind(this));
      }.bind(this));
    }else{
@@ -170,29 +169,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
          }
        }).then(function(result) {
          console.log(result.data.user);
-=======
-        }.bind(this));
-      }.bind(this));
-    } else {
-      $http({
-        method: 'PUT',
-        url: URL,
-        data: {
-          qty: (stockQty - sellQty)
-        }
-      }).then(function(result) {
-        var URL = this.URL + 'users/' + userId;
-        $http({
-          method: 'PUT',
-          url: URL,
-          data: {
-            money: parseFloat($rootScope.currentUser.money) + (stockPrice * sellQty),
-            name: $rootScope.currentUser.name,
-            password: $rootScope.currentUser.password
-          }
-        }).then(function(result) {
-          console.log(result.data.user);
->>>>>>> c99138348b547cfd9d5cffdc0176ba1bdf6a4418
           $rootScope.currentUser = result.data.user;
           $rootScope.myStocks = result.data.userstocks;
           this.countUserStocks();
