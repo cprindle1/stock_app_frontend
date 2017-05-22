@@ -269,33 +269,44 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
     var numberOfShare = this.buyingStock.NumberShares;
     var userId = $rootScope.currentUser.id;
-    // var stockSymbol = $rootScope.stockSearchResult.symbol;
     var isWatched = false;
-    var URL = this.URL + 'users/' + userId + '/ledgers';
-    $http({
-      method: 'POST',
-      url: URL,
-      data: {
-        user: $rootScope.currentUser,
-        qty: numberOfShare,
-        isWatched: isWatched,
-        stock: $rootScope.stockSearchResult
-      }
-    }).then(function(result) {
-      $scope.error_msg_not_enough_fund = null
-      console.log(result.data.errors);
-      if (!result.data) {
-        $scope.error_msg_not_enough_fund = result.data.errors;
-      } else {
-        $rootScope.myStocks = result.data.userstocks;
-        $rootScope.currentUser = result.data.currentUser;
-        this.countUserStocks();
+    var userMoney = $rootScope.currentUser.money;
 
-        console.log("Save Success");
-      }
+    var sharePrice = $rootScope.stockSearchResult.ask
+    if (sharePrice === null || sharePrice === 0) {
+      sharePrice = $rootScope.stockSearchResult.last_trade_price_only
+    }
 
-    }.bind(this));
+    costTrading = sharePrice * numberOfShare;
+    if (userMoney >= costTrading) {
+      var URL = this.URL + 'users/' + userId + '/ledgers';
+      $http({
+        method: 'POST',
+        url: URL,
+        data: {
+          user: $rootScope.currentUser,
+          qty: numberOfShare,
+          isWatched: isWatched,
+          stock: $rootScope.stockSearchResult
+        }
+      }).then(function(result) {
+        $scope.error_msg_not_enough_fund = null
+        console.log(result.data.errors);
+        if (!result.data) {
+          $scope.error_msg_not_enough_fund = result.data.errors;
+        } else {
+          $rootScope.myStocks = result.data.userstocks;
+          $rootScope.currentUser = result.data.currentUser;
+          this.countUserStocks();
 
+          console.log("Save Success");
+        }
+
+      }.bind(this));
+
+    } else {
+      $scope.error_msg_not_enough_fund = "Not enough money"
+    }
 
   };
 
