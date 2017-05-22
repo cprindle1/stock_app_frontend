@@ -331,7 +331,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     });
 
     if (isStock) {
-      $rootScope.msg_watching_stock = "The stock is already in the Bought/Watched stock list.";
+      $rootScope.msg_watching_stock = "The stock is already in your Bought/Watched list.";
     } else {
       var URL = this.URL + 'users/' + userId + '/ledgers';
 

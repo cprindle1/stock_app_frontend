@@ -601,4 +601,10 @@ input[type="submit"]:hover {
     box-sizing: border-box;
     background: #eee;
   }
+  .error-msg {
+    color: $red;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 5px 0;
+  }
 }

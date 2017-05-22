@@ -141,22 +141,16 @@
               <input type="submit" value="Submit"/>
             </form>
 
-            <div ng-show="error_msg_not_enough_fund">
+            <div class="error-msg" ng-show="error_msg_not_enough_fund">
               {{error_msg_not_enough_fund}}
             </div>
 
           </div>
-
-          <!--  Watch Stock -->
-          <div class="stock-btn ">
-            <!-- <form> -->
-            <input type="submit" value="Watch Stock" ng-click="vm.watchedStock()" />
-            <div ng-show="msg_watching_stock">
-              {{msg_watching_stock}}
-            </div>
-            <!-- </form> -->
-
-
+          <div class="stock-btn" ng-click="vm.watchedStock()" />
+          WATCH STOCK
+          </div>
+          <div class="error-msg" ng-show="msg_watching_stock">
+            {{msg_watching_stock}}
           </div>
         </div>
         <!-- ====== STOCK CHART ======= -->
