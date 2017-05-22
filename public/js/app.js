@@ -212,6 +212,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     console.log("this.stocksearch", this.stocksearch);
     $rootScope.stockSearchResult = null;
     $rootScope.msg_watching_stock = null;
+    $rootScope.successfulWatch = null;
     var URL = this.URL + 'search_stocks';
     $http({
       method: 'POST',
@@ -334,7 +335,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       $rootScope.msg_watching_stock = "The stock is already in your Bought/Watched list.";
     } else {
       var URL = this.URL + 'users/' + userId + '/ledgers';
-
       $http({
         method: 'POST',
         url: URL,
@@ -355,8 +355,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         } else {
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
+          $rootScope.successfulWatch = true;
           this.countUserStocks();
-
           console.log("Save Success");
         }
 

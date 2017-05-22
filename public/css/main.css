@@ -515,10 +515,13 @@ input[type="submit"]:hover {
     border-radius: 3px;
     box-sizing: border-box;
     background: #eee; }
-  .chart .error-msg {
-    color: #F44336;
+  .chart .error-msg, .chart .success-msg {
     text-transform: uppercase;
     text-align: center;
     margin: 5px 0; }
+  .chart .error-msg {
+    color: #F44336; }
+  .chart .success-msg {
+    color: #026670; }
 
 /*# sourceMappingURL=main.css.map */

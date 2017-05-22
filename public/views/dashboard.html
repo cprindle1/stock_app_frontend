@@ -133,9 +133,8 @@
           <div class="stock-btn" ng-click="vm.buyShareToggle();">
             BUY SHARES
           </div>
-          <!-- <form class="buy-shares" ng-submit="vm.buystock" ng-if="vm.buyingShares"> -->
-          <!--  Buy Stock  -->
-          <div ng-if="vm.buyingShares">
+          <!--  BUY STOCK  -->
+          <div ng-if="vm.buyingShares" class="buy-shares">
             <form ng-submit="vm.buystock()">
               <input type="number" min="1" placeholder="AMOUNT OF SHARES..." ng-model="vm.buyingStock.NumberShares" />
               <input type="submit" value="Submit"/>
@@ -144,10 +143,13 @@
             <div class="error-msg" ng-show="error_msg_not_enough_fund">
               {{error_msg_not_enough_fund}}
             </div>
-
           </div>
+          <!-- WATCH STOCK -->
           <div class="stock-btn" ng-click="vm.watchedStock()" />
           WATCH STOCK
+          </div>
+          <div class="success-msg" ng-show="successfulWatch">
+            added!
           </div>
           <div class="error-msg" ng-show="msg_watching_stock">
             {{msg_watching_stock}}

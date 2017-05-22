@@ -611,10 +611,15 @@ input[type="submit"]:hover {
     box-sizing: border-box;
     background: #eee;
   }
-  .error-msg {
-    color: $red;
+  .error-msg, .success-msg {
     text-transform: uppercase;
     text-align: center;
     margin: 5px 0;
+  }
+  .error-msg {
+    color: $red;
+  }
+  .success-msg {
+    color: $marine;
   }
 }
