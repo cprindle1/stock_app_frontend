@@ -266,7 +266,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // Buy stock
   this.buystock = function() {
     console.log("buying.....");
-
     if (typeof this.buyingStock.NumberShares === 'undefined') {
       $scope.error_msg_not_enough_fund = "Number of Share should not be 0"
     }
@@ -276,9 +275,18 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     var isWatched = false;
     var userMoney = $rootScope.currentUser.money;
 
-    var sharePrice = $rootScope.stockSearchResult.ask
-    if (sharePrice === null || sharePrice === 0) {
-      sharePrice = $rootScope.stockSearchResult.last_trade_price_only
+    if($rootScope.stockSearchResult !== undefined) {
+      var sharePrice = $rootScope.stockSearchResult.ask;
+      var stockData = $rootScope.stockSearchResult;
+      if (sharePrice === null || sharePrice === 0) {
+        sharePrice = $rootScope.stockSearchResult.last_trade_price_only;
+      }
+    } else {
+      var sharePrice = vm.automatedStock.ask;
+      var stockData = vm.automatedStock;
+      if (sharePrice === null || sharePrice === 0) {
+        sharePrice = vm.automatedStock.last_trade_price_only;
+      }
     }
 
     costTrading = sharePrice * numberOfShare;
@@ -291,7 +299,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
           user: $rootScope.currentUser,
           qty: numberOfShare,
           isWatched: isWatched,
-          stock: $rootScope.stockSearchResult
+          stock: stockData
         }
       }).then(function(result) {
         $scope.error_msg_not_enough_fund = null
@@ -299,6 +307,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         if (!result.data) {
           $scope.error_msg_not_enough_fund = result.data.errors;
         } else {
+          console.log(result);
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
           $rootScope.succesfulBuy = true;
