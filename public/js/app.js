@@ -120,11 +120,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }
   }
 
-  // Testing.... this will go to backend to get data market price for stock
-  function myTimer() {
-    console.log(' each 1 second...');
-  }
-  // ----
+
 
   // SENDS LOGIN REQUEST TO API
   this.submit = function() {
@@ -165,7 +161,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         // testing... to refresh all stocks
         refreshIntervalId = setInterval(function() {
           myTimer()
-        }, 20000);
+        }, 40000);
 
         $location.path('/dashboard');
       }
@@ -260,6 +256,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       console.log(this.automatedStock);
     }.bind(this));
   };
+
 
   // Buy stock
   this.buystock = function() {
@@ -364,12 +361,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
     }
 
-
-
-
-
-
   }; // End Watch Stock
+
 
   // COUNTS USER'S BOUGHT AND WATCHED STOCKS
   this.countUserStocks = function() {
@@ -383,7 +376,36 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       }
     }
     return;
-  }
+  }; // end countUserStocks
+
+  // Testing.... this will go to backend to get data market price for stock
+  function myTimer() {
+    console.log(' each 10 second...');
+    this.URL = 'http://localhost:3000/'
+    var URL = this.URL + 'search_tickers';
+    console.log(URL);
+
+    $http({
+      method: 'POST',
+      url: URL,
+      data: {
+        user: $rootScope.currentUser,
+        stock: $rootScope.myStocks
+      }
+    }).then(function(result) {
+
+      if (!result.data) {
+        console.log(result.data.errors);
+      } else {
+        $rootScope.myTickersMessage = result.data.tickersMessage;
+        console.log($rootScope.myTickersMessage);
+        // $rootScope.myStocks = result.data.userstocks;
+        // $rootScope.currentUser = result.data.currentUser;
+        $rootScope.stockTikcers = result.data.stockTikers;
+      }
+    }.bind(this));
+
+  }; // end myTimer
 
 }]);
 
