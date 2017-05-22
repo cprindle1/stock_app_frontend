@@ -272,7 +272,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     var isWatched = false;
     var userMoney = $rootScope.currentUser.money;
 
-    if($rootScope.stockSearchResult !== undefined) {
+    if ($rootScope.stockSearchResult !== undefined) {
       var sharePrice = $rootScope.stockSearchResult.ask;
       var stockData = $rootScope.stockSearchResult;
       if (sharePrice === null || sharePrice === 0) {
@@ -390,10 +390,9 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
-    console.log(' each 10 second...');
+
     this.URL = 'http://localhost:3000/'
     var URL = this.URL + 'search_tickers';
-    console.log(URL);
 
     $http({
       method: 'POST',
@@ -408,9 +407,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         console.log(result.data.errors);
       } else {
         $rootScope.myTickersMessage = result.data.tickersMessage;
-        console.log($rootScope.myTickersMessage);
-        // $rootScope.myStocks = result.data.userstocks;
-        // $rootScope.currentUser = result.data.currentUser;
         $rootScope.stockTikcers = result.data.stockTikers;
       }
     }.bind(this));
