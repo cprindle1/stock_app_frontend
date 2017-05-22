@@ -70,7 +70,7 @@
         </div>
         <!-- ========== WATCHED STOCKS ============ -->
         <div class="stock-container" ng-if="vm.stockFilter === 'watched'">
-          <div class="stock" ng-click="vm.modalToggle('watchedStock');" ng-if="stock.watched" ng-repeat="stock in myStocks">
+          <div class="stock" ng-click="vm.modalToggle('watchedStock', $index);" ng-if="stock.watched" ng-repeat="stock in myStocks">
             <strong>{{stock.symbol}}</strong>
           </div>
         </div>
@@ -158,26 +158,79 @@
       </div>
       <h1>{{vm.automatedStock.name}} ({{vm.viewedStock.symbol}})</h1>
       <div class="stock-box-info">
-        <div class="bought-old-data">
-          bought {{vm.viewedStock.qty}} shares at {{vm.viewedStock.price | currency}}
-          <div class="bought-button">
+        <div class="box">
+          <h3>WHEN BOUGHT</h3>
+          <table>
+            <tr>
+              <td><strong>SHARES:</strong></td>
+              <td class="stock-stat">{{vm.viewedStock.qty}}</td>
+            </tr>
+            <tr>
+              <td><strong>PRICE:</strong></td>
+              <td class="stock-stat">{{vm.viewedStock.price | currency}}</td>
+            </tr>
+          </table>
+          <div class="btn" ng-click="vm.sellShares();">
             sell your shares
           </div>
-          <form>
-            <input type="text" placeholder="amount" />
-            <input type="submit" value="sell"/>
-          </form>
+          <div class="form" ng-if="vm.sellingShares">
+            <form>
+              <input type="text" placeholder="AMOUNT" />
+              <input type="submit" value="SELL"/>
+            </form>
+          </div>
         </div>
-        <div class="bought-new-data">
-          now at {{vm.automatedStock.ask | currency}}
-          <div class="bought-button">
+        <div class="box">
+          <h3>CURRENTLY</h3>
+          <table>
+            <tr>
+              <td><strong>Current Price:</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.ask | currency}}</td>
+            </tr>
+            <tr>
+              <td><strong>Current Bid:</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.bid | currency}}</td>
+            </tr>
+            <tr>
+              <td><strong>Last Trade Price:</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.last_trade_price_only | currency}}
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Day Range:</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.days_range}}</td>
+            </tr>
+            <tr>
+              <td><strong>Avg Daily Vol:</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.average_daily_volume | number}}</td>
+            </tr>
+            <tr>
+              <td><strong>Year High:</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.year_high}}</td>
+            </tr>
+            <tr>
+              <td><strong>Year Low</strong></td>
+              <td class="stock-stat">{{vm.automatedStock.year_low}}</td>
+            </tr>
+          </table>
+          <div class="btn" ng-click="vm.buyMore();">
             buy more shares
           </div>
-          <form>
-            <input type="text" placeholder="amount" />
-            <input type="submit" value="sell"/>
-          </form>
+          <div class="form" ng-if="vm.buyingMore">
+            <form>
+              <input type="text" placeholder="AMOUNT" />
+              <input type="submit" value="BUY"/>
+            </form>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <!-- ============= WATCHED STOCK MODAL ============ -->
+  <div ng-if="vm.watchedModal" class="modal">
+    <div class="stock-box">
+      <div class="close" ng-click="vm.modalToggle('watchedStock')">
+        <i class="fa fa-times fa-lg" aria-hidden="true"></i>
       </div>
     </div>
   </div>

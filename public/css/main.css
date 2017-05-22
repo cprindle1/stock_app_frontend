@@ -306,6 +306,55 @@ input[type="submit"]:hover {
     height: 400px;
     background: #e6e9ea;
     box-sizing: border-box; }
+    .modal .stock-box strong {
+      color: #026670;
+      text-transform: uppercase; }
+    .modal .stock-box .stock-stat {
+      text-align: right; }
+    .modal .stock-box .stock-box-info {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px; }
+      .modal .stock-box .stock-box-info h3 {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 20px;
+        font-weight: 300; }
+      .modal .stock-box .stock-box-info h3:after {
+        content: '';
+        display: block;
+        width: 20%;
+        height: 1px;
+        margin: 5px auto 10px auto;
+        background: #6B6E73; }
+      .modal .stock-box .stock-box-info .box {
+        width: 49%;
+        background: whitesmoke;
+        border-radius: 3px;
+        padding: 20px;
+        box-sizing: border-box; }
+        .modal .stock-box .stock-box-info .box table {
+          width: 100%; }
+        .modal .stock-box .stock-box-info .box .btn {
+          width: 100%;
+          padding: 5px;
+          border-radius: 3px;
+          background: #CAD04A;
+          text-transform: uppercase;
+          color: whitesmoke;
+          text-align: center;
+          margin: 5px auto;
+          box-sizing: border-box; }
+        .modal .stock-box .stock-box-info .box .btn:hover {
+          cursor: pointer; }
+        .modal .stock-box .stock-box-info .box .form {
+          text-align: center; }
+        .modal .stock-box .stock-box-info .box input[type="text"] {
+          width: 70%; }
+        .modal .stock-box .stock-box-info .box input[type="submit"] {
+          width: 20%;
+          background: #456177;
+          color: whitesmoke; }
   .modal .register-box {
     border-top: 3px solid #CAD04A;
     margin: 150px auto;
