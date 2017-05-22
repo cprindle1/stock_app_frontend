@@ -48,8 +48,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var vm = this;
   this.token = null;
   var refreshIntervalId = null;
-  this.URL = 'https://stockerapi.herokuapp.com/';
-  // this.URL = 'http://localhost:3000/';
+  // this.URL = 'https://stockerapi.herokuapp.com/';
+  this.URL = 'http://localhost:3000/';
 
 
 
@@ -150,27 +150,25 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
           $rootScope.moneyGained = stockPrice * sellQty;
           this.countUserStocks();
           console.log("Save Success");
-        }.bind(this));
-      }.bind(this));
-    } else {
-      $http({
-        method: 'PUT',
-        url: URL,
-        data: {
-          qty: (stockQty - sellQty)
-        }
-      }).then(function(result) {
-        var URL = this.URL + 'users/' + userId;
-        $http({
-          method: 'PUT',
-          url: URL,
-          data: {
-            money: parseFloat($rootScope.currentUser.money) + (stockPrice * sellQty),
-            name: $rootScope.currentUser.name,
-            password: $rootScope.currentUser.password
-          }
-        }).then(function(result) {
-          console.log(result.data.user);
+       }.bind(this));
+     }.bind(this));
+   }else{
+     $http({
+       method: 'PUT',
+       url: URL,
+       data: {
+         qty: (stockQty - sellQty)
+       }
+     }).then(function(result) {
+       var URL = this.URL + 'users/' + userId;
+       $http({
+         method: 'PUT',
+         url: URL,
+         data: {
+           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty)
+         }
+       }).then(function(result) {
+         console.log(result.data.user);
           $rootScope.currentUser = result.data.user;
           $rootScope.myStocks = result.data.userstocks;
           this.countUserStocks();
@@ -517,8 +515,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
-    this.URL = 'https://stockerapi.herokuapp.com/'
-    // this.URL = 'http://localhost:3000/';
+    // this.URL = 'https://stockerapi.herokuapp.com/'
+    this.URL = 'http://localhost:3000/';
 
     var URL = this.URL + 'search_tickers';
     $http({

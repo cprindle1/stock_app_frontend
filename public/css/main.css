@@ -166,10 +166,48 @@ input[type="submit"]:hover {
 .banner {
   width: 100%;
   height: 400px;
-  background: #ccc;
-  background-image: url("http://placehold.it/1000x400.png");
+  background: #f9f9f9;
+  background-image: url("../img/banner2.png");
   background-size: cover;
-  background-position: center; }
+  background-position: center;
+  background-repeat: no-repeat; }
+
+.banner-content {
+  width: 90%;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.4);
+  margin: 0 auto;
+  top: 50px;
+  position: relative; }
+
+.banner-title {
+  width: 100%;
+  top: 60px;
+  position: relative;
+  text-align: center;
+  font-size: 100px;
+  font-weight: 800;
+  text-shadow: 2px 2px #456177;
+  color: whitesmoke;
+  text-transform: uppercase; }
+
+.banner-title:after {
+  content: "";
+  background: #456177;
+  width: 30%;
+  height: 1px;
+  left: 35%;
+  margin-top: 5px;
+  position: relative;
+  display: block; }
+
+.banner-desc {
+  width: 100%;
+  font-size: 18px;
+  color: #272C2F;
+  text-shadow: 1px 1px #026670;
+  text-transform: uppercase;
+  text-align: center; }
 
 /* ============= LANDING INFO ============== */
 .landing-info {
