@@ -159,6 +159,18 @@ input[type="submit"]:hover {
   position: relative;
   background: darken($light-gray, 2%);
   color: #444;
+  .pos-change {
+    em {
+      color: $green;
+      font-style: normal;
+    }
+  }
+  .neg-change {
+    em {
+      color: $red;
+      font-style: normal;
+    }
+  }
   p {
     position: absolute;
     width: 100%;

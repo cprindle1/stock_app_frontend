@@ -161,7 +161,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         // testing... to refresh all stocks
         refreshIntervalId = setInterval(function() {
           myTimer()
-        }, 40000);
+        }, 4000);
 
         $location.path('/dashboard');
       }
@@ -390,10 +390,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
-
     this.URL = 'http://localhost:3000/'
     var URL = this.URL + 'search_tickers';
-
     $http({
       method: 'POST',
       url: URL,
@@ -402,17 +400,13 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         stock: $rootScope.myStocks
       }
     }).then(function(result) {
-
       if (!result.data) {
         console.log(result.data.errors);
       } else {
-        $rootScope.myTickersMessage = result.data.tickersMessage;
-        $rootScope.stockTikcers = result.data.stockTikers;
+        $rootScope.userTicker = result.data.tickers;
       }
     }.bind(this));
-
   }; // end myTimer
-
 }]);
 
 // Server - set cookies
