@@ -329,15 +329,6 @@ input[type="submit"]:hover {
     height: 150px;
     margin-top: 5px;
     overflow: auto;
-    :hover {
-      background: $blue;
-      color: #f9f9f9;
-      cursor: pointer;
-      transition: 0.5s ease-in;
-      -moz-transition: 0.5s ease-in;
-      -o-transition: 0.5s ease-in;
-      -webkit-transition: 0.5s ease-in;
-    }
   }
   .stock {
     width: 90%;
@@ -349,6 +340,42 @@ input[type="submit"]:hover {
     display: flex;
     justify-content: space-between;
     text-transform: uppercase;
+    transition: 0.5s ease-in;
+    -moz-transition: 0.5s ease-in;
+    -o-transition: 0.5s ease-in;
+    -webkit-transition: 0.5s ease-in;
+  }
+  .stock:hover {
+    background: $blue;
+    color: #f9f9f9;
+    cursor: pointer;
+    transition: 0.5s ease-in;
+    -moz-transition: 0.5s ease-in;
+    -o-transition: 0.5s ease-in;
+    -webkit-transition: 0.5s ease-in;
+    .unwatch {
+      color: whitesmoke;
+      transition: 0.5s ease-in;
+      -moz-transition: 0.5s ease-in;
+      -o-transition: 0.5s ease-in;
+    }
+  }
+  .unwatch {
+    border: 1px solid #ccc;
+    color: $med-gray;
+    padding: 2px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    z-index: 2;
+    transition: 0.5s ease-in;
+    -moz-transition: 0.5s ease-in;
+    -o-transition: 0.5s ease-in;
+  }
+  .unwatch:hover {
+    background: #ccc;
+    transition: 0.5s ease-in;
+    -moz-transition: 0.5s ease-in;
+    -o-transition: 0.5s ease-in;
   }
 }
 /* modals */
