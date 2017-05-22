@@ -139,7 +139,9 @@
               <input type="number" min="1" placeholder="AMOUNT OF SHARES..." ng-model="vm.buyingStock.NumberShares" />
               <input type="submit" value="Submit"/>
             </form>
-
+            <div class="success-msg" ng-show="succesfulBuy">
+              bought!
+            </div>
             <div class="error-msg" ng-show="error_msg_not_enough_fund">
               {{error_msg_not_enough_fund}}
             </div>

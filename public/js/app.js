@@ -213,6 +213,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     $rootScope.stockSearchResult = null;
     $rootScope.msg_watching_stock = null;
     $rootScope.successfulWatch = null;
+    $rootScope.succesfulBuy = null;
     var URL = this.URL + 'search_stocks';
     $http({
       method: 'POST',
@@ -300,8 +301,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         } else {
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
+          $rootScope.succesfulBuy = true;
           this.countUserStocks();
-
           console.log("Save Success");
         }
 
