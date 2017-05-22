@@ -180,6 +180,46 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   };
 
+  // Buy stock
+  this.buystock = function() {
+    console.log("buying.....");
+
+    if (typeof this.buyingStock.NumberShares === 'undefined') {
+      $scope.error_msg_not_enough_fund = "Number of Share should not be 0"
+    }
+
+    var numberOfShare = this.buyingStock.NumberShares;
+    var userId = $rootScope.currentUser.id;
+    // var stockSymbol = $rootScope.stockSearchResult.symbol;
+    var isWatched = false;
+    var URL = this.URL + 'users/' + userId + '/ledgers';
+    $http({
+      method: 'POST',
+      url: URL,
+      data: {
+        user: $rootScope.currentUser,
+        qty: numberOfShare,
+        isWatched: isWatched,
+        stock: $rootScope.stockSearchResult
+      }
+    }).then(function(result) {
+      $scope.error_msg_not_enough_fund = null
+      console.log(result.data.errors);
+      if (!result.data) {
+        $scope.error_msg_not_enough_fund = result.data.errors;
+      } else {
+        $rootScope.myStocks = result.data.userstocks;
+        $rootScope.currentUser = result.data.currentUser;
+
+        console.log("Save Success");
+      }
+
+    }.bind(this));
+
+
+  };
+
+
 
 }]);
 
