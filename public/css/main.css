@@ -268,6 +268,28 @@ input[type="submit"]:hover {
       font-size: 14px;
       margin-top: 8px;
       color: #456177; }
+    .user-portfolio .stats .info {
+      color: #6B6E73;
+      position: relative;
+      height: 0px;
+      transition: 0.2s ease-in;
+      -moz-transition: 0.2s ease-in;
+      -o-transition: 0.2s ease-in;
+      -webkit-transition: 0.2s ease-in; }
+      .user-portfolio .stats .info i[title]:hover:after {
+        content: attr(title);
+        padding: 5px 8px;
+        color: whitesmoke;
+        background: #6B6E73;
+        text-transform: uppercase;
+        font-family: 'Karla', sans-serif;
+        border-radius: 3px;
+        margin-top: 10px;
+        position: absolute;
+        white-space: nowrap;
+        z-index: 1; }
+    .user-portfolio .stats .info:hover {
+      color: #869514; }
 
 /* dashboard stock card */
 .user-stocks {

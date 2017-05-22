@@ -320,6 +320,31 @@ input[type="submit"]:hover {
       margin-top: 8px;
       color: $blue;
     }
+    .info {
+      color: $med-gray;
+      position: relative;
+      height: 0px;
+      transition: 0.2s ease-in;
+      -moz-transition: 0.2s ease-in;
+      -o-transition: 0.2s ease-in;
+      -webkit-transition: 0.2s ease-in;
+      i[title]:hover:after{
+        content: attr(title);
+        padding: 5px 8px;
+        color: whitesmoke;
+        background: $med-gray;
+        text-transform: uppercase;
+        font-family: 'Karla', sans-serif;
+        border-radius: 3px;
+        margin-top: 10px;
+        position: absolute;
+        white-space: nowrap;
+        z-index: 1;
+      }
+    }
+    .info:hover {
+      color: $green;
+    }
   }
 }
 /* dashboard stock card */
