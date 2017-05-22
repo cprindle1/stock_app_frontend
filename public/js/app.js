@@ -52,6 +52,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.URL = 'http://localhost:3000/';
 
 
+
   // DECLARING TOGGLE VARIABLES
   this.registerModal = false;
   this.watchedModal = false;
@@ -361,9 +362,18 @@ this.updateUser = function(){
     var isWatched = false;
     var userMoney = $rootScope.currentUser.money;
 
-    var sharePrice = $rootScope.stockSearchResult.ask
-    if (sharePrice === null || sharePrice === 0) {
-      sharePrice = $rootScope.stockSearchResult.last_trade_price_only
+    if($rootScope.stockSearchResult !== undefined) {
+      var sharePrice = $rootScope.stockSearchResult.ask;
+      var stockData = $rootScope.stockSearchResult;
+      if (sharePrice === null || sharePrice === 0) {
+        sharePrice = $rootScope.stockSearchResult.last_trade_price_only;
+      }
+    } else {
+      var sharePrice = vm.automatedStock.ask;
+      var stockData = vm.automatedStock;
+      if (sharePrice === null || sharePrice === 0) {
+        sharePrice = vm.automatedStock.last_trade_price_only;
+      }
     }
 
     costTrading = sharePrice * numberOfShare;
@@ -376,7 +386,7 @@ this.updateUser = function(){
           user: $rootScope.currentUser,
           qty: numberOfShare,
           isWatched: isWatched,
-          stock: $rootScope.stockSearchResult
+          stock: stockData
         }
       }).then(function(result) {
         $scope.error_msg_not_enough_fund = null
@@ -386,8 +396,8 @@ this.updateUser = function(){
         } else {
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
+          $rootScope.succesfulBuy = true;
           this.countUserStocks();
-
           console.log("Save Success");
         }
 
