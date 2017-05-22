@@ -134,6 +134,7 @@
             BUY SHARES
           </div>
           <!-- <form class="buy-shares" ng-submit="vm.buystock" ng-if="vm.buyingShares"> -->
+          <!--  Buy Stock  -->
           <div ng-if="vm.buyingShares">
             <form ng-submit="vm.buystock()">
               <input type="number" min="1" placeholder="AMOUNT OF SHARES..." ng-model="vm.buyingStock.NumberShares" />
@@ -146,8 +147,16 @@
 
           </div>
 
+          <!--  Watch Stock -->
           <div class="stock-btn ">
-            WATCH STOCK
+            <!-- <form> -->
+            <input type="submit" value="Watch Stock" ng-click="vm.watchedStock()" />
+            <div ng-show="msg_watching_stock">
+              {{msg_watching_stock}}
+            </div>
+            <!-- </form> -->
+
+
           </div>
         </div>
         <!-- ====== STOCK CHART ======= -->
