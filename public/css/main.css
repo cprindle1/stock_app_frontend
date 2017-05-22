@@ -166,10 +166,16 @@ input[type="submit"]:hover {
 .banner {
   width: 100%;
   height: 400px;
-  background: #ccc;
-  background-image: url("http://placehold.it/1000x400.png");
+  background: #f9f9f9;
+  background-image: url("../img/banner2.png");
   background-size: cover;
-  background-position: center; }
+  background-position: center;
+  background-repeat: no-repeat; }
+
+.banner-content {
+  width: 50%;
+  margin-top: 7%;
+  float: right; }
 
 /* ============= LANDING INFO ============== */
 .landing-info {
