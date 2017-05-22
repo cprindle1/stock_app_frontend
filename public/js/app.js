@@ -183,13 +183,20 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
  //DELETE USER
 
  this.deleteUser = function(id){
-   var URL = this.URL + 'users/' + id;
-   $http({
-      method: 'DELETE',
-      url: URL
-    }).then(this.logout());
- };
-
+   var userId = $rootScope.currentUser.id;
+   for(var i = 0; i<$rootScope.myStocks.length; i++){
+     var URL = this.URL + 'users/' + userId + '/ledgers/' +      $rootScope.myStocks[i].id;
+     $http({
+        method: 'DELETE',
+        url: URL
+      });
+    }
+     var URL = this.URL + 'users/' + id;
+        $http({
+            method: 'DELETE',
+            url: URL
+          }).then(this.logout());
+  }
   // FILTERS BETWEEN BOUGHT AND WATCHED STOCKS
   this.filterStocks = function(status) {
     if (status === 'bought') {
