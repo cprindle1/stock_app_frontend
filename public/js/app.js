@@ -137,9 +137,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
          method: 'PUT',
          url: URL,
          data: {
-           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty),
-          //  name: $rootScope.currentUser.name,
-          //  password: $rootScope.currentUser.password
+           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty)
          }
        }).then(function(result) {
          console.log(result.data.user);
@@ -184,17 +182,20 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
  //DELETE USER
 
  this.deleteUser = function(id){
+   var userId = $rootScope.currentUser.id;
    for(var i = 0; i<$rootScope.myStocks.length; i++){
-     console.log($rootScope.myStocks[i]);
-   }
-
-   var URL = this.URL + 'users/' + id;
-   $http({
-      method: 'DELETE',
-      url: URL
-    }).then(this.logout());
- };
-
+     var URL = this.URL + 'users/' + userId + '/ledgers/' +      $rootScope.myStocks[i].id;
+     $http({
+        method: 'DELETE',
+        url: URL
+      });
+    }
+     var URL = this.URL + 'users/' + id;
+        $http({
+            method: 'DELETE',
+            url: URL
+          }).then(this.logout());
+  }
   // FILTERS BETWEEN BOUGHT AND WATCHED STOCKS
   this.filterStocks = function(status) {
     if (status === 'bought') {
