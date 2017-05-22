@@ -48,7 +48,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var vm = this;
   this.token = null;
   var refreshIntervalId = null;
-  this.URL = 'http://localhost:3000/';
+  this.URL = 'https://stockerapi.herokuapp.com/';
 
   // DECLARING TOGGLE VARIABLES
   this.registerModal = false;
