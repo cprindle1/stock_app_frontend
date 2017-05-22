@@ -371,14 +371,6 @@ input[type="submit"]:hover {
   .form {
     text-align: center;
   }
-  input[type="text"] {
-    width: 70%;
-  }
-  input[type="submit"] {
-    width: 20%;
-    background: $blue;
-    color: whitesmoke;
-  }
   .stock-stat {
     text-align: right;
   }
@@ -390,6 +382,14 @@ input[type="submit"]:hover {
     height: 400px;
     background: lighten($light-gray, 1%);
     box-sizing: border-box;
+    input[type="text"] {
+      width: 70%;
+    }
+    input[type="submit"] {
+      width: 20%;
+      background: $blue;
+      color: whitesmoke;
+    }
     strong {
       color: $marine;
       text-transform: uppercase;
@@ -429,6 +429,14 @@ input[type="submit"]:hover {
     height: 380px;
     background: lighten($light-gray, 1%);
     box-sizing: border-box;
+    input[type="text"] {
+      width: 70%;
+    }
+    input[type="submit"] {
+      width: 20%;
+      background: $blue;
+      color: whitesmoke;
+    }
     strong {
       color: $marine;
       text-transform: uppercase;
