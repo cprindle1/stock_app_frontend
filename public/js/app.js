@@ -48,7 +48,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var vm = this;
   this.token = null;
   var refreshIntervalId = null;
-  this.URL = 'http://localhost:3000/'
+  this.URL = 'http://localhost:3000/';
 
   // DECLARING TOGGLE VARIABLES
   this.registerModal = false;
@@ -69,13 +69,15 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   }
 
   // ACTIVATES MODALS
-  this.modalToggle = function(modal) {
+  this.modalToggle = function(modal, index) {
     switch(modal) {
       case 'register':
         this.registerModal = !this.registerModal;
         break;
       case 'boughtStock':
         this.boughtModal = !this.boughtModal;
+        this.viewedStock = $rootScope.myStocks[index];
+        this.automatedSearchStock($rootScope.myStocks[index].symbol);
         break;
       case 'watchedStock':
         this.watchedModal = !this.watchedModal;
@@ -116,7 +118,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     $rootScope.loggedIn = false;
     localStorage.clear('token');
     // userPersistenceService.clearCookieData('userName');
-
     console.log("this.formLogin", this.formLogin);
     // this.URL = 'https://stockerapi.herokuapp.com/login';
     // this.URL = 'http://localhost:3000/login'
@@ -144,6 +145,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         console.log("User stocks", result.data.userstocks);
         $rootScope.myStocks = result.data.userstocks;
 
+        // calls countUserStocks function
+        this.countUserStocks();
 
         // testing... to refresh all stocks
         refreshIntervalId = setInterval(function() {
@@ -194,7 +197,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.searchStock = function() {
     console.log("this.stocksearch", this.stocksearch);
     $rootScope.stockSearchResult = null;
-    var URL = this.URL + 'search_stocks'
+    var URL = this.URL + 'search_stocks';
     $http({
       method: 'POST',
       url: URL,
@@ -205,7 +208,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       console.log(result.data);
       // DRAWS THE CHART
       var ctx = document.querySelector('#stock-chart');
-      var chartData = {
+      chartData = {
         labels: ["Current", "Fr. 50 Day Moving Avg", "Fr. 200 Day Moving Avg", "Fr. Year High", "Fr. Year Low"],
         datasets: [
           {
@@ -227,11 +230,37 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       if (!result.data) {
         $scope.error_msg = "No Records found";
       }
-
     }.bind(this));
-
   };
 
+  // AUTOMATED SEARCH FOR STOCKS
+  this.automatedSearchStock = function(sym) {
+    var URL = this.URL + 'search_stocks';
+    $http({
+      method: 'POST',
+      url: URL,
+      data: {
+        stock: sym
+      }
+    }).then(function(result) {
+        this.automatedStock = result.data;
+        console.log(this.automatedStock);
+    }.bind(this));
+  };
+
+  // COUNTS USER'S BOUGHT AND WATCHED STOCKS
+  this.countUserStocks = function() {
+    $rootScope.currentUser.userBought = 0;
+    $rootScope.currentUser.userWatched = 0;
+    for(var i = 0; i < $rootScope.myStocks.length; i++) {
+      if($rootScope.myStocks[i].watched === true) {
+        $rootScope.currentUser.userWatched++;
+      } else {
+          $rootScope.currentUser.userBought++;
+      }
+    }
+    return;
+  }
 
 }]);
 
