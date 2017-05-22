@@ -48,7 +48,10 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var vm = this;
   this.token = null;
   var refreshIntervalId = null;
+  // this.URL = 'https://stockerapi.herokuapp.com/';
   this.URL = 'http://localhost:3000/';
+
+
 
   // DECLARING TOGGLE VARIABLES
   this.registerModal = false;
@@ -99,17 +102,94 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // SHOWS BUYING SHARE FORM
   this.buyShareToggle = function() {
     this.buyingShares = !this.buyingShares;
+    $rootScope.succesfulBuy = false;
   }
 
   // SHOWS BUYING (MORE) SHARES FORM
   this.buyMore = function() {
     this.buyingMore = !this.buyingMore;
+    $rootScope.succesfulBuy = false;
   }
 
   // SHOWS SELLING SHARES FORM
   this.sellShares = function() {
     this.sellingShares = !this.sellingShares;
-  }
+  };
+
+  //SELL STOCKS
+    this.sellStock = function(){
+    var sellQty = this.sellingStock.NumberShares;
+    var stockId = this.viewedStock.id;
+    var stockPrice = parseFloat(this.viewedStock.price);
+    var stockQty = this.viewedStock.qty;
+    var userId = $rootScope.currentUser.id;
+    var URL = this.URL + 'users/' + userId + '/ledgers/' + stockId;
+    if(stockQty <= sellQty){
+      if(sellQty>stockQty){
+        sellQty=stockQty;
+      }
+    $http({
+       method: 'DELETE',
+       url: URL
+     }).then(function(result) {
+       var URL = this.URL + 'users/' + userId;
+       $http({
+         method: 'PUT',
+         url: URL,
+         data: {
+           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty),
+           name: $rootScope.currentUser.name,
+           password: $rootScope.currentUser.password
+         }
+       }).then(function(result) {
+         console.log(result.data.user);
+          $rootScope.currentUser = result.data.user;
+          $rootScope.myStocks = result.data.userstocks;
+          $rootScope.soldStocks = sellQty;
+          $rootScope.succesfulSell = true;
+          $rootScope.moneyGained = stockPrice * sellQty;
+          this.countUserStocks();
+          console.log("Save Success");
+       }.bind(this));
+     }.bind(this));
+   }else{
+     $http({
+       method: 'PUT',
+       url: URL,
+       data: {
+         qty: (stockQty - sellQty)
+       }
+     }).then(function(result) {
+       var URL = this.URL + 'users/' + userId;
+       $http({
+         method: 'PUT',
+         url: URL,
+         data: {
+           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty),
+           name: $rootScope.currentUser.name,
+           password: $rootScope.currentUser.password
+         }
+       }).then(function(result) {
+         console.log(result.data.user);
+          $rootScope.currentUser = result.data.user;
+          $rootScope.myStocks = result.data.userstocks;
+          this.countUserStocks();
+          console.log("Save Success");
+       }.bind(this));
+         console.log("Save Success");
+     }.bind(this));
+   }
+ };
+
+ //DELETE USER
+
+ this.deleteUser = function(id){
+   var URL = this.URL + 'users/' + id;
+   $http({
+      method: 'DELETE',
+      url: URL
+    }).then(this.logout());
+ };
 
   // FILTERS BETWEEN BOUGHT AND WATCHED STOCKS
   this.filterStocks = function(status) {
@@ -120,17 +200,18 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }
   }
 
-
+  // Testing.... this will go to backend to get data market price for stock
+  function myTimer() {
+    console.log(' each 1 second...');
+  }
+  // ----
 
   // SENDS LOGIN REQUEST TO API
   this.submit = function() {
     $scope.error_msg = null;
     $rootScope.loggedIn = false;
     localStorage.clear('token');
-    // userPersistenceService.clearCookieData('userName');
     console.log("this.formLogin", this.formLogin);
-    // this.URL = 'https://stockerapi.herokuapp.com/login';
-    // this.URL = 'http://localhost:3000/login'
     var URL = this.URL + 'login'
     $http({
       method: 'POST',
@@ -161,7 +242,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         // testing... to refresh all stocks
         refreshIntervalId = setInterval(function() {
           myTimer()
-        }, 4000);
+        }, 20000);
 
         $location.path('/dashboard');
       }
@@ -190,6 +271,21 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }.bind(this));
   };
 
+//UPDATE USER INFO
+this.updateUser = function(){
+  this.editModal = !this.editModal;
+  var userId = $rootScope.currentUser.id;
+  var URL = this.URL + 'users/' + userId;
+  $http({
+    method: 'PUT',
+    url: URL,
+    data: this.formdata
+  }).then(function(result){
+    $rootScope.currentUser = result.data.user;
+    this.countUserStocks();
+  });
+};
+
   // SENDS LOGOUT REQUEST
   this.logout = function() {
     console.log("Logout.......", refreshIntervalId);
@@ -208,8 +304,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     console.log("this.stocksearch", this.stocksearch);
     $rootScope.stockSearchResult = null;
     $rootScope.msg_watching_stock = null;
-    $rootScope.successfulWatch = null;
-    $rootScope.succesfulBuy = null;
+    $rootScope.succesfulBuy = false;
     var URL = this.URL + 'search_stocks';
     $http({
       method: 'POST',
@@ -247,6 +342,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // AUTOMATED SEARCH FOR STOCKS
   this.automatedSearchStock = function(sym) {
     var URL = this.URL + 'search_stocks';
+    $rootScope.succesfulBuy = false;
+    $rootScope.succesfulSell = false;
     $http({
       method: 'POST',
       url: URL,
@@ -259,10 +356,10 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }.bind(this));
   };
 
-
   // Buy stock
   this.buystock = function() {
     console.log("buying.....");
+    $rootScope.succesfulBuy = false;
     if (typeof this.buyingStock.NumberShares === 'undefined') {
       $scope.error_msg_not_enough_fund = "Number of Share should not be 0"
     }
@@ -272,7 +369,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     var isWatched = false;
     var userMoney = $rootScope.currentUser.money;
 
-    if ($rootScope.stockSearchResult !== undefined) {
+    if($rootScope.stockSearchResult !== undefined) {
       var sharePrice = $rootScope.stockSearchResult.ask;
       var stockData = $rootScope.stockSearchResult;
       if (sharePrice === null || sharePrice === 0) {
@@ -299,15 +396,15 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
           stock: stockData
         }
       }).then(function(result) {
-        $scope.error_msg_not_enough_fund = null;
-        this.buyingStock.NumberShares = null;
+        $scope.error_msg_not_enough_fund = null
+        console.log(result.data.errors);
         if (!result.data) {
           $scope.error_msg_not_enough_fund = result.data.errors;
         } else {
-          console.log(result);
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
           $rootScope.succesfulBuy = true;
+          this.buyingStock.NumberShares = '';
           this.countUserStocks();
           console.log("Save Success");
         }
@@ -339,9 +436,10 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     });
 
     if (isStock) {
-      $rootScope.msg_watching_stock = "The stock is already in your Bought/Watched list.";
+      $rootScope.msg_watching_stock = "The stock is already in your Bought/Watched stock list.";
     } else {
       var URL = this.URL + 'users/' + userId + '/ledgers';
+
       $http({
         method: 'POST',
         url: URL,
@@ -362,8 +460,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         } else {
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
-          $rootScope.successfulWatch = true;
           this.countUserStocks();
+
           console.log("Save Success");
         }
 
@@ -373,6 +471,21 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   }; // End Watch Stock
 
+  //REMOVE STOCK FROM WATCH LIST
+  this.unwatchStock = function(){
+    this.watchedModal = !this.watchedModal;
+    var stockId = this.viewedStock.id;
+    var userId = $rootScope.currentUser.id;
+    var URL = this.URL + 'users/' + userId + '/ledgers/' + stockId;
+    $http({
+       method: 'DELETE',
+       url: URL
+     }).then(function(result) {
+      //  console.log(result.data.userstocks);
+        $rootScope.myStocks = result.data.userstocks;
+        this.countUserStocks();
+     });
+  };
 
   // COUNTS USER'S BOUGHT AND WATCHED STOCKS
   this.countUserStocks = function() {
@@ -386,11 +499,14 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       }
     }
     return;
-  }; // end countUserStocks
+  }
+
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
-    this.URL = 'http://localhost:3000/'
+    // this.URL = 'https://stockerapi.herokuapp.com/'
+    this.URL = 'http://localhost:3000/';
+
     var URL = this.URL + 'search_tickers';
     $http({
       method: 'POST',
