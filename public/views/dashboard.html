@@ -72,6 +72,9 @@
         <div class="stock-container" ng-if="vm.stockFilter === 'watched'">
           <div class="stock" ng-click="vm.modalToggle('watchedStock', $index);" ng-if="stock.watched" ng-repeat="stock in myStocks">
             <strong>{{stock.symbol}}</strong>
+            <div class="unwatch">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -133,30 +136,28 @@
           <div class="stock-btn" ng-click="vm.buyShareToggle();">
             BUY SHARES
           </div>
-          <!-- <form class="buy-shares" ng-submit="vm.buystock" ng-if="vm.buyingShares"> -->
-          <!--  Buy Stock  -->
-          <div ng-if="vm.buyingShares">
+          <!--  BUY STOCK  -->
+          <div ng-if="vm.buyingShares" class="buy-shares">
             <form ng-submit="vm.buystock()">
               <input type="number" min="1" placeholder="AMOUNT OF SHARES..." ng-model="vm.buyingStock.NumberShares" />
-              <input type="submit" value="Submit" />
+              <input type="submit" value="Submit"/>
             </form>
-
-            <div ng-show="error_msg_not_enough_fund">
+            <div class="success-msg" ng-show="succesfulBuy">
+              bought!
+            </div>
+            <div class="error-msg" ng-show="error_msg_not_enough_fund">
               {{error_msg_not_enough_fund}}
             </div>
-
           </div>
-
-          <!--  Watch Stock -->
-          <div class="stock-btn ">
-            <!-- <form> -->
-            <input type="submit" value="Watch Stock" ng-click="vm.watchedStock()" />
-            <div ng-show="msg_watching_stock">
-              {{msg_watching_stock}}
-            </div>
-            <!-- </form> -->
-
-
+          <!-- WATCH STOCK -->
+          <div class="stock-btn" ng-click="vm.watchedStock()" />
+          WATCH STOCK
+          </div>
+          <div class="success-msg" ng-show="successfulWatch">
+            added!
+          </div>
+          <div class="error-msg" ng-show="msg_watching_stock">
+            {{msg_watching_stock}}
           </div>
         </div>
         <!-- ====== STOCK CHART ======= -->
@@ -235,11 +236,17 @@
             <div class="btn" ng-click="vm.buyMore();">
               buy more shares
             </div>
-            <div class="form" ng-if="vm.buyingMore">
+            <div class="form" ng-if="vm.buyingMore" ng-submit="vm.buystock();">
               <form>
-                <input type="text" placeholder="AMOUNT" />
+                <input type="number" min="1" placeholder="AMOUNT" ng-model="vm.buyingStock.NumberShares"/>
                 <input type="submit" value="BUY" />
               </form>
+              <div class="success-msg" ng-show="succesfulBuy">
+                bought!
+              </div>
+              <div class="error-msg" ng-show="error_msg_not_enough_fund">
+                {{error_msg_not_enough_fund}}
+              </div>
             </div>
           </div>
         </div>
@@ -292,11 +299,17 @@
           <div class="btn" ng-click="vm.buyMore();">
             buy shares
           </div>
-          <div class="form" ng-if="vm.buyingMore">
+          <div class="form" ng-if="vm.buyingMore" ng-submit="vm.buystock();">
             <form>
-              <input type="text" placeholder="AMOUNT" />
+              <input type="number" min="1" placeholder="AMOUNT" ng-model="vm.buyingStock.NumberShares"/>
               <input type="submit" value="BUY" />
             </form>
+            <div class="success-msg" ng-show="succesfulBuy">
+              bought!
+            </div>
+            <div class="error-msg" ng-show="error_msg_not_enough_fund">
+              {{error_msg_not_enough_fund}}
+            </div>
           </div>
           <div class="btn">
             stop watching

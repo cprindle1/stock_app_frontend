@@ -208,6 +208,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     console.log("this.stocksearch", this.stocksearch);
     $rootScope.stockSearchResult = null;
     $rootScope.msg_watching_stock = null;
+    $rootScope.successfulWatch = null;
+    $rootScope.succesfulBuy = null;
     var URL = this.URL + 'search_stocks';
     $http({
       method: 'POST',
@@ -261,7 +263,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // Buy stock
   this.buystock = function() {
     console.log("buying.....");
-
     if (typeof this.buyingStock.NumberShares === 'undefined') {
       $scope.error_msg_not_enough_fund = "Number of Share should not be 0"
     }
@@ -271,9 +272,18 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     var isWatched = false;
     var userMoney = $rootScope.currentUser.money;
 
-    var sharePrice = $rootScope.stockSearchResult.ask
-    if (sharePrice === null || sharePrice === 0) {
-      sharePrice = $rootScope.stockSearchResult.last_trade_price_only
+    if($rootScope.stockSearchResult !== undefined) {
+      var sharePrice = $rootScope.stockSearchResult.ask;
+      var stockData = $rootScope.stockSearchResult;
+      if (sharePrice === null || sharePrice === 0) {
+        sharePrice = $rootScope.stockSearchResult.last_trade_price_only;
+      }
+    } else {
+      var sharePrice = vm.automatedStock.ask;
+      var stockData = vm.automatedStock;
+      if (sharePrice === null || sharePrice === 0) {
+        sharePrice = vm.automatedStock.last_trade_price_only;
+      }
     }
 
     costTrading = sharePrice * numberOfShare;
@@ -286,18 +296,19 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
           user: $rootScope.currentUser,
           qty: numberOfShare,
           isWatched: isWatched,
-          stock: $rootScope.stockSearchResult
+          stock: stockData
         }
       }).then(function(result) {
-        $scope.error_msg_not_enough_fund = null
-        console.log(result.data.errors);
+        $scope.error_msg_not_enough_fund = null;
+        this.buyingStock.NumberShares = null;
         if (!result.data) {
           $scope.error_msg_not_enough_fund = result.data.errors;
         } else {
+          console.log(result);
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
+          $rootScope.succesfulBuy = true;
           this.countUserStocks();
-
           console.log("Save Success");
         }
 
@@ -328,10 +339,9 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     });
 
     if (isStock) {
-      $rootScope.msg_watching_stock = "The stock is already in the Bought/Watched stock list.";
+      $rootScope.msg_watching_stock = "The stock is already in your Bought/Watched list.";
     } else {
       var URL = this.URL + 'users/' + userId + '/ledgers';
-
       $http({
         method: 'POST',
         url: URL,
@@ -352,8 +362,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         } else {
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
+          $rootScope.successfulWatch = true;
           this.countUserStocks();
-
           console.log("Save Success");
         }
 
