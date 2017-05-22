@@ -48,8 +48,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var vm = this;
   this.token = null;
   var refreshIntervalId = null;
-  // this.URL = 'https://stockerapi.herokuapp.com/';
-  this.URL = 'http://localhost:3000/';
+  this.URL = 'https://stockerapi.herokuapp.com/';
+  // this.URL = 'http://localhost:3000/';
 
 
 
@@ -515,8 +515,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
-    // this.URL = 'https://stockerapi.herokuapp.com/'
-    this.URL = 'http://localhost:3000/';
+    this.URL = 'https://stockerapi.herokuapp.com/'
+    // this.URL = 'http://localhost:3000/';
 
     var URL = this.URL + 'search_tickers';
     $http({
