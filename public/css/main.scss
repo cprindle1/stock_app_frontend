@@ -29,6 +29,9 @@ input[type="text"]:focus, input[type="password"]:focus {
   border: 1px solid $light-green;
   outline: none;
 }
+input[type="submit"]:hover {
+  cursor: pointer;
+}
 
 /* ================ NAVBAR ================= */
 .navbar {
@@ -107,7 +110,10 @@ input[type="text"]:focus, input[type="password"]:focus {
 }
 .register {
   width: 100%;
+  display: flex;
   text-align: center;
+  align-items: center;
+  flex-direction: column;
   h1 {
     width: 100%;
     font-size: 30px;
@@ -124,15 +130,15 @@ input[type="text"]:focus, input[type="password"]:focus {
     display: block;
   }
   form {
-    margin: 10px 37%;
-    position: relative;
-    width: 30%;
+    margin: 10px auto;
   }
   input {
     margin: 5px;
   }
   input[type="submit"]{
     width: 140px;
+    background: $blue;
+    color: white;
   }
 }
 /* =============== TICKER ================= */
@@ -316,6 +322,7 @@ input[type="text"]:focus, input[type="password"]:focus {
     :hover {
       background: $blue;
       color: #f9f9f9;
+      cursor: pointer;
       transition: 0.5s ease-in;
       -moz-transition: 0.5s ease-in;
       -o-transition: 0.5s ease-in;
@@ -329,9 +336,12 @@ input[type="text"]:focus, input[type="password"]:focus {
     padding: 7px;
     box-sizing: border-box;
     background: #eee;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
   }
 }
-/* dashboard stock modal */
+/* modals */
 .modal {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -341,7 +351,30 @@ input[type="text"]:focus, input[type="password"]:focus {
   width: 100%;
   z-index: 1;
   overflow: auto;
-  .box {
+  table {
+    width: 100%;
+  }
+  .btn {
+    width: 100%;
+    padding: 5px;
+    border-radius: 3px;
+    background: $light-green;
+    text-transform: uppercase;
+    color: whitesmoke;
+    text-align: center;
+    margin: 5px auto;
+    box-sizing: border-box;
+  }
+  .btn:hover {
+    cursor: pointer;
+  }
+  .form {
+    text-align: center;
+  }
+  .stock-stat {
+    text-align: right;
+  }
+  .stock-box {
     border-top: 3px solid $light-green;
     margin: 150px auto;
     padding: 10px;
@@ -349,6 +382,100 @@ input[type="text"]:focus, input[type="password"]:focus {
     height: 400px;
     background: lighten($light-gray, 1%);
     box-sizing: border-box;
+    input[type="text"] {
+      width: 70%;
+    }
+    input[type="submit"] {
+      width: 20%;
+      background: $blue;
+      color: whitesmoke;
+    }
+    strong {
+      color: $marine;
+      text-transform: uppercase;
+    }
+    .stock-box-info {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px;
+      h3 {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 20px;
+        font-weight: 300;
+      }
+      h3:after {
+        content: '';
+        display: block;
+        width: 20%;
+        height: 1px;
+        margin: 5px auto 10px auto;
+        background: $med-gray;
+      }
+      .box {
+        width: 49%;
+        background: whitesmoke;
+        border-radius: 3px;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+    }
+  }
+  .watched-stock-box {
+    border-top: 3px solid $light-green;
+    margin: 150px auto;
+    padding: 10px;
+    width: 65%;
+    height: 380px;
+    background: lighten($light-gray, 1%);
+    box-sizing: border-box;
+    input[type="text"] {
+      width: 70%;
+    }
+    input[type="submit"] {
+      width: 20%;
+      background: $blue;
+      color: whitesmoke;
+    }
+    strong {
+      color: $marine;
+      text-transform: uppercase;
+    }
+    .box {
+      width: 80%;
+      margin: 10px auto;
+      padding: 20px;
+      background: whitesmoke;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+  }
+  .register-box {
+    border-top: 3px solid $light-green;
+    margin: 150px auto;
+    padding: 10px;
+    width: 35%;
+    height: 400px;
+    background: lighten($light-gray, 1%);
+    box-sizing: border-box;
+  }
+  .deactivate-box {
+    border-top: 3px solid $light-green;
+    margin: 150px auto;
+    padding: 10px;
+    width: 35%;
+    height: 200px;
+    background: lighten($light-gray, 1%);
+    box-sizing: border-box;
+    .deact {
+      text-align: center;
+      input[type="submit"] {
+        background: $blue;
+        color: white;
+        text-transform: uppercase;
+        margin-top: 10px;
+      }
+    }
   }
   .close {
     top: 0;
@@ -392,14 +519,8 @@ input[type="text"]:focus, input[type="password"]:focus {
     height: 415px;
     padding: 19px;
     box-sizing: border-box;
-  }
-  .search-stock-info {
-    width: 230px;
-    height: 100%;
-    padding: 2px 5px 5px 5px;
-    border-radius: 3px;
-    box-sizing: border-box;
-    background: #eee;
+    display: flex;
+    justify-content: space-between;
     h3 {
       text-align: center;
       text-transform: uppercase;
@@ -412,6 +533,27 @@ input[type="text"]:focus, input[type="password"]:focus {
       margin: 5px auto 3px auto;
       background: $med-gray;
     }
+  }
+  .search-none {
+    background: #eee;
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    color: lighten($med-gray, 5%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+  }
+  .search-stock-info {
+    width: 230px;
+    height: 100%;
+    padding: 2px 5px 5px 5px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background: #eee;
+    overflow: auto;
     table {
       width: 100%;
       padding: 5px;
@@ -450,5 +592,13 @@ input[type="text"]:focus, input[type="password"]:focus {
       margin-bottom: 5px;
       text-align: center;
     }
+  }
+  .search-stock-chart {
+    width: calc(98% - 230px);
+    height: 100%;
+    padding: 2px 5px 5px 5px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background: #eee;
   }
 }

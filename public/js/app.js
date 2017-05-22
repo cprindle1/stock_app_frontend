@@ -48,29 +48,75 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var vm = this;
   this.token = null;
   var refreshIntervalId = null;
-  this.URL = 'http://localhost:3000/'
+  this.URL = 'http://localhost:3000/';
 
   // DECLARING TOGGLE VARIABLES
+  this.registerModal = false;
+  this.watchedModal = false;
+  this.boughtModal = false;
+  this.editModal = false;
+  this.deleteModal = false;
   this.loginError = false;
   this.errorMessage = '';
   this.loginForm = false;
   this.registerForm = false;
-  this.modalActive = false;
   this.buyingShares = false;
+  this.buyingMore = false;
+  this.sellingShares = false;
+  this.stockFilter = 'bought';
 
   // SHOWS LOGIN FORM
   this.showLogin = function() {
     this.loginForm = true;
   }
 
-  // ACTIVATES MODAL
-  this.modalToggle = function() {
-    this.modalActive = !this.modalActive;
+  // ACTIVATES MODALS
+  this.modalToggle = function(modal, index) {
+    switch (modal) {
+      case 'register':
+        this.registerModal = !this.registerModal;
+        break;
+      case 'boughtStock':
+        this.boughtModal = !this.boughtModal;
+        this.viewedStock = $rootScope.myStocks[index];
+        this.automatedSearchStock($rootScope.myStocks[index].symbol);
+        break;
+      case 'watchedStock':
+        this.watchedModal = !this.watchedModal;
+        this.viewedStock = $rootScope.myStocks[index];
+        this.automatedSearchStock($rootScope.myStocks[index].symbol);
+        break;
+      case 'editUser':
+        this.editModal = !this.editModal;
+        break;
+      case 'deleteUser':
+        this.deleteModal = !this.deleteModal;
+        break;
+    }
   }
 
   // SHOWS BUYING SHARE FORM
   this.buyShareToggle = function() {
     this.buyingShares = !this.buyingShares;
+  }
+
+  // SHOWS BUYING (MORE) SHARES FORM
+  this.buyMore = function() {
+    this.buyingMore = !this.buyingMore;
+  }
+
+  // SHOWS SELLING SHARES FORM
+  this.sellShares = function() {
+    this.sellingShares = !this.sellingShares;
+  }
+
+  // FILTERS BETWEEN BOUGHT AND WATCHED STOCKS
+  this.filterStocks = function(status) {
+    if (status === 'bought') {
+      this.stockFilter = 'bought';
+    } else {
+      this.stockFilter = 'watched';
+    }
   }
 
   // Testing.... this will go to backend to get data market price for stock
@@ -85,7 +131,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     $rootScope.loggedIn = false;
     localStorage.clear('token');
     // userPersistenceService.clearCookieData('userName');
-
     console.log("this.formLogin", this.formLogin);
     // this.URL = 'https://stockerapi.herokuapp.com/login';
     // this.URL = 'http://localhost:3000/login'
@@ -113,6 +158,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         console.log("User stocks", result.data.userstocks);
         $rootScope.myStocks = result.data.userstocks;
 
+        // calls countUserStocks function
+        this.countUserStocks();
 
         // testing... to refresh all stocks
         refreshIntervalId = setInterval(function() {
@@ -159,11 +206,11 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     $location.path("/");
   };
 
-  // search stock
+  // SEARCHES FOR A STOCK
   this.searchStock = function() {
     console.log("this.stocksearch", this.stocksearch);
     $rootScope.stockSearchResult = null;
-    var URL = this.URL + 'search_stocks'
+    var URL = this.URL + 'search_stocks';
     $http({
       method: 'POST',
       url: URL,
@@ -172,12 +219,44 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       $scope.error_msg = null
       $rootScope.stockSearchResult = result.data;
       console.log(result.data);
-      if (!result.data) {
-        $scope.error_msg = "No Record Found";
+      // DRAWS THE CHART
+      var ctx = document.querySelector('#stock-chart');
+      chartData = {
+        labels: ["Current", "Fr. 50 Day Moving Avg", "Fr. 200 Day Moving Avg", "Fr. Year High", "Fr. Year Low"],
+        datasets: [{
+          backgroundColor: 'rgba(2, 102, 112, 0.5)',
+          data: [result.data.change, result.data.change_from_fiftyday_moving_average, result.data.change_from_two_hundredday_moving_average, result.data.change_from_year_high, result.data.change_from_year_low]
+        }]
       }
-
+      var stockChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: {
+          legend: {
+            display: false
+          }
+        }
+      });
+      // IF INCORRECT STOCK
+      if (!result.data) {
+        $scope.error_msg = "No Records found";
+      }
     }.bind(this));
+  };
 
+  // AUTOMATED SEARCH FOR STOCKS
+  this.automatedSearchStock = function(sym) {
+    var URL = this.URL + 'search_stocks';
+    $http({
+      method: 'POST',
+      url: URL,
+      data: {
+        stock: sym
+      }
+    }).then(function(result) {
+      this.automatedStock = result.data;
+      console.log(this.automatedStock);
+    }.bind(this));
   };
 
   // Buy stock
@@ -210,6 +289,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       } else {
         $rootScope.myStocks = result.data.userstocks;
         $rootScope.currentUser = result.data.currentUser;
+        this.countUserStocks();
 
         console.log("Save Success");
       }
@@ -219,7 +299,19 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   };
 
-
+  // COUNTS USER'S BOUGHT AND WATCHED STOCKS
+  this.countUserStocks = function() {
+    $rootScope.currentUser.userBought = 0;
+    $rootScope.currentUser.userWatched = 0;
+    for (var i = 0; i < $rootScope.myStocks.length; i++) {
+      if ($rootScope.myStocks[i].watched === true) {
+        $rootScope.currentUser.userWatched++;
+      } else {
+        $rootScope.currentUser.userBought++;
+      }
+    }
+    return;
+  }
 
 }]);
 
