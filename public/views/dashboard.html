@@ -49,7 +49,7 @@
             edit account
           </div>
           <div class="btn" ng-click="vm.modalToggle('deleteUser');">
-            deactivate
+            delete account
           </div>
         </div>
       </div>
@@ -206,9 +206,12 @@
             </div>
             <div class="form" ng-if="vm.sellingShares">
               <form ng-submit="vm.sellStock()">
-                <input type="text" placeholder="AMOUNT" ng-model="vm.sellingStock.NumberShares" />
+                <input type="number" min="1" placeholder="AMOUNT" ng-model="vm.sellingStock.NumberShares" />
                 <input type="submit" value="SELL" />
               </form>
+              <div class="success-msg" ng-show="succesfulSell">
+                sold {{soldStocks}} shares for {{moneyGained | currency}}
+              </div>
             </div>
           </div>
           <div class="box">
@@ -358,15 +361,15 @@
         </div>
       </div>
     </div>
-    <!-- ========= DEACTIVATE ACCOUNT MODAL ========= -->
-    <div ng-if="vm.deleteModal" class="modal" ng-click = "vm.deleteUser(currentUser.id)">
+    <!-- ========= DELETE ACCOUNT MODAL ========= -->
+    <div ng-if="vm.deleteModal" class="modal">
       <div class="deactivate-box">
         <div class="close" ng-click="vm.modalToggle('deleteUser');">
           <i class="fa fa-times fa-lg" aria-hidden="true"></i>
         </div>
         <div class="deact">
           <h1>ARE YOU SURE?</h1> Deactivating your account will... (?)
-          <form>
+          <form ng-submit="vm.deleteUser(currentUser.id)">
             <input type="submit" value="deactivate account" />
           </form>
         </div>
