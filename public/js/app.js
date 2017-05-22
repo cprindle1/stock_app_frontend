@@ -118,7 +118,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   //SELL STOCKS
     this.sellStock = function(){
-    this.boughtModal = !this.boughtModal;
     var sellQty = this.sellingStock.NumberShares;
     var stockId = this.viewedStock.id;
     var stockPrice = parseFloat(this.viewedStock.price);
@@ -146,6 +145,9 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
          console.log(result.data.user);
           $rootScope.currentUser = result.data.user;
           $rootScope.myStocks = result.data.userstocks;
+          $rootScope.soldStocks = sellQty;
+          $rootScope.succesfulSell = true;
+          $rootScope.moneyGained = stockPrice * sellQty;
           this.countUserStocks();
           console.log("Save Success");
        }.bind(this));
@@ -341,6 +343,7 @@ this.updateUser = function(){
   this.automatedSearchStock = function(sym) {
     var URL = this.URL + 'search_stocks';
     $rootScope.succesfulBuy = false;
+    $rootScope.succesfulSell = false;
     $http({
       method: 'POST',
       url: URL,
@@ -501,7 +504,7 @@ this.updateUser = function(){
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
-    // this.URL = 'https://stockerapi.herokuapp/'
+    // this.URL = 'https://stockerapi.herokuapp.com/'
     this.URL = 'http://localhost:3000/';
 
     var URL = this.URL + 'search_tickers';
