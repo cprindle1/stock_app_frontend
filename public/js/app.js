@@ -83,6 +83,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         break;
       case 'watchedStock':
         this.watchedModal = !this.watchedModal;
+        this.viewedStock = $rootScope.myStocks[index];
+        this.automatedSearchStock($rootScope.myStocks[index].symbol);
         break;
       case 'editUser':
         this.editModal = !this.editModal;

@@ -351,6 +351,37 @@ input[type="submit"]:hover {
   width: 100%;
   z-index: 1;
   overflow: auto;
+  table {
+    width: 100%;
+  }
+  .btn {
+    width: 100%;
+    padding: 5px;
+    border-radius: 3px;
+    background: $light-green;
+    text-transform: uppercase;
+    color: whitesmoke;
+    text-align: center;
+    margin: 5px auto;
+    box-sizing: border-box;
+  }
+  .btn:hover {
+    cursor: pointer;
+  }
+  .form {
+    text-align: center;
+  }
+  input[type="text"] {
+    width: 70%;
+  }
+  input[type="submit"] {
+    width: 20%;
+    background: $blue;
+    color: whitesmoke;
+  }
+  .stock-stat {
+    text-align: right;
+  }
   .stock-box {
     border-top: 3px solid $light-green;
     margin: 150px auto;
@@ -362,9 +393,6 @@ input[type="submit"]:hover {
     strong {
       color: $marine;
       text-transform: uppercase;
-    }
-    .stock-stat {
-      text-align: right;
     }
     .stock-box-info {
       display: flex;
@@ -390,35 +418,28 @@ input[type="submit"]:hover {
         border-radius: 3px;
         padding: 20px;
         box-sizing: border-box;
-        table {
-          width: 100%;
-        }
-        .btn {
-          width: 100%;
-          padding: 5px;
-          border-radius: 3px;
-          background: $light-green;
-          text-transform: uppercase;
-          color: whitesmoke;
-          text-align: center;
-          margin: 5px auto;
-          box-sizing: border-box;
-        }
-        .btn:hover {
-          cursor: pointer;
-        }
-        .form {
-          text-align: center;
-        }
-        input[type="text"] {
-          width: 70%;
-        }
-        input[type="submit"] {
-          width: 20%;
-          background: $blue;
-          color: whitesmoke;
-        }
       }
+    }
+  }
+  .watched-stock-box {
+    border-top: 3px solid $light-green;
+    margin: 150px auto;
+    padding: 10px;
+    width: 65%;
+    height: 380px;
+    background: lighten($light-gray, 1%);
+    box-sizing: border-box;
+    strong {
+      color: $marine;
+      text-transform: uppercase;
+    }
+    .box {
+      width: 80%;
+      margin: 10px auto;
+      padding: 20px;
+      background: whitesmoke;
+      border-radius: 3px;
+      box-sizing: border-box;
     }
   }
   .register-box {
