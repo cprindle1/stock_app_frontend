@@ -72,7 +72,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // ACTIVATES MODALS
   this.modalToggle = function(modal, index) {
-    switch(modal) {
+    switch (modal) {
       case 'register':
         this.registerModal = !this.registerModal;
         break;
@@ -112,10 +112,10 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // FILTERS BETWEEN BOUGHT AND WATCHED STOCKS
   this.filterStocks = function(status) {
-    if(status === 'bought') {
+    if (status === 'bought') {
       this.stockFilter = 'bought';
     } else {
-        this.stockFilter = 'watched';
+      this.stockFilter = 'watched';
     }
   }
 
@@ -223,12 +223,10 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       var ctx = document.querySelector('#stock-chart');
       chartData = {
         labels: ["Current", "Fr. 50 Day Moving Avg", "Fr. 200 Day Moving Avg", "Fr. Year High", "Fr. Year Low"],
-        datasets: [
-          {
-            backgroundColor: 'rgba(2, 102, 112, 0.5)',
-            data: [result.data.change, result.data.change_from_fiftyday_moving_average, result.data.change_from_two_hundredday_moving_average, result.data.change_from_year_high, result.data.change_from_year_low]
-          }
-        ]
+        datasets: [{
+          backgroundColor: 'rgba(2, 102, 112, 0.5)',
+          data: [result.data.change, result.data.change_from_fiftyday_moving_average, result.data.change_from_two_hundredday_moving_average, result.data.change_from_year_high, result.data.change_from_year_low]
+        }]
       }
       var stockChart = new Chart(ctx, {
         type: 'bar',
@@ -256,20 +254,60 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         stock: sym
       }
     }).then(function(result) {
-        this.automatedStock = result.data;
-        console.log(this.automatedStock);
+      this.automatedStock = result.data;
+      console.log(this.automatedStock);
     }.bind(this));
+  };
+
+  // Buy stock
+  this.buystock = function() {
+    console.log("buying.....");
+
+    if (typeof this.buyingStock.NumberShares === 'undefined') {
+      $scope.error_msg_not_enough_fund = "Number of Share should not be 0"
+    }
+
+    var numberOfShare = this.buyingStock.NumberShares;
+    var userId = $rootScope.currentUser.id;
+    // var stockSymbol = $rootScope.stockSearchResult.symbol;
+    var isWatched = false;
+    var URL = this.URL + 'users/' + userId + '/ledgers';
+    $http({
+      method: 'POST',
+      url: URL,
+      data: {
+        user: $rootScope.currentUser,
+        qty: numberOfShare,
+        isWatched: isWatched,
+        stock: $rootScope.stockSearchResult
+      }
+    }).then(function(result) {
+      $scope.error_msg_not_enough_fund = null
+      console.log(result.data.errors);
+      if (!result.data) {
+        $scope.error_msg_not_enough_fund = result.data.errors;
+      } else {
+        $rootScope.myStocks = result.data.userstocks;
+        $rootScope.currentUser = result.data.currentUser;
+        this.countUserStocks();
+
+        console.log("Save Success");
+      }
+
+    }.bind(this));
+
+
   };
 
   // COUNTS USER'S BOUGHT AND WATCHED STOCKS
   this.countUserStocks = function() {
     $rootScope.currentUser.userBought = 0;
     $rootScope.currentUser.userWatched = 0;
-    for(var i = 0; i < $rootScope.myStocks.length; i++) {
-      if($rootScope.myStocks[i].watched === true) {
+    for (var i = 0; i < $rootScope.myStocks.length; i++) {
+      if ($rootScope.myStocks[i].watched === true) {
         $rootScope.currentUser.userWatched++;
       } else {
-          $rootScope.currentUser.userBought++;
+        $rootScope.currentUser.userBought++;
       }
     }
     return;
