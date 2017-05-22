@@ -137,8 +137,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
          url: URL,
          data: {
            money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty),
-           name: $rootScope.currentUser.name,
-           password: $rootScope.currentUser.password
+          //  name: $rootScope.currentUser.name,
+          //  password: $rootScope.currentUser.password
          }
        }).then(function(result) {
          console.log(result.data.user);
@@ -180,6 +180,10 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
  //DELETE USER
 
  this.deleteUser = function(id){
+   for(var i = 0; i<$rootScope.myStocks.length; i++){
+     console.log($rootScope.myStocks[i]);
+   }
+
    var URL = this.URL + 'users/' + id;
    $http({
       method: 'DELETE',
