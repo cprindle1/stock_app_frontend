@@ -117,7 +117,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   };
 
   //SELL STOCKS
-    this.sellStock = function(){
+  this.sellStock = function() {
     this.boughtModal = !this.boughtModal;
     var sellQty = this.sellingStock.NumberShares;
     var stockId = this.viewedStock.id;
@@ -125,23 +125,24 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     var stockQty = this.viewedStock.qty;
     var userId = $rootScope.currentUser.id;
     var URL = this.URL + 'users/' + userId + '/ledgers/' + stockId;
-    if(stockQty <= sellQty){
-      if(sellQty>stockQty){
-        sellQty=stockQty;
+    if (stockQty <= sellQty) {
+      if (sellQty > stockQty) {
+        sellQty = stockQty;
       }
-    $http({
-       method: 'DELETE',
-       url: URL
-     }).then(function(result) {
-       var URL = this.URL + 'users/' + userId;
-       $http({
-         method: 'PUT',
-         url: URL,
-         data: {
-           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty)
-         }
-       }).then(function(result) {
-         console.log(result.data.user);
+
+      $http({
+        method: 'DELETE',
+        url: URL
+      }).then(function(result) {
+        var URL = this.URL + 'users/' + userId;
+        $http({
+          method: 'PUT',
+          url: URL,
+          data: {
+            money: parseFloat($rootScope.currentUser.money) + (stockPrice * sellQty)
+          }
+        }).then(function(result) {
+          console.log(result.data.user);
           $rootScope.currentUser = result.data.user;
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.soldStocks = sellQty;
@@ -149,54 +150,55 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
           $rootScope.moneyGained = stockPrice * sellQty;
           this.countUserStocks();
           console.log("Save Success");
-       }.bind(this));
-     }.bind(this));
-   }else{
-     $http({
-       method: 'PUT',
-       url: URL,
-       data: {
-         qty: (stockQty - sellQty)
-       }
-     }).then(function(result) {
-       var URL = this.URL + 'users/' + userId;
-       $http({
-         method: 'PUT',
-         url: URL,
-         data: {
-           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty),
-           name: $rootScope.currentUser.name,
-           password: $rootScope.currentUser.password
-         }
-       }).then(function(result) {
-         console.log(result.data.user);
+        }.bind(this));
+      }.bind(this));
+    } else {
+      $http({
+        method: 'PUT',
+        url: URL,
+        data: {
+          qty: (stockQty - sellQty)
+        }
+      }).then(function(result) {
+        var URL = this.URL + 'users/' + userId;
+        $http({
+          method: 'PUT',
+          url: URL,
+          data: {
+            money: parseFloat($rootScope.currentUser.money) + (stockPrice * sellQty),
+            name: $rootScope.currentUser.name,
+            password: $rootScope.currentUser.password
+          }
+        }).then(function(result) {
+          console.log(result.data.user);
           $rootScope.currentUser = result.data.user;
           $rootScope.myStocks = result.data.userstocks;
           this.countUserStocks();
           console.log("Save Success");
-       }.bind(this));
-         console.log("Save Success");
-     }.bind(this));
-   }
- };
+        }.bind(this));
+        console.log("Save Success");
+      }.bind(this));
+    }
+  };
 
- //DELETE USER
+  //DELETE USER
 
- this.deleteUser = function(id){
-   var userId = $rootScope.currentUser.id;
-   for(var i = 0; i<$rootScope.myStocks.length; i++){
-     var URL = this.URL + 'users/' + userId + '/ledgers/' +      $rootScope.myStocks[i].id;
-     $http({
+  this.deleteUser = function(id) {
+    var userId = $rootScope.currentUser.id;
+    for (var i = 0; i < $rootScope.myStocks.length; i++) {
+      var URL = this.URL + 'users/' + userId + '/ledgers/' + $rootScope.myStocks[i].id;
+      $http({
         method: 'DELETE',
         url: URL
       });
     }
-     var URL = this.URL + 'users/' + id;
-        $http({
-            method: 'DELETE',
-            url: URL
-          }).then(this.logout());
+    var URL = this.URL + 'users/' + id;
+    $http({
+      method: 'DELETE',
+      url: URL
+    }).then(this.logout());
   }
+
   // FILTERS BETWEEN BOUGHT AND WATCHED STOCKS
   this.filterStocks = function(status) {
     if (status === 'bought') {
@@ -205,12 +207,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       this.stockFilter = 'watched';
     }
   }
-
-  // Testing.... this will go to backend to get data market price for stock
-  function myTimer() {
-    console.log(' each 1 second...');
-  }
-  // ----
 
   // SENDS LOGIN REQUEST TO API
   this.submit = function() {
@@ -248,7 +244,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         // testing... to refresh all stocks
         refreshIntervalId = setInterval(function() {
           myTimer()
-        }, 20000);
+        }, 50000);
 
         $location.path('/dashboard');
       }
@@ -259,38 +255,49 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   this.register = function() {
 
     console.log("Register");
-    console.log("this.formdata", this.formdata);
     // this.URL = 'https://stockerapi.herokuapp.com/users';
     // this.URL = 'http://localhost:3000/users'
     var URL = this.URL + 'users'
+
     $http({
       method: 'POST',
       url: URL,
       data: this.formdata
     }).then(function(result) {
-      console.log("Data from server: ", result);
-      this.formLogin = {
-        username: this.formdata.username,
-        password: this.formdata.password
-      }
-      this.submit();
+
+      if (result.data.error) {
+
+        $rootScope.errorMessage = result.data.error
+      } else {
+
+        this.formLogin = {
+          username: this.formdata.username,
+          password: this.formdata.password
+        }
+        this.submit();
+
+      };
+
+
     }.bind(this));
+
   };
 
-//UPDATE USER INFO
-this.updateUser = function(){
-  this.editModal = !this.editModal;
-  var userId = $rootScope.currentUser.id;
-  var URL = this.URL + 'users/' + userId;
-  $http({
-    method: 'PUT',
-    url: URL,
-    data: this.formdata
-  }).then(function(result){
-    $rootScope.currentUser = result.data.user;
-    this.countUserStocks();
-  });
-};
+  //UPDATE USER INFO
+  this.updateUser = function() {
+    this.editModal = !this.editModal;
+    var userId = $rootScope.currentUser.id;
+    var URL = this.URL + 'users/' + userId;
+    $http({
+      method: 'PUT',
+      url: URL,
+      data: this.formdata
+    }).then(function(result) {
+      $rootScope.currentUser = result.data.user;
+      this.countUserStocks();
+    });
+  };
+
 
   // SENDS LOGOUT REQUEST
   this.logout = function() {
@@ -375,7 +382,7 @@ this.updateUser = function(){
     var isWatched = false;
     var userMoney = $rootScope.currentUser.money;
 
-    if($rootScope.stockSearchResult !== undefined) {
+    if ($rootScope.stockSearchResult !== undefined) {
       var sharePrice = $rootScope.stockSearchResult.ask;
       var stockData = $rootScope.stockSearchResult;
       if (sharePrice === null || sharePrice === 0) {
@@ -478,19 +485,19 @@ this.updateUser = function(){
   }; // End Watch Stock
 
   //REMOVE STOCK FROM WATCH LIST
-  this.unwatchStock = function(){
+  this.unwatchStock = function() {
     this.watchedModal = !this.watchedModal;
     var stockId = this.viewedStock.id;
     var userId = $rootScope.currentUser.id;
     var URL = this.URL + 'users/' + userId + '/ledgers/' + stockId;
     $http({
-       method: 'DELETE',
-       url: URL
-     }).then(function(result) {
+      method: 'DELETE',
+      url: URL
+    }).then(function(result) {
       //  console.log(result.data.userstocks);
-        $rootScope.myStocks = result.data.userstocks;
-        this.countUserStocks();
-     });
+      $rootScope.myStocks = result.data.userstocks;
+      this.countUserStocks();
+    });
   };
 
   // COUNTS USER'S BOUGHT AND WATCHED STOCKS
