@@ -48,8 +48,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var vm = this;
   this.token = null;
   var refreshIntervalId = null;
-  // this.URL = 'https://stockerapi.herokuapp.com/';
-  this.URL = 'http://localhost:3000/';
+  this.URL = 'https://stockerapi.herokuapp.com/';
+  // this.URL = 'http://localhost:3000/';
 
 
 
@@ -118,6 +118,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   //SELL STOCKS
     this.sellStock = function(){
+    this.boughtModal = !this.boughtModal;
     var sellQty = this.sellingStock.NumberShares;
     var stockId = this.viewedStock.id;
     var stockPrice = parseFloat(this.viewedStock.price);
@@ -137,9 +138,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
          method: 'PUT',
          url: URL,
          data: {
-           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty),
-           name: $rootScope.currentUser.name,
-           password: $rootScope.currentUser.password
+           money: parseFloat($rootScope.currentUser.money)+ (stockPrice * sellQty)
          }
        }).then(function(result) {
          console.log(result.data.user);
@@ -504,8 +503,8 @@ this.updateUser = function(){
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
-    // this.URL = 'https://stockerapi.herokuapp.com/'
-    this.URL = 'http://localhost:3000/';
+    this.URL = 'https://stockerapi.herokuapp.com/'
+    // this.URL = 'http://localhost:3000/';
 
     var URL = this.URL + 'search_tickers';
     $http({
