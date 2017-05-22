@@ -25,14 +25,24 @@ input {
   border-radius: 4px;
   font-family: 'Karla', sans-serif;
 }
-input[type="text"]:focus, input[type="password"]:focus {
+input[type="text"]:focus, input[type="password"]:focus, input[type="number"]:focus {
   border: 1px solid $light-green;
   outline: none;
 }
 input[type="submit"]:hover {
   cursor: pointer;
 }
-
+::-webkit-scrollbar-track {
+ background-color: $light-gray;
+}
+::-webkit-scrollbar {
+ width: 2px;
+ height: 2px;
+ background-color: $light-gray;
+}
+::-webkit-scrollbar-thumb {
+ background-color: $light-green;
+}
 /* ================ NAVBAR ================= */
 .navbar {
   width: 100%;
@@ -149,6 +159,18 @@ input[type="submit"]:hover {
   position: relative;
   background: darken($light-gray, 2%);
   color: #444;
+  .pos-change {
+    em {
+      color: $green;
+      font-style: normal;
+    }
+  }
+  .neg-change {
+    em {
+      color: $red;
+      font-style: normal;
+    }
+  }
   p {
     position: absolute;
     width: 100%;
@@ -319,15 +341,6 @@ input[type="submit"]:hover {
     height: 150px;
     margin-top: 5px;
     overflow: auto;
-    :hover {
-      background: $blue;
-      color: #f9f9f9;
-      cursor: pointer;
-      transition: 0.5s ease-in;
-      -moz-transition: 0.5s ease-in;
-      -o-transition: 0.5s ease-in;
-      -webkit-transition: 0.5s ease-in;
-    }
   }
   .stock {
     width: 90%;
@@ -339,6 +352,41 @@ input[type="submit"]:hover {
     display: flex;
     justify-content: space-between;
     text-transform: uppercase;
+    transition: 0.5s ease-in;
+    -moz-transition: 0.5s ease-in;
+    -o-transition: 0.5s ease-in;
+    -webkit-transition: 0.5s ease-in;
+  }
+  .stock:hover {
+    background: $blue;
+    color: #f9f9f9;
+    cursor: pointer;
+    transition: 0.5s ease-in;
+    -moz-transition: 0.5s ease-in;
+    -o-transition: 0.5s ease-in;
+    -webkit-transition: 0.5s ease-in;
+    .unwatch {
+      color: whitesmoke;
+      transition: 0.5s ease-in;
+      -moz-transition: 0.5s ease-in;
+      -o-transition: 0.5s ease-in;
+    }
+  }
+  .unwatch {
+    border: 1px solid #ccc;
+    color: $med-gray;
+    padding: 2px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    transition: 0.5s ease-in;
+    -moz-transition: 0.5s ease-in;
+    -o-transition: 0.5s ease-in;
+  }
+  .unwatch:hover {
+    background: #ccc;
+    transition: 0.5s ease-in;
+    -moz-transition: 0.5s ease-in;
+    -o-transition: 0.5s ease-in;
   }
 }
 /* modals */
@@ -351,6 +399,17 @@ input[type="submit"]:hover {
   width: 100%;
   z-index: 1;
   overflow: auto;
+  .error-msg, .success-msg {
+    text-transform: uppercase;
+    text-align: center;
+    margin: 5px 0;
+  }
+  .error-msg {
+    color: $red;
+  }
+  .success-msg {
+    color: $marine;
+  }
   table {
     width: 100%;
   }
@@ -382,7 +441,7 @@ input[type="submit"]:hover {
     height: 400px;
     background: lighten($light-gray, 1%);
     box-sizing: border-box;
-    input[type="text"] {
+    input[type="number"] {
       width: 70%;
     }
     input[type="submit"] {
@@ -426,10 +485,10 @@ input[type="submit"]:hover {
     margin: 150px auto;
     padding: 10px;
     width: 65%;
-    height: 380px;
+    height: 400px;
     background: lighten($light-gray, 1%);
     box-sizing: border-box;
-    input[type="text"] {
+    input[type="number"] {
       width: 70%;
     }
     input[type="submit"] {
@@ -600,5 +659,16 @@ input[type="submit"]:hover {
     border-radius: 3px;
     box-sizing: border-box;
     background: #eee;
+  }
+  .error-msg, .success-msg {
+    text-transform: uppercase;
+    text-align: center;
+    margin: 5px 0;
+  }
+  .error-msg {
+    color: $red;
+  }
+  .success-msg {
+    color: $marine;
   }
 }

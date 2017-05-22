@@ -167,11 +167,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }
   }
 
-  // Testing.... this will go to backend to get data market price for stock
-  function myTimer() {
-    console.log(' each 1 second...');
-  }
-  // ----
+
 
   // SENDS LOGIN REQUEST TO API
   this.submit = function() {
@@ -212,7 +208,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         // testing... to refresh all stocks
         refreshIntervalId = setInterval(function() {
           myTimer()
-        }, 20000);
+        }, 4000);
 
         $location.path('/dashboard');
       }
@@ -259,6 +255,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     console.log("this.stocksearch", this.stocksearch);
     $rootScope.stockSearchResult = null;
     $rootScope.msg_watching_stock = null;
+    $rootScope.successfulWatch = null;
+    $rootScope.succesfulBuy = null;
     var URL = this.URL + 'search_stocks';
     $http({
       method: 'POST',
@@ -308,10 +306,10 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }.bind(this));
   };
 
+
   // Buy stock
   this.buystock = function() {
     console.log("buying.....");
-
     if (typeof this.buyingStock.NumberShares === 'undefined') {
       $scope.error_msg_not_enough_fund = "Number of Share should not be 0"
     }
@@ -321,9 +319,18 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     var isWatched = false;
     var userMoney = $rootScope.currentUser.money;
 
-    var sharePrice = $rootScope.stockSearchResult.ask
-    if (sharePrice === null || sharePrice === 0) {
-      sharePrice = $rootScope.stockSearchResult.last_trade_price_only
+    if ($rootScope.stockSearchResult !== undefined) {
+      var sharePrice = $rootScope.stockSearchResult.ask;
+      var stockData = $rootScope.stockSearchResult;
+      if (sharePrice === null || sharePrice === 0) {
+        sharePrice = $rootScope.stockSearchResult.last_trade_price_only;
+      }
+    } else {
+      var sharePrice = vm.automatedStock.ask;
+      var stockData = vm.automatedStock;
+      if (sharePrice === null || sharePrice === 0) {
+        sharePrice = vm.automatedStock.last_trade_price_only;
+      }
     }
 
     costTrading = sharePrice * numberOfShare;
@@ -336,18 +343,19 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
           user: $rootScope.currentUser,
           qty: numberOfShare,
           isWatched: isWatched,
-          stock: $rootScope.stockSearchResult
+          stock: stockData
         }
       }).then(function(result) {
-        $scope.error_msg_not_enough_fund = null
-        console.log(result.data.errors);
+        $scope.error_msg_not_enough_fund = null;
+        this.buyingStock.NumberShares = null;
         if (!result.data) {
           $scope.error_msg_not_enough_fund = result.data.errors;
         } else {
+          console.log(result);
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
+          $rootScope.succesfulBuy = true;
           this.countUserStocks();
-
           console.log("Save Success");
         }
 
@@ -378,10 +386,9 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     });
 
     if (isStock) {
-      $rootScope.msg_watching_stock = "The stock is already in the Bought/Watched stock list.";
+      $rootScope.msg_watching_stock = "The stock is already in your Bought/Watched list.";
     } else {
       var URL = this.URL + 'users/' + userId + '/ledgers';
-
       $http({
         method: 'POST',
         url: URL,
@@ -402,8 +409,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         } else {
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
+          $rootScope.successfulWatch = true;
           this.countUserStocks();
-
           console.log("Save Success");
         }
 
@@ -411,12 +418,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
     }
 
-
-
-
-
-
   }; // End Watch Stock
+
 
   // COUNTS USER'S BOUGHT AND WATCHED STOCKS
   this.countUserStocks = function() {
@@ -430,8 +433,27 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       }
     }
     return;
-  }
+  }; // end countUserStocks
 
+  // Testing.... this will go to backend to get data market price for stock
+  function myTimer() {
+    this.URL = 'http://localhost:3000/'
+    var URL = this.URL + 'search_tickers';
+    $http({
+      method: 'POST',
+      url: URL,
+      data: {
+        user: $rootScope.currentUser,
+        stock: $rootScope.myStocks
+      }
+    }).then(function(result) {
+      if (!result.data) {
+        console.log(result.data.errors);
+      } else {
+        $rootScope.userTicker = result.data.tickers;
+      }
+    }.bind(this));
+  }; // end myTimer
 }]);
 
 // Server - set cookies
