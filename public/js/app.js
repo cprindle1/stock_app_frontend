@@ -343,7 +343,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }).then(function(result) {
       $scope.error_msg = null
       $rootScope.stockSearchResult = result.data;
-      this.stocksearch = '';
+      this.stocksearch = null;
       console.log(result.data);
       // DRAWS THE CHART
       var ctx = document.querySelector('#stock-chart');
