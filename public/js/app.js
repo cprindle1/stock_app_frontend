@@ -491,6 +491,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         } else {
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
+          $rootScope.successfulWatch = true;
           this.countUserStocks();
 
           console.log("Save Success");
