@@ -48,8 +48,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   var vm = this;
   this.token = null;
   var refreshIntervalId = null;
-  this.URL = 'https://stockerapi.herokuapp.com/';
-  // this.URL = 'http://localhost:3000/';
+  // this.URL = 'https://stockerapi.herokuapp.com/';
+  this.URL = 'http://localhost:3000/';
 
 
 
@@ -483,9 +483,17 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   }; // End Watch Stock
 
   //REMOVE STOCK FROM WATCH LIST
-  this.unwatchStock = function() {
+  this.unwatchStock = function(index) {
     this.watchedModal = !this.watchedModal;
-    var stockId = this.viewedStock.id;
+    var stockId = 0;
+    console.log(index);
+    if (index === undefined){
+      console.log("HERE");
+      stockId = this.viewedStock.id;
+    }else{
+      console.log("THERE");
+      stockId = $rootScope.myStocks[index].id;
+    }
     var userId = $rootScope.currentUser.id;
     var URL = this.URL + 'users/' + userId + '/ledgers/' + stockId;
     $http({
@@ -515,8 +523,8 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // Testing.... this will go to backend to get data market price for stock
   function myTimer() {
-    this.URL = 'https://stockerapi.herokuapp.com/'
-    // this.URL = 'http://localhost:3000/';
+    // this.URL = 'https://stockerapi.herokuapp.com/'
+    this.URL = 'http://localhost:3000/';
 
     var URL = this.URL + 'search_tickers';
     $http({
