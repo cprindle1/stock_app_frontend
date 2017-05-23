@@ -1,6 +1,10 @@
 # STOCKER
-https://stocker-proj.herokuapp.com<br>
-A stock market simulator, joining Stocker creates a portfolio for you that tracks the stocks you buy, watch, and calculates the profit you make from the $10,000 we give you to begin with. 
+<img src="https://puu.sh/vYOG0/84e494f2d7.png"/>
+
+A stock market simulator, joining Stocker creates a portfolio for you that tracks the stocks you buy, watch, and calculates the profit you make from the $10,000 we give you to begin with.
+
+https://stocker-proj.herokuapp.com
+
 ## Technologies Used
 <ul>
   <li>AngularJS</li>
