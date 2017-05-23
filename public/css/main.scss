@@ -150,6 +150,10 @@ input[type="submit"]:hover {
     background: $blue;
     color: white;
   }
+  p {
+    text-transform: uppercase;
+    color: $red;
+  }
 }
 /* =============== TICKER ================= */
 .ticker {

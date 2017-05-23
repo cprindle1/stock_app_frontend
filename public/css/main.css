@@ -124,6 +124,9 @@ input[type="submit"]:hover {
     width: 140px;
     background: #456177;
     color: white; }
+  .register p {
+    text-transform: uppercase;
+    color: #F44336; }
 
 /* =============== TICKER ================= */
 .ticker {
