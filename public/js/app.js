@@ -51,7 +51,16 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // this.URL = 'https://stockerapi.herokuapp.com/';
   this.URL = 'http://localhost:3000/';
 
-
+  // DEFAULT STOCKS FOR LANDING PAGE TICKER
+  $rootScope.defaultStocks = [
+    { symbol: 'GOOG' },
+    { symbol: 'AAPL' },
+    { symbol: 'MSFT' },
+    { symbol: 'AMZN' },
+    { symbol: 'TRIP' },
+    { symbol: 'TSCO' },
+    { symbol: 'AZO' }
+  ];
 
   // DECLARING TOGGLE VARIABLES
   this.registerModal = false;
@@ -209,6 +218,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
   // SENDS LOGIN REQUEST TO API
   this.submit = function() {
     $scope.error_msg = null;
+    $rootScope.default = false;
     $rootScope.loggedIn = false;
     localStorage.clear('token');
     console.log("this.formLogin", this.formLogin);
@@ -223,7 +233,6 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         this.loginError = true;
         this.errorMessage = result.data.error;
       } else {
-
         $scope.error_msg = null;
         $rootScope.loggedIn = true;
         $rootScope.currentUser = result.data.user;
@@ -242,7 +251,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
         // testing... to refresh all stocks
         refreshIntervalId = setInterval(function() {
           myTimer()
-        }, 50000);
+        }, 10000);
 
         $location.path('/dashboard');
       }
@@ -303,8 +312,11 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     clearInterval(refreshIntervalId);
     console.log('Success');
     $rootScope.currentUser = null;
+    $rootScope.loggedIn = false;
     $scope.error_msg = null;
     localStorage.clear('token');
+    $rootScope.default = true;
+    this.defaultTicker();
     // userPersistenceService.clearCookieData('userName');
     $window.sessionStorage.clear('token');
     $location.path("/");
@@ -534,6 +546,32 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       }
     }.bind(this));
   }; // end myTimer
+
+  this.defaultTicker = function() {
+    if(!$rootScope.loggedIn){
+      // this.URL = 'https://stockerapi.herokuapp.com/'
+      this.URL = 'http://localhost:3000/';
+      var URL = this.URL + 'default_tickers';
+      $http({
+        method: 'POST',
+        url: URL,
+        data: {
+          stock: $rootScope.defaultStocks
+        }
+      }).then(function(result){
+          if(!result.data) {
+            console.log(result.data.errors);
+          } else {
+              $rootScope.default = true;
+              $rootScope.defaultTicker = result.data.default;
+              console.log($rootScope.defaultTicker);
+          }
+      }.bind(this));
+    }
+  }
+
+  this.defaultTicker();
+
 }]);
 
 // Server - set cookies

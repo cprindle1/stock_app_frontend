@@ -185,9 +185,9 @@ input[type="submit"]:hover {
     transform: translateX(100%);
     -moz-transform: translateX(100%);
     -webkit-transform: translateX(100%);
-    animation: scroll-left 15s linear infinite;
-    -moz-animation: scroll-left 15s linear infinite;
-    -webkit-animation: scroll-left 15s linear infinite;
+    animation: scroll-left 20s linear infinite;
+    -moz-animation: scroll-left 20s linear infinite;
+    -webkit-animation: scroll-left 20s linear infinite;
   }
 }
 @keyframes scroll-left {

@@ -1,7 +1,21 @@
-<div class="ticker">
-  <div>
-    <p>
-      <span ng-repeat="stock in userTicker" ng-class="{'pos-change': stock.askprice > 0, 'neg-change': !stock.askprice > 0}"> <strong>{{stock.symbol}}</strong> ({{stock.askprice | currency}}) <em>{{stock.change}}%</em> &nbsp;&nbsp; | &nbsp;&nbsp;</span>
-    </p>
+<!-- ============= DEFAULT TICKER =================== -->
+<section ng-if="default">
+  <div class="ticker">
+    <div>
+      <p>
+        <span ng-repeat="stock in defaultTicker" ng-class="{'pos-change': stock.askprice > 0, 'neg-change': !stock.askprice > 0}"> <strong>{{stock.symbol}}</strong> ({{stock.askprice | currency}}) <em>{{stock.change}}%</em> &nbsp;&nbsp; | &nbsp;&nbsp;</span>
+      </p>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- ============ PERSONALIZED TICKER =============== -->
+<section ng-if="!default">
+  <div class="ticker">
+    <div>
+      <p>
+        <span ng-repeat="stock in userTicker" ng-class="{'pos-change': stock.askprice > 0, 'neg-change': !stock.askprice > 0}"> <strong>{{stock.symbol}}</strong> ({{stock.askprice | currency}}) <em>{{stock.change}}%</em> &nbsp;&nbsp; | &nbsp;&nbsp;</span>
+      </p>
+    </div>
+  </div>
+</section>
