@@ -186,6 +186,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
           $rootScope.succesfulSell = true;
           $rootScope.moneyGained = stockPrice * sellQty;
           this.viewedStock.qty -= sellQty;
+          this.sellingStock.NumberShares = null;
           this.countUserStocks();
           console.log("Save Success");
         }.bind(this));
@@ -411,6 +412,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       if (sharePrice === null || sharePrice === 0) {
         sharePrice = vm.automatedStock.last_trade_price_only;
       }
+      var modal = true;
     }
 
     costTrading = sharePrice * numberOfShare;
@@ -434,8 +436,12 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
           $rootScope.myStocks = result.data.userstocks;
           $rootScope.currentUser = result.data.currentUser;
           $rootScope.succesfulBuy = true;
-          this.buyingStock.NumberShares = '';
+          this.buyingStock.NumberShares = null;
           this.countUserStocks();
+          if(modal === true) {
+            modal = !modal;
+            this.viewedStock.qty += numberOfShare;
+          }
           console.log("Save Success");
         }
 
