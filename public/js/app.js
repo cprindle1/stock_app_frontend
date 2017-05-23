@@ -56,10 +56,9 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     { symbol: 'GOOG' },
     { symbol: 'AAPL' },
     { symbol: 'MSFT' },
-    { symbol: 'AMZN' },
+    { symbol: 'TSLA' },
     { symbol: 'TRIP' },
-    { symbol: 'TSCO' },
-    { symbol: 'AZO' }
+    { symbol: 'NFLX' }
   ];
 
   // DECLARING TOGGLE VARIABLES
@@ -267,7 +266,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   // SENDS CREATE USER REQUEST TO BACKEND
   this.register = function() {
-
+    $rootScope.errorMessage = null;
     console.log("Register");
     // this.URL = 'https://stockerapi.herokuapp.com/users';
     // this.URL = 'http://localhost:3000/users'
@@ -280,8 +279,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }).then(function(result) {
 
       if (result.data.error) {
-
-        $rootScope.errorMessage = result.data.error
+        $rootScope.errorMessage = result.data.error;
       } else {
 
         this.formLogin = {
@@ -335,6 +333,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     $rootScope.stockSearchResult = null;
     $rootScope.msg_watching_stock = null;
     $rootScope.succesfulBuy = false;
+    $rootScope.successfulWatch = false;
     var URL = this.URL + 'search_stocks';
     $http({
       method: 'POST',
