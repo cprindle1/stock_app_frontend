@@ -92,11 +92,13 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
       case 'boughtStock':
         this.boughtModal = !this.boughtModal;
         this.viewedStock = $rootScope.myStocks[index];
+        $rootScope.stockSearchResult = undefined;
         this.automatedSearchStock($rootScope.myStocks[index].symbol);
         break;
       case 'watchedStock':
         this.watchedModal = !this.watchedModal;
         this.viewedStock = $rootScope.myStocks[index];
+        $rootScope.stockSearchResult = undefined;
         this.automatedSearchStock($rootScope.myStocks[index].symbol);
         break;
       case 'editUser':
@@ -127,7 +129,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
 
   //SELL STOCKS
   this.sellStock = function() {
-    this.boughtModal = !this.boughtModal;
+    // this.boughtModal = !this.boughtModal;
     var sellQty = this.sellingStock.NumberShares;
     var stockId = this.viewedStock.id;
     var stockPrice = parseFloat(this.viewedStock.price);
@@ -157,11 +159,12 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
           $rootScope.soldStocks = sellQty;
           $rootScope.succesfulSell = true;
           $rootScope.moneyGained = stockPrice * sellQty;
+          this.viewedStock.qty -= sellQty;
           this.countUserStocks();
           console.log("Save Success");
        }.bind(this));
      }.bind(this));
-   }else{
+   } else{
      $http({
        method: 'PUT',
        url: URL,
@@ -180,6 +183,10 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
          console.log(result.data.user);
           $rootScope.currentUser = result.data.user;
           $rootScope.myStocks = result.data.userstocks;
+          $rootScope.soldStocks = sellQty;
+          $rootScope.succesfulSell = true;
+          $rootScope.moneyGained = stockPrice * sellQty;
+          this.viewedStock.qty -= sellQty;
           this.countUserStocks();
           console.log("Save Success");
         }.bind(this));
@@ -336,6 +343,7 @@ app.controller('loginCtr', ['$http', '$scope', '$location', '$rootScope', '$cook
     }).then(function(result) {
       $scope.error_msg = null
       $rootScope.stockSearchResult = result.data;
+      this.stocksearch = '';
       console.log(result.data);
       // DRAWS THE CHART
       var ctx = document.querySelector('#stock-chart');
